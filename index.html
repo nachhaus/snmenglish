@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SNM English 학원</title>
+    <!-- Pretendard 폰트 불러오기 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/font/pretendard.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Pretendard', sans-serif; /* Pretendard 폰트 적용 */
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
@@ -24,6 +26,20 @@
             padding: 20px;
             text-align: center;
         }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        table th {
+            background-color: #2D32A9;
+            color: white;
+        }
         footer {
             background-color: #DFFF00;
             color: black;
@@ -38,10 +54,6 @@
         }
         p {
             font-size: 18px;
-        }
-        .academy-info {
-            font-size: 20px;
-            margin-top: 20px;
         }
         .academy-info a {
             color: #2D32A9;
@@ -58,9 +70,25 @@
     </header>
     <main>
         <h2>학원 안내</h2>
-        <p class="academy-info"><strong>주소:</strong> 송파대로 345, 헬리오시티 상가 1B동 2층 2068호</p>
-        <p class="academy-info"><strong>전화번호:</strong> 02 6402 6768</p>
-        <p class="academy-info"><strong>블로그:</strong> <a href="https://blog.naver.com/snm_english/" target="_blank">blog.naver.com/snm_english/</a></p>
+        <!-- 표 추가 -->
+        <table>
+            <tr>
+                <th>항목</th>
+                <th>정보</th>
+            </tr>
+            <tr>
+                <td>주소</td>
+                <td>송파대로 345, 헬리오시티 상가 1B동 2층 2068호</td>
+            </tr>
+            <tr>
+                <td>전화번호</td>
+                <td>02 6402 6768</td>
+            </tr>
+            <tr>
+                <td>블로그</td>
+                <td><a href="https://blog.naver.com/snm_english/" target="_blank">blog.naver.com/snm_english/</a></td>
+            </tr>
+        </table>
     </main>
     <footer>
         <p>&copy; 2025 SNM English. All rights reserved.</p>
