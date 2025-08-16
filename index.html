@@ -83,7 +83,8 @@
 
         .philosophy-illustration-wrapper {
             width: 100%;
-            height: 120px;
+            /* [수정] 일러스트 크기 확대 */
+            height: 140px;
             margin-bottom: 1rem;
             overflow: hidden;
             display: flex;
@@ -109,7 +110,7 @@
             padding: 0.75rem 0;
             background-color: #f9fafb;
             position: sticky;
-            top: 80px;
+            top: 88px;
             z-index: 10;
             border-radius: 6px;
         }
@@ -120,6 +121,9 @@
             font-size: 0.7rem;
             color: #6b7280;
             background-color: #fff;
+            position: sticky;
+            left: 0;
+            z-index: 5;
         }
         .class-block {
             display: flex;
@@ -136,6 +140,18 @@
             overflow: hidden;
             border: 1px solid rgba(0,0,0,0.05);
         }
+
+        .system-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-arrow {
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .accordion-arrow {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -146,21 +162,23 @@
             <a href="#hero" class="flex items-center">
                 <img src="https://i.imgur.com/onzqqko.png" alt="SNM English 로고" class="h-8 md:h-10">
             </a>
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#education" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">SNM의 교육</a>
-                <a href="#classes" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">수업 안내</a>
-                <a href="#systems" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">관리 시스템</a>
-                <a href="#contact" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">상담 문의</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
+            <div class="flex items-center">
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#education" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">SNM의 교육</a>
+                    <a href="#classes" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">수업 안내</a>
+                    <a href="#systems" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">관리 시스템</a>
+                </nav>
+                <a href="#contact" class="hidden md:inline-block bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors easing-bouncy ml-8">상담 예약</a>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none ml-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white">
             <a href="#education" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50">SNM의 교육</a>
             <a href="#classes" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50">수업 안내</a>
-            <a href="#systems" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50">관리 시스템</a>
-            <a href="#contact" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50">상담 문의</a>
+            <a href="#systems" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50 border-b">관리 시스템</a>
+            <a href="#contact" class="mobile-menu-link block text-center my-3 mx-4 bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors easing-bouncy">상담 예약</a>
         </div>
     </header>
 
@@ -171,7 +189,7 @@
                 <img src="https://i.imgur.com/O1LCJng.png" alt="계단을 오르며 성장하는 학생 일러스트">
             </div>
             <div class="z-20 px-4 relative">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800 leading-tight">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 leading-tight">
                     단단한 관리, <span class="text-blue-800">흔들림 없는 결과</span>
                 </h1>
                 <p class="mt-4 text-lg text-gray-500">SNM English의 <strong class="font-semibold text-gray-600">소수정예</strong> 관리와 <strong class="font-semibold text-gray-600">자체 제작 시스템</strong>이 결과로 증명합니다.</p>
@@ -187,8 +205,8 @@
         <!-- SNM's Education Section -->
         <section id="education" class="py-20 md:py-32 bg-gray-50">
             <div class="container mx-auto px-6">
-                <h2 class="section-title scroll-animate">SNM의 교육</h2>
-                <p class="section-subtitle scroll-animate">SNM의 <strong class="font-semibold text-gray-600">소수정예</strong> 교육은 본질에 집중하고 과정에 충실합니다.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">SNM의 교육</h2>
+                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate">SNM의 <strong class="font-semibold text-gray-600">소수정예</strong> 교육은 본질에 집중하고 과정에 충실합니다.</p>
                 
                 <div class="max-w-4xl mx-auto">
                     <div class="border-b border-gray-200 mb-8 scroll-animate">
@@ -206,21 +224,21 @@
                                     <img src="https://i.imgur.com/1phDbSt.png" alt="균형잡힌 학습을 상징하는 저울 일러스트" class="philosophy-illustration" loading="lazy">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">균형잡힌 커리큘럼</h3>
-                                <p class="text-gray-600 leading-relaxed">어휘, 문법, 독해, 듣기 등 영역별 균형을 통해 종합적인 실력 향상을 꾀합니다.</p>
+                                <p class="text-gray-600 leading-relaxed">어휘, 문법, 독해, 듣기 등<br>영역별 균형을 통해<br>종합적인 실력 향상을 꾀합니다.</p>
                             </div>
                             <div class="bg-white p-8 rounded-xl shadow-md transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 150ms;">
                                 <div class="philosophy-illustration-wrapper">
                                     <img src="https://i.imgur.com/bsegki0.png" alt="체계적인 관리를 상징하는 문서와 돋보기 일러스트" class="philosophy-illustration" loading="lazy">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">체계적인 관리</h3>
-                                <p class="text-gray-600 leading-relaxed">온/오프라인 시스템을 활용하여 학습 과정과 결과를 꼼꼼하게 관리합니다.</p>
+                                <p class="text-gray-600 leading-relaxed">온/오프라인 시스템을 활용하여<br>학습 과정과 결과를<br>꼼꼼하게 관리합니다.</p>
                             </div>
                             <div class="bg-white p-8 rounded-xl shadow-md transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 300ms;">
                                 <div class="philosophy-illustration-wrapper">
                                     <img src="https://i.imgur.com/1kIEMZU.png" alt="소수정예 수업을 상징하는 선생님과 학생 일러스트" class="philosophy-illustration" loading="lazy">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">소수정예 수업</h3>
-                                <p class="text-gray-600 leading-relaxed">개인별 맞춤 지도가 가능한 최적의 인원으로 깊이 있는 학습을 제공합니다.</p>
+                                <p class="text-gray-600 leading-relaxed">개인별 맞춤 지도가 가능한<br>최적의 인원으로<br>깊이 있는 학습을 제공합니다.</p>
                             </div>
                         </div>
                     </div>
@@ -263,8 +281,8 @@
         <!-- Class Information Section -->
         <section id="classes" class="py-20 md:py-32 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="section-title scroll-animate">수업 안내</h2>
-                <p class="section-subtitle scroll-animate"><strong class="font-semibold text-gray-600">소수정예</strong>로 운영되는 SNM English의 수업과 반편성을 안내합니다.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">수업 안내</h2>
+                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate"><strong class="font-semibold text-gray-600">소수정예</strong>로 운영되는 SNM English의 수업과 반편성을 안내합니다.</p>
                 <div class="max-w-6xl mx-auto">
                     <div class="border-b border-gray-200 mb-8 scroll-animate">
                         <nav class="flex justify-center -mb-px space-x-4 md:space-x-8" aria-label="Tabs">
@@ -273,7 +291,7 @@
                         </nav>
                     </div>
                     <div id="timetable" class="tab-content active" data-tab-group="classes">
-                        <div class="hidden md:block bg-white p-4 rounded-xl shadow-lg border border-gray-100 scroll-animate overflow-x-auto">
+                        <div class="hidden md:block bg-white p-4 rounded-xl shadow-lg border border-gray-100 scroll-animate">
                             <div class="timetable-grid">
                                 <!-- Headers -->
                                 <div class="time-label"></div>
@@ -376,8 +394,8 @@
                             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 scroll-animate">
                                 <h3 class="text-2xl font-bold text-blue-800 mb-4 pb-4 border-b-2 border-blue-200">초등부</h3>
                                 <div class="space-y-4 text-gray-800 mt-4">
-                                    <div class="flex justify-between items-center"><p>초6 화목반 (Class 1)</p></div>
-                                    <div class="flex justify-between items-center"><p>초5 화목반 (Class 2)</p></div>
+                                    <div class="flex justify-between items-center"><p>초6 화목반</p></div>
+                                    <div class="flex justify-between items-center"><p>초5 화목반</p></div>
                                     <div class="flex justify-between items-center"><p>초등부 수금반</p><span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">개설 예정</span></div>
                                 </div>
                             </div>
@@ -408,20 +426,69 @@
         <!-- Management Systems Section -->
         <section id="systems" class="py-20 md:py-32 bg-gray-50">
             <div class="container mx-auto px-6">
-                <h2 class="section-title scroll-animate">체계적인 관리 시스템</h2>
-                <p class="section-subtitle scroll-animate">SNM English는 효과적인 학습 관리를 위해 검증된 시스템을 활용합니다.</p>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy group scroll-animate">
-                        <img src="https://i.imgur.com/Wmfjsvh.jpg" alt="NELT 온라인 테스트 시스템 화면" class="w-full h-48 object-cover" loading="lazy">
-                        <div class="p-6"><h3 class="text-xl font-bold mb-2">NELT (온라인 테스트)</h3><p class="text-gray-600 leading-relaxed">정기적인 온라인 테스트를 통해 학생의 성취도를 객관적인 데이터로 분석하고 관리합니다.</p></div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">체계적인 관리 시스템</h2>
+                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate">SNM English는 효과적인 학습 관리를 위해 검증된 시스템을 활용합니다.</p>
+                <div class="space-y-4 max-w-3xl mx-auto">
+                    <!-- NELT -->
+                    <div class="accordion-item bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy scroll-animate">
+                        <div class="accordion-header flex items-center justify-between p-6 cursor-pointer">
+                            <div class="flex items-center">
+                                <img src="https://i.imgur.com/wkcXum1.png" alt="NELT 로고" class="w-12 h-12 object-contain rounded-md mr-4">
+                                <div>
+                                    <h3 class="text-xl font-bold">NELT (온라인 테스트)</h3>
+                                    <p class="text-gray-600 text-sm">데이터 기반의 객관적인 영어 능력 평가</p>
+                                </div>
+                            </div>
+                            <svg class="accordion-arrow w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="system-details">
+                            <div class="p-6 pt-0 text-gray-700">
+                                <p>단순한 점수를 넘어, 학생의 영어 능력을 영역별로 정밀하게 분석합니다. 축적된 데이터를 기반으로 학생 개개인의 강점과 약점을 정확히 파악하고, 가장 효과적인 학습 방향을 제시하는 맞춤형 지도의 핵심입니다.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy group scroll-animate" style="transition-delay: 150ms;">
-                        <img src="https://i.imgur.com/hcc41aO.png" alt="Notion 과제 관리 시스템 화면" class="w-full h-48 object-cover" loading="lazy">
-                        <div class="p-6"><h3 class="text-xl font-bold mb-2">Notion 과제 관리</h3><p class="text-gray-600 leading-relaxed">모든 과제와 학습 자료를 Notion 페이지에 기록하여 체계적으로 관리하고 누락을 방지합니다.</p></div>
+                    <!-- Notion -->
+                    <div class="accordion-item bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 150ms;">
+                         <div class="accordion-header flex items-center justify-between p-6 cursor-pointer">
+                            <div class="flex items-center">
+                                <img src="https://i.imgur.com/03VJTJ6.png" alt="Notion 로고" class="w-12 h-12 object-contain rounded-md mr-4">
+                                <div>
+                                    <h3 class="text-xl font-bold">Notion 과제 관리</h3>
+                                    <p class="text-gray-600 text-sm">체계적인 학습 이력 관리 플랫폼</p>
+                                </div>
+                            </div>
+                            <svg class="accordion-arrow w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="system-details">
+                            <div class="p-6 pt-0 text-gray-700">
+                                <p>모든 과제와 학습 자료, 성취도 분석표가 Notion 페이지에 투명하게 기록됩니다. 학생과 학부모님은 언제든지 학습 현황을 확인할 수 있으며, 이를 통해 학습의 전 과정을 체계적으로 추적하고 관리합니다.</p>
+                                <img src="https://i.imgur.com/rYeumKm.png" alt="Notion 과제 관리 예시 화면" class="mt-4 rounded-lg shadow-md" loading="lazy">
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy group scroll-animate" style="transition-delay: 300ms;">
-                        <img src="https://i.imgur.com/1dJpnPH.png" alt="클래스카드 단어 암기 앱 화면" class="w-full h-48 object-cover" loading="lazy">
-                        <div class="p-6"><h3 class="text-xl font-bold mb-2">클래스카드 (단어 암기)</h3><p class="text-gray-600 leading-relaxed">게임처럼 재미있게 단어를 암기하고, 학습 현황을 실시간으로 확인하여 완벽한 암기를 돕습니다.</p></div>
+                    <!-- Classcard -->
+                    <div class="accordion-item bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 300ms;">
+                         <div class="accordion-header flex items-center justify-between p-6 cursor-pointer">
+                            <div class="flex items-center">
+                                <img src="https://i.imgur.com/gvsWG74.png" alt="클래스카드 로고" class="w-12 h-12 object-contain rounded-md mr-4">
+                                <div>
+                                    <h3 class="text-xl font-bold">클래스카드 (드릴 학습)</h3>
+                                    <p class="text-gray-600 text-sm">재미와 효율을 모두 잡은 스마트 학습 도구</p>
+                                </div>
+                            </div>
+                            <svg class="accordion-arrow w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="system-details">
+                            <div class="p-6 pt-0 text-gray-700">
+                                <p>단순한 단어 암기를 넘어, 문장 재구성, 스펠링, 듣기 등 다양한 드릴 학습을 통해 배운 내용을 완벽하게 체화합니다. 게임처럼 즐기는 과정 속에서 학습 효과는 극대화되며, 실시간 학습 현황 확인으로 완전 학습을 돕습니다.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                                    <img src="https://i.imgur.com/C1ARgJy.png" alt="클래스카드 단어 학습 예시" class="rounded-lg shadow-md" loading="lazy">
+                                    <img src="https://i.imgur.com/FgEiqq7.png" alt="클래스카드 문장 학습 예시" class="rounded-lg shadow-md" loading="lazy">
+                                    <img src="https://i.imgur.com/2JyNJ0D.png" alt="클래스카드 드릴 학습 예시" class="rounded-lg shadow-md" loading="lazy">
+                                    <img src="https://i.imgur.com/2JKcYha.png" alt="클래스카드 OMR 테스트 예시" class="rounded-lg shadow-md" loading="lazy">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -430,8 +497,8 @@
         <!-- Contact Section -->
         <section id="contact" class="py-20 md:py-32 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="section-title scroll-animate">상담 신청 및 오시는 길</h2>
-                <p class="section-subtitle scroll-animate">SNM English에 대해 궁금한 점이 있으신가요? 언제든지 편하게 문의해주세요.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">상담 신청 및 오시는 길</h2>
+                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate">SNM English에 대해 궁금한 점이 있으신가요? 언제든지 편하게 문의해주세요.</p>
                 <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
                     <div class="scroll-animate">
                         <h3 class="text-2xl font-bold mb-6">상담 신청</h3>
@@ -463,8 +530,8 @@
                         </div>
                         <div class="mt-4 text-gray-700 bg-gray-100 p-4 rounded-lg">
                             <p class="font-bold text-blue-600">송파역 3번출구 앞</p>
-                            <p class="font-semibold mt-1">주소: 서울특별시 송파구 송파대로 345, 뚜레쥬르 건물 2층에 위치</p>
-                            <p class="font-semibold mt-2">연락처: <a href="tel:0264026768" class="text-blue-600 hover:underline">02 6402 6768</a></p>
+                            <p class="font-semibold mt-1">서울특별시 송파구 송파대로 345, 뚜레쥬르 건물 2층에 위치</p>
+                            <p class="font-semibold mt-2"><a href="tel:0264026768" class="text-blue-600 hover:underline">02 6402 6768</a></p>
                         </div>
                     </div>
                 </div>
@@ -476,9 +543,11 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-white">
         <div class="container mx-auto px-6 py-12 text-center">
-            <img src="https://i.imgur.com/IM7QctR.png" alt="SNM English 푸터 로고" class="h-12 mx-auto mb-6">
-            <div class="text-gray-400 space-y-2">
-                <p>SNM English | 대표: OOO | 사업자등록번호: 000-00-00000</p>
+            <img src="https://i.imgur.com/KjlZGfN.png" alt="SNM English 푸터 로고 (흰색)" class="h-12 mx-auto mb-6">
+            <div class="text-gray-400 space-y-3">
+                <p>SNM English</p>
+                <p class="text-sm">송파대로 345, 헬리오시티 상가B동 2층</p>
+                <p class="text-sm">02 6402 6768</p>
                 <p>
                     <a href="https://blog.naver.com/snm_english" target="_blank" class="hover:text-white transition-colors">학원 블로그</a>
                 </p>
@@ -541,6 +610,29 @@
                 });
 
                 document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // --- 관리 시스템 아코디언 로직 ---
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            const details = item.querySelector('.system-details');
+
+            header.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // 모든 아이템을 닫음
+                accordionItems.forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.system-details').style.maxHeight = '0px';
+                });
+
+                // 클릭된 아이템이 닫혀 있었다면 열어줌
+                if (!isActive) {
+                    item.classList.add('active');
+                    details.style.maxHeight = details.scrollHeight + 'px';
+                }
             });
         });
     });
