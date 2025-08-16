@@ -24,7 +24,7 @@
             color: #6b7280;
         }
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 5vw, 2.5rem); /* [수정] 반응형 폰트 크기 */
             font-weight: 800;
             color: #111827;
             margin-bottom: 1rem;
@@ -83,7 +83,6 @@
 
         .philosophy-illustration-wrapper {
             width: 100%;
-            /* [수정] 일러스트 크기 확대 */
             height: 140px;
             margin-bottom: 1rem;
             overflow: hidden;
@@ -192,7 +191,7 @@
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 leading-tight">
                     단단한 관리, <span class="text-blue-800">흔들림 없는 결과</span>
                 </h1>
-                <p class="mt-4 text-lg text-gray-500">SNM English의 <strong class="font-semibold text-gray-600">소수정예</strong> 관리와 <strong class="font-semibold text-gray-600">자체 제작 시스템</strong>이 결과로 증명합니다.</p>
+                <p class="mt-4 text-lg text-gray-500">SNM English만의 <strong class="font-semibold text-gray-600">소수정예 관리</strong>와 <strong class="font-semibold text-gray-600">독자적인 시스템</strong>이 결과로 증명합니다.</p>
                 <a href="https://blog.naver.com/snm_english" target="_blank" class="mt-10 inline-block bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy">
                     학원 블로그 바로가기
                 </a>
@@ -206,7 +205,7 @@
         <section id="education" class="py-20 md:py-32 bg-gray-50">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">SNM의 교육</h2>
-                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate">SNM의 <strong class="font-semibold text-gray-600">소수정예</strong> 교육은 본질에 집중하고 과정에 충실합니다.</p>
+                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate">SNM English의 <strong class="font-semibold text-gray-600">소수정예</strong> 교육은 본질에 집중하며 과정에 충실한 지도를 약속합니다.</p>
                 
                 <div class="max-w-4xl mx-auto">
                     <div class="border-b border-gray-200 mb-8 scroll-animate">
@@ -224,21 +223,21 @@
                                     <img src="https://i.imgur.com/1phDbSt.png" alt="균형잡힌 학습을 상징하는 저울 일러스트" class="philosophy-illustration" loading="lazy">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">균형잡힌 커리큘럼</h3>
-                                <p class="text-gray-600 leading-relaxed">어휘, 문법, 독해, 듣기 등<br>영역별 균형을 통해<br>종합적인 실력 향상을 꾀합니다.</p>
+                                <p class="text-gray-600 leading-relaxed">영역별 균형에 충실한 커리큘럼이<br>종합적인 영어 실력의<br>완성을 이끌어냅니다.</p>
                             </div>
                             <div class="bg-white p-8 rounded-xl shadow-md transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 150ms;">
                                 <div class="philosophy-illustration-wrapper">
                                     <img src="https://i.imgur.com/bsegki0.png" alt="체계적인 관리를 상징하는 문서와 돋보기 일러스트" class="philosophy-illustration" loading="lazy">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">체계적인 관리</h3>
-                                <p class="text-gray-600 leading-relaxed">온/오프라인 시스템을 활용하여<br>학습 과정과 결과를<br>꼼꼼하게 관리합니다.</p>
+                                <p class="text-gray-600 leading-relaxed">온/오프라인을 넘나드는<br>입체적인 시스템으로 학습의 전 과정을<br>체계적으로 관리합니다.</p>
                             </div>
                             <div class="bg-white p-8 rounded-xl shadow-md transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 300ms;">
                                 <div class="philosophy-illustration-wrapper">
                                     <img src="https://i.imgur.com/1kIEMZU.png" alt="소수정예 수업을 상징하는 선생님과 학생 일러스트" class="philosophy-illustration" loading="lazy">
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">소수정예 수업</h3>
-                                <p class="text-gray-600 leading-relaxed">개인별 맞춤 지도가 가능한<br>최적의 인원으로<br>깊이 있는 학습을 제공합니다.</p>
+                                <p class="text-gray-600 leading-relaxed">개인별 맞춤 지도가 가능한<br>최적의 인원 구성으로<br>가장 깊이 있는 학습을 경험하게 합니다.</p>
                             </div>
                         </div>
                     </div>
@@ -435,7 +434,7 @@
                             <div class="flex items-center">
                                 <img src="https://i.imgur.com/wkcXum1.png" alt="NELT 로고" class="w-12 h-12 object-contain rounded-md mr-4">
                                 <div>
-                                    <h3 class="text-xl font-bold">NELT (온라인 테스트)</h3>
+                                    <h3 class="text-xl font-bold">NELT</h3>
                                     <p class="text-gray-600 text-sm">데이터 기반의 객관적인 영어 능력 평가</p>
                                 </div>
                             </div>
@@ -453,7 +452,7 @@
                             <div class="flex items-center">
                                 <img src="https://i.imgur.com/03VJTJ6.png" alt="Notion 로고" class="w-12 h-12 object-contain rounded-md mr-4">
                                 <div>
-                                    <h3 class="text-xl font-bold">Notion 과제 관리</h3>
+                                    <h3 class="text-xl font-bold">개인별 과제관리</h3>
                                     <p class="text-gray-600 text-sm">체계적인 학습 이력 관리 플랫폼</p>
                                 </div>
                             </div>
@@ -472,15 +471,15 @@
                             <div class="flex items-center">
                                 <img src="https://i.imgur.com/gvsWG74.png" alt="클래스카드 로고" class="w-12 h-12 object-contain rounded-md mr-4">
                                 <div>
-                                    <h3 class="text-xl font-bold">클래스카드 (드릴 학습)</h3>
-                                    <p class="text-gray-600 text-sm">재미와 효율을 모두 잡은 스마트 학습 도구</p>
+                                    <h3 class="text-xl font-bold">클래스카드</h3>
+                                    <p class="text-gray-600 text-sm">효율을 극대화하는 스마트 학습 도구</p>
                                 </div>
                             </div>
                             <svg class="accordion-arrow w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                         <div class="system-details">
                             <div class="p-6 pt-0 text-gray-700">
-                                <p>단순한 단어 암기를 넘어, 문장 재구성, 스펠링, 듣기 등 다양한 드릴 학습을 통해 배운 내용을 완벽하게 체화합니다. 게임처럼 즐기는 과정 속에서 학습 효과는 극대화되며, 실시간 학습 현황 확인으로 완전 학습을 돕습니다.</p>
+                                <p>단순한 단어 암기를 넘어, 문장 재구성, 스펠링, 듣기 등 다채로운 드릴 학습을 통해 배운 내용을 완벽하게 체화시키는 검증된 학습 도구입니다. 실시간 학습 현황 확인으로 완전 학습을 이끌어냅니다.</p>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                                     <img src="https://i.imgur.com/C1ARgJy.png" alt="클래스카드 단어 학습 예시" class="rounded-lg shadow-md" loading="lazy">
                                     <img src="https://i.imgur.com/FgEiqq7.png" alt="클래스카드 문장 학습 예시" class="rounded-lg shadow-md" loading="lazy">
