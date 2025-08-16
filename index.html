@@ -1,118 +1,549 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SNM English 학원</title>
-    <!-- Pretendard 폰트 불러오기 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/font/pretendard.css">
+    <title>SNM English - 단단한 관리, 흔들림 없는 결과</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         body {
-            font-family: 'Pretendard', sans-serif; /* Pretendard 폰트 적용 */
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            font-family: 'Pretendard', sans-serif;
+            line-height: 1.7;
         }
-        header {
-            background-color: #2D32A9;
+        .easing-bouncy {
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .active-tab {
+            border-color: #1c29c0;
+            color: #1c29c0;
+            font-weight: 600;
+        }
+        .inactive-tab {
+            border-color: transparent;
+            color: #6b7280;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1rem;
             text-align: center;
-            padding: 20px;
         }
-        header img {
-            max-width: 30%; /* 로고 크기를 30%로 조정 */
-            height: auto;
-        }
-        main {
-            padding: 20px;
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #4b5563;
+            margin-bottom: 3rem;
             text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        table {
-            width: 80%; /* 표의 너비를 80%로 설정하여 화면에 적당히 맞춤 */
-            margin: 20px auto; /* 가운데 정렬 */
-            border-collapse: collapse;
-            text-align: left; /* 왼쪽 정렬로 변경 */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        
+        .header-shadow {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
         }
-        table th, table td {
-            padding: 12px;
-            border: 1px solid #ccc;
-            font-size: 16px; /* 글씨 크기를 줄여서 가독성 향상 */
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        table th {
-            background-color: #2D32A9;
-            color: white;
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        footer {
-            background-color: #DFFF00;
-            color: black;
-            text-align: center;
-            padding: 5px; /* 얇게 수정 */
-            position: fixed;
+        
+        .map-marker {
+            position: absolute;
+            top: 68%; 
+            left: 42%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #1c29c0;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 10px rgba(28, 41, 192, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
+            70% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+            100% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
+        }
+
+        .philosophy-illustration-wrapper {
             width: 100%;
-            bottom: 0;
+            height: 120px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        footer p {
-            font-size: 14px; /* 글씨 크기 줄임 */
+        .philosophy-illustration {
+            width: auto;
+            height: 100%;
+            object-fit: contain;
         }
-        h1 {
-            font-size: 36px;
+        
+        .timetable-grid {
+            display: grid;
+            grid-template-columns: 50px repeat(12, 1fr);
+            grid-template-rows: auto repeat(18, 20px); 
+            gap: 4px;
         }
-        p {
-            font-size: 18px;
+        .timetable-grid .day-header {
+            grid-column: span 2;
+            text-align: center;
+            font-weight: 600;
+            padding: 0.75rem 0;
+            background-color: #f9fafb;
+            position: sticky;
+            top: 80px;
+            z-index: 10;
+            border-radius: 6px;
         }
-        .academy-info a {
-            color: #2D32A9;
-            text-decoration: none;
+        .timetable-grid .time-label {
+            grid-column: 1;
+            text-align: right;
+            padding-right: 8px;
+            font-size: 0.7rem;
+            color: #6b7280;
+            background-color: #fff;
         }
-        .slogan {
-            color: white; /* '단단한 관리, 흔들림 없는 결과' 텍스트를 흰색으로 변경 */
-            font-size: 20px;
-        }
-        .address {
-            word-wrap: break-word;
-            text-align: left; /* 왼쪽 정렬 */
-            padding-left: 20px; /* 왼쪽 여백 추가 */
-        }
-        /* 모바일에서 주소와 전화번호 가로로 나열되게 하기 */
-        @media (max-width: 600px) {
-            table {
-                width: 90%; /* 모바일에서 표 폭을 조금 더 넓게 설정 */
-            }
-            .address, .academy-info td {
-                white-space: nowrap;
-            }
+        .class-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #1f2937;
+            font-weight: 500;
+            border-radius: 6px;
+            padding: 4px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
         }
     </style>
 </head>
-<body>
-    <header>
-        <!-- 새로운 로고 이미지 사용 -->
-        <img src="Frame%2071.png" alt="SNM English Logo"> <!-- 이미지 경로 수정 -->
-        <p class="slogan">단단한 관리, 흔들림 없는 결과</p> <!-- 흰색 텍스트로 수정 -->
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header id="header" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 transition-shadow duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="flex items-center">
+                <img src="https://i.imgur.com/onzqqko.png" alt="SNM English 로고" class="h-8 md:h-10">
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#education" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">SNM의 교육</a>
+                <a href="#classes" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">수업 안내</a>
+                <a href="#systems" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">관리 시스템</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">상담 문의</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white">
+            <a href="#education" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50">SNM의 교육</a>
+            <a href="#classes" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50">수업 안내</a>
+            <a href="#systems" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50">관리 시스템</a>
+            <a href="#contact" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50">상담 문의</a>
+        </div>
     </header>
+
     <main>
-        <h2>학원 안내</h2>
-        <!-- 표 추가 -->
-        <table>
-            <tr>
-                <th>항목</th>
-                <th>정보</th>
-            </tr>
-            <tr>
-                <td>주소</td>
-                <td class="address">송파대로 345,<br>헬리오시티 상가 1B동<br>2층 2068호</td>
-            </tr>
-            <tr>
-                <td>전화번호</td>
-                <td>02 6402 6768</td>
-            </tr>
-            <tr>
-                <td>블로그</td>
-                <td><a href="https://blog.naver.com/snm_english/" target="_blank">blog.naver.com/snm_english/</a></td>
-            </tr>
-        </table>
+        <!-- Hero Section -->
+        <section id="hero" class="relative h-screen flex items-center justify-center text-center bg-white overflow-hidden">
+            <div class="absolute bottom-0 right-0 w-1/2 md:w-1/3 max-w-lg h-auto z-10 opacity-90 pointer-events-none hidden lg:block">
+                <img src="https://i.imgur.com/O1LCJng.png" alt="계단을 오르며 성장하는 학생 일러스트">
+            </div>
+            <div class="z-20 px-4 relative">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800 leading-tight">
+                    단단한 관리, <span class="text-blue-800">흔들림 없는 결과</span>
+                </h1>
+                <p class="mt-4 text-lg text-gray-500">SNM English의 <strong class="font-semibold text-gray-600">소수정예</strong> 관리와 <strong class="font-semibold text-gray-600">자체 제작 시스템</strong>이 결과로 증명합니다.</p>
+                <a href="https://blog.naver.com/snm_english" target="_blank" class="mt-10 inline-block bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy">
+                    학원 블로그 바로가기
+                </a>
+            </div>
+            <div class="absolute bottom-0 left-0 w-full h-auto z-0">
+                <svg viewBox="0 0 1440 160" xmlns="http://www.w3.org/2000/svg"><path d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,85.3C672,75,768,85,864,96C960,107,1056,117,1152,112C1248,107,1344,85,1392,74.7L1440,64L1440,160L1392,160C1344,160,1248,160,1152,160C1056,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z" fill="#1c29c0" fill-opacity="0.3"></path><path d="M0,96L48,90.7C96,85,192,75,288,85.3C384,96,480,128,576,133.3C672,139,768,117,864,106.7C960,96,1056,96,1152,96C1248,96,1344,96,1392,96L1440,96L1440,160L1392,160C1344,160,1248,160,1152,160C1056,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z" fill="#1c29c0" fill-opacity="0.6"></path><path d="M0,128L48,112C96,96,192,64,288,58.7C384,53,480,75,576,96C672,117,768,139,864,133.3C960,128,1056,96,1152,80C1248,64,1344,64,1392,64L1440,64L1440,160L1392,160C1344,160,1248,160,1152,160C1056,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z" fill="#1c29c0"></path></svg>
+            </div>
+        </section>
+
+        <!-- SNM's Education Section -->
+        <section id="education" class="py-20 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title scroll-animate">SNM의 교육</h2>
+                <p class="section-subtitle scroll-animate">SNM의 <strong class="font-semibold text-gray-600">소수정예</strong> 교육은 본질에 집중하고 과정에 충실합니다.</p>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="border-b border-gray-200 mb-8 scroll-animate">
+                        <nav class="flex justify-center -mb-px space-x-2 sm:space-x-4 md:space-x-8" aria-label="Tabs">
+                            <button class="tab-btn py-4 px-1 border-b-2 text-sm sm:text-base md:text-lg transition-colors duration-500 easing-bouncy active-tab" data-tab-group="education" data-tab-target="philosophy">교육 철학</button>
+                            <button class="tab-btn py-4 px-1 border-b-2 text-sm sm:text-base md:text-lg transition-colors duration-500 easing-bouncy inactive-tab" data-tab-group="education" data-tab-target="curriculum">커리큘럼</button>
+                            <button class="tab-btn py-4 px-1 border-b-2 text-sm sm:text-base md:text-lg transition-colors duration-500 easing-bouncy inactive-tab" data-tab-group="education" data-tab-target="vocabulary">어휘 시스템</button>
+                        </nav>
+                    </div>
+
+                    <div id="philosophy" class="tab-content active" data-tab-group="education">
+                        <div class="grid md:grid-cols-3 gap-8 text-center">
+                            <div class="bg-white p-8 rounded-xl shadow-md transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy scroll-animate">
+                                <div class="philosophy-illustration-wrapper">
+                                    <img src="https://i.imgur.com/1phDbSt.png" alt="균형잡힌 학습을 상징하는 저울 일러스트" class="philosophy-illustration" loading="lazy">
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">균형잡힌 커리큘럼</h3>
+                                <p class="text-gray-600 leading-relaxed">어휘, 문법, 독해, 듣기 등 영역별 균형을 통해 종합적인 실력 향상을 꾀합니다.</p>
+                            </div>
+                            <div class="bg-white p-8 rounded-xl shadow-md transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 150ms;">
+                                <div class="philosophy-illustration-wrapper">
+                                    <img src="https://i.imgur.com/bsegki0.png" alt="체계적인 관리를 상징하는 문서와 돋보기 일러스트" class="philosophy-illustration" loading="lazy">
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">체계적인 관리</h3>
+                                <p class="text-gray-600 leading-relaxed">온/오프라인 시스템을 활용하여 학습 과정과 결과를 꼼꼼하게 관리합니다.</p>
+                            </div>
+                            <div class="bg-white p-8 rounded-xl shadow-md transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 300ms;">
+                                <div class="philosophy-illustration-wrapper">
+                                    <img src="https://i.imgur.com/1kIEMZU.png" alt="소수정예 수업을 상징하는 선생님과 학생 일러스트" class="philosophy-illustration" loading="lazy">
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">소수정예 수업</h3>
+                                <p class="text-gray-600 leading-relaxed">개인별 맞춤 지도가 가능한 최적의 인원으로 깊이 있는 학습을 제공합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="curriculum" class="tab-content" data-tab-group="education">
+                        <div class="space-y-8">
+                            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 scroll-animate"><h3 class="text-2xl font-bold text-blue-800 mb-4">초등부</h3><p class="text-gray-600 mb-6 leading-relaxed">영어의 기초를 탄탄히 다지고, 학습 습관을 형성하는 시기</p><div class="border-t pt-4"><p class="font-semibold text-gray-700">학습 목표: <span class="font-normal">기초 문법 및 필수 어휘 암기, 영어 문장 구조 이해</span></p><div class="mt-4"><p class="font-semibold text-gray-700 mb-2">주요 교재:</p><div class="flex flex-wrap gap-2"><span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Grammar Town</span><span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Reading Boat</span><span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Wordly Wise 3000</span></div></div></div></div>
+                            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 scroll-animate" style="transition-delay: 150ms;"><h3 class="text-2xl font-bold text-green-800 mb-4">중등부</h3><p class="text-gray-600 mb-6 leading-relaxed">내신과 수능의 기반을 다지는 중요한 시기</p><div class="border-t pt-4"><p class="font-semibold text-gray-700">학습 목표: <span class="font-normal">심화 문법 완성, 구문 독해 훈련, 서술형 대비</span></p><div class="mt-4"><p class="font-semibold text-gray-700 mb-2">주요 교재:</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">천일문</span><span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">자이스토리</span><span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">어휘끝</span><span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">내신 기출</span></div></div></div></div>
+                            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 scroll-animate" style="transition-delay: 300ms;"><h3 class="text-2xl font-bold text-purple-800 mb-4">고등부</h3><p class="text-gray-600 mb-6 leading-relaxed">안정적인 1등급을 위한 수능 영어 최종 완성</p><div class="border-t pt-4"><p class="font-semibold text-gray-700">학습 목표: <span class="font-normal">고난도 유형 정복, 시간 관리 훈련, EBS 연계 대비</span></p><div class="mt-4"><p class="font-semibold text-gray-700 mb-2">주요 교재:</p><div class="flex flex-wrap gap-2"><span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">수능특강</span><span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">수능완성</span><span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">기출 모의고사</span><span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">자체 제작 자료</span></div></div></div></div>
+                        </div>
+                    </div>
+                    <div id="vocabulary" class="tab-content" data-tab-group="education">
+                        <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 space-y-8">
+                            <div class="text-center scroll-animate">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">SNM Signature 어휘 시스템</h3>
+                                <p class="text-gray-600 leading-relaxed">어떤 수준에서 시작하든, 단단한 기본기를 거쳐 이상적인 목표에 도달합니다.</p>
+                            </div>
+                            <div class="grid md:grid-cols-3 gap-6 text-center">
+                                <div class="scroll-animate" style="transition-delay: 100ms;">
+                                    <div class="bg-indigo-100 text-indigo-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></div>
+                                    <h4 class="font-bold text-lg">맞춤형 Prep-VOCA</h4>
+                                    <p class="text-sm text-gray-600 mt-1 leading-relaxed">자체 제작 수준별 어휘 세트로<br>최적의 학습 출발점을 설정합니다.</p>
+                                </div>
+                                <div class="scroll-animate" style="transition-delay: 250ms;">
+                                    <div class="bg-indigo-100 text-indigo-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-9-5.747h18"></path><path d="M5 12h14M12 5l7 7-7 7"></path></svg></div>
+                                    <h4 class="font-bold text-lg">예문 기반 체화 학습</h4>
+                                    <p class="text-sm text-gray-600 mt-1 leading-relaxed">실제 문장에서의 쓰임을 익히며<br>살아있는 어휘력을 완성합니다.</p>
+                                </div>
+                                <div class="scroll-animate" style="transition-delay: 400ms;">
+                                    <div class="bg-indigo-100 text-indigo-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                                    <h4 class="font-bold text-lg">정규 과정 연계</h4>
+                                    <p class="text-sm text-gray-600 mt-1 leading-relaxed">Prep-VOCA 이수 후 정규 과정에 합류하여 흔들림 없이 나아갑니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Class Information Section -->
+        <section id="classes" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title scroll-animate">수업 안내</h2>
+                <p class="section-subtitle scroll-animate"><strong class="font-semibold text-gray-600">소수정예</strong>로 운영되는 SNM English의 수업과 반편성을 안내합니다.</p>
+                <div class="max-w-6xl mx-auto">
+                    <div class="border-b border-gray-200 mb-8 scroll-animate">
+                        <nav class="flex justify-center -mb-px space-x-4 md:space-x-8" aria-label="Tabs">
+                            <button class="tab-btn py-4 px-1 border-b-2 text-lg transition-colors duration-500 easing-bouncy active-tab" data-tab-group="classes" data-tab-target="timetable">주간 시간표</button>
+                            <button class="tab-btn py-4 px-1 border-b-2 text-lg transition-colors duration-500 easing-bouncy inactive-tab" data-tab-group="classes" data-tab-target="class-info">반편성 안내</button>
+                        </nav>
+                    </div>
+                    <div id="timetable" class="tab-content active" data-tab-group="classes">
+                        <div class="hidden md:block bg-white p-4 rounded-xl shadow-lg border border-gray-100 scroll-animate overflow-x-auto">
+                            <div class="timetable-grid">
+                                <!-- Headers -->
+                                <div class="time-label"></div>
+                                <div class="day-header" style="grid-column: 2 / 4;">월</div>
+                                <div class="day-header" style="grid-column: 4 / 6;">화</div>
+                                <div class="day-header" style="grid-column: 6 / 8;">수</div>
+                                <div class="day-header" style="grid-column: 8 / 10;">목</div>
+                                <div class="day-header" style="grid-column: 10 / 12;">금</div>
+                                <div class="day-header" style="grid-column: 12 / 14;">토</div>
+                                <!-- Time Labels -->
+                                <div class="time-label" style="grid-row: 2 / 4;">1시</div>
+                                <div class="time-label" style="grid-row: 4 / 6;">2시</div>
+                                <div class="time-label" style="grid-row: 6 / 8;">3시</div>
+                                <div class="time-label" style="grid-row: 8 / 10;">4시</div>
+                                <div class="time-label" style="grid-row: 10 / 12;">5시</div>
+                                <div class="time-label" style="grid-row: 12 / 14;">6시</div>
+                                <div class="time-label" style="grid-row: 14 / 16;">7시</div>
+                                <div class="time-label" style="grid-row: 16 / 18;">8시</div>
+                                <div class="time-label" style="grid-row: 18 / 20;">9시</div>
+                                <!-- Class Blocks -->
+                                <!-- 초등부 (2시간 = 4칸) -->
+                                <div class="class-block bg-blue-100" style="grid-area: 6 / 4 / 10 / 5;"><p>초6<br>(C1)</p></div>
+                                <div class="class-block bg-blue-200" style="grid-area: 6 / 5 / 10 / 6;"><p>초5<br>(C2)</p></div>
+                                <div class="class-block bg-blue-100" style="grid-area: 6 / 8 / 10 / 9;"><p>초6<br>(C1)</p></div>
+                                <div class="class-block bg-blue-200" style="grid-area: 6 / 9 / 10 / 10;"><p>초5<br>(C2)</p></div>
+                                <!-- 중등부 (2시간 = 4칸) -->
+                                <div class="class-block bg-green-200" style="grid-area: 10 / 3 / 14 / 4;"><p>중2<br>(C2)</p></div>
+                                <div class="class-block bg-green-100" style="grid-area: 10 / 4 / 14 / 5;"><p>중2<br>(C1)</p></div>
+                                <div class="class-block bg-green-200" style="grid-area: 10 / 5 / 14 / 6;"><p>중3<br>(C2)</p></div>
+                                <div class="class-block bg-green-100" style="grid-area: 10 / 6 / 14 / 7;"><p>중2<br>(C1)</p></div>
+                                <div class="class-block bg-green-100" style="grid-area: 10 / 8 / 14 / 9;"><p>중3<br>(C1)</p></div>
+                                <div class="class-block bg-green-200" style="grid-area: 10 / 9 / 14 / 10;"><p>중2<br>(C2)</p></div>
+                                <div class="class-block bg-green-200" style="grid-area: 15 / 3 / 19 / 4;"><p>중1<br>(C2)</p></div>
+                                <div class="class-block bg-green-200" style="grid-area: 15 / 7 / 19 / 8;"><p>중1<br>(C2)</p></div>
+                                <!-- 고등부 (2.5시간 = 5칸, 2시간=4칸) -->
+                                <div class="class-block bg-purple-200" style="grid-area: 15 / 5 / 20 / 6;"><p>배명고1<br>(C2)</p></div>
+                                <div class="class-block bg-purple-200" style="grid-area: 15 / 7 / 20 / 8;"><p>배명고1<br>(C2)</p></div>
+                                <div class="class-block bg-purple-200" style="grid-area: 15 / 9 / 20 / 10;"><p>배명고1<br>(C2)</p></div>
+                                <div class="class-block bg-purple-200" style="grid-area: 15 / 11 / 20 / 12;"><p>배명고1<br>(C2)</p></div>
+                                <div class="class-block bg-purple-100" style="grid-area: 14 / 10 / 18 / 11;"><p>고3 수능<br>(C1)</p></div>
+                                <div class="class-block bg-purple-200" style="grid-area: 10 / 11 / 14 / 12;"><p>고3 수능<br>(C2)</p></div>
+                                <!-- 토요일 (9시간 = 18칸) -->
+                                <div class="class-block bg-gray-200" style="grid-area: 2 / 12 / 20 / 14;"><p>클리닉<br>&<br>재시험</p></div>
+                            </div>
+                        </div>
+                        <div class="md:hidden space-y-4 scroll-animate">
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-lg border-b pb-2 mb-3">월요일</h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 2학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 1학년</p> <p class="text-sm text-gray-500">19:30 - 21:30</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-lg border-b pb-2 mb-3">화요일</h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">초등 6학년</p> <p class="text-sm text-gray-500">15:00 - 17:00</p> </div> <span class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
+                                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">초등 5학년</p> <p class="text-sm text-gray-500">15:00 - 17:00</p> </div> <span class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 2학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
+                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 3학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">배명고 1학년</p> <p class="text-sm text-gray-500">19:30 - 22:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-lg border-b pb-2 mb-3">수요일</h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 2학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
+                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 1학년</p> <p class="text-sm text-gray-500">19:30 - 21:30</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">배명고 1학년</p> <p class="text-sm text-gray-500">19:30 - 22:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-lg border-b pb-2 mb-3">목요일</h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">초등 6학년</p> <p class="text-sm text-gray-500">15:00 - 17:00</p> </div> <span class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
+                                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">초등 5학년</p> <p class="text-sm text-gray-500">15:00 - 17:00</p> </div> <span class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 3학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
+                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 2학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">배명고 1학년</p> <p class="text-sm text-gray-500">19:30 - 22:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-lg border-b pb-2 mb-3">금요일</h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">고3 수능반</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">고3 수능반</p> <p class="text-sm text-gray-500">19:00 - 21:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
+                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">배명고 1학년</p> <p class="text-sm text-gray-500">19:30 - 22:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h3 class="font-bold text-lg border-b pb-2 mb-3">토요일</h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between bg-gray-100 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">클리닉 및 재시험</p> <p class="text-sm text-gray-500">1:00 - 10:00</p> </div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="class-info" class="tab-content" data-tab-group="classes">
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 scroll-animate">
+                                <h3 class="text-2xl font-bold text-blue-800 mb-4 pb-4 border-b-2 border-blue-200">초등부</h3>
+                                <div class="space-y-4 text-gray-800 mt-4">
+                                    <div class="flex justify-between items-center"><p>초6 화목반 (Class 1)</p></div>
+                                    <div class="flex justify-between items-center"><p>초5 화목반 (Class 2)</p></div>
+                                    <div class="flex justify-between items-center"><p>초등부 수금반</p><span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">개설 예정</span></div>
+                                </div>
+                            </div>
+                             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 scroll-animate" style="transition-delay: 150ms;">
+                                <h3 class="text-2xl font-bold text-green-800 mb-4 pb-4 border-b-2 border-green-200">중등부</h3>
+                                <div class="space-y-4 text-gray-800 mt-4">
+                                    <div class="flex justify-between items-center"><p>중3 화목반</p></div>
+                                    <div class="flex justify-between items-center"><p>중2 화목반</p></div>
+                                    <div class="flex justify-between items-center"><p>중2 월수반</p><span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-1 rounded-full">마감</span></div>
+                                    <div class="flex justify-between items-center"><p>중1 월수반</p></div>
+                                </div>
+                            </div>
+                             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 scroll-animate" style="transition-delay: 300ms;">
+                                <h3 class="text-2xl font-bold text-purple-800 mb-4 pb-4 border-b-2 border-purple-200">고등부</h3>
+                                <div class="space-y-4 text-gray-800 mt-4">
+                                    <div class="flex justify-between items-center"><p>고3 수능반 금요반</p><span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-1 rounded-full">마감</span></div>
+                                    <div class="flex justify-between items-center"><p>배명고 1학년 화목반</p></div>
+                                    <div class="flex justify-between items-center"><p>배명고 1학년 수금반</p></div>
+                                    <div class="flex justify-between items-center"><p>잠실여고 1학년</p><span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">개강 예정</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Management Systems Section -->
+        <section id="systems" class="py-20 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title scroll-animate">체계적인 관리 시스템</h2>
+                <p class="section-subtitle scroll-animate">SNM English는 효과적인 학습 관리를 위해 검증된 시스템을 활용합니다.</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy group scroll-animate">
+                        <img src="https://i.imgur.com/Wmfjsvh.jpg" alt="NELT 온라인 테스트 시스템 화면" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6"><h3 class="text-xl font-bold mb-2">NELT (온라인 테스트)</h3><p class="text-gray-600 leading-relaxed">정기적인 온라인 테스트를 통해 학생의 성취도를 객관적인 데이터로 분석하고 관리합니다.</p></div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy group scroll-animate" style="transition-delay: 150ms;">
+                        <img src="https://i.imgur.com/hcc41aO.png" alt="Notion 과제 관리 시스템 화면" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6"><h3 class="text-xl font-bold mb-2">Notion 과제 관리</h3><p class="text-gray-600 leading-relaxed">모든 과제와 학습 자료를 Notion 페이지에 기록하여 체계적으로 관리하고 누락을 방지합니다.</p></div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-500 easing-bouncy group scroll-animate" style="transition-delay: 300ms;">
+                        <img src="https://i.imgur.com/1dJpnPH.png" alt="클래스카드 단어 암기 앱 화면" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6"><h3 class="text-xl font-bold mb-2">클래스카드 (단어 암기)</h3><p class="text-gray-600 leading-relaxed">게임처럼 재미있게 단어를 암기하고, 학습 현황을 실시간으로 확인하여 완벽한 암기를 돕습니다.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title scroll-animate">상담 신청 및 오시는 길</h2>
+                <p class="section-subtitle scroll-animate">SNM English에 대해 궁금한 점이 있으신가요? 언제든지 편하게 문의해주세요.</p>
+                <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+                    <div class="scroll-animate">
+                        <h3 class="text-2xl font-bold mb-6">상담 신청</h3>
+                        <form id="contact-form" action="https://formspree.io/f/xgvzqjdq" method="POST" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">이름</label>
+                                <input type="text" name="name" id="name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="contact-info" class="block text-sm font-medium text-gray-700">연락처</label>
+                                <input type="text" name="연락처" id="contact-info" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="전화번호 또는 이메일">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700">문의 내용 (학생 이름/학년, 상담 희망 시간 등)</label>
+                                <textarea name="message" id="message" rows="4" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:-translate-y-1 transition-all duration-500 easing-bouncy">
+                                    상담 신청하기
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="scroll-animate" style="transition-delay: 150ms;">
+                        <h3 class="text-2xl font-bold mb-6">오시는 길</h3>
+                        <div class="relative w-full h-80 rounded-lg shadow-md border overflow-hidden">
+                            <img src="https://i.imgur.com/p8GQoow.png" alt="SNM English 오시는 길 약도" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Image+Not+Found';" loading="lazy">
+                            <div class="map-marker"></div>
+                        </div>
+                        <div class="mt-4 text-gray-700 bg-gray-100 p-4 rounded-lg">
+                            <p class="font-bold text-blue-600">송파역 3번출구 앞</p>
+                            <p class="font-semibold mt-1">주소: 서울특별시 송파구 송파대로 345, 뚜레쥬르 건물 2층에 위치</p>
+                            <p class="font-semibold mt-2">연락처: <a href="tel:0264026768" class="text-blue-600 hover:underline">02 6402 6768</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
-    <footer>
-        <p>&copy; 2025 SNM English. All rights reserved.</p>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <img src="https://i.imgur.com/IM7QctR.png" alt="SNM English 푸터 로고" class="h-12 mx-auto mb-6">
+            <div class="text-gray-400 space-y-2">
+                <p>SNM English | 대표: OOO | 사업자등록번호: 000-00-00000</p>
+                <p>
+                    <a href="https://blog.naver.com/snm_english" target="_blank" class="hover:text-white transition-colors">학원 블로그</a>
+                </p>
+            </div>
+            <p class="text-gray-500 text-sm mt-8">&copy; 2024 SNM English. All Rights Reserved.</p>
+        </div>
     </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // --- 스크롤 애니메이션 로직 ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- 헤더 그림자 로직 ---
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('header-shadow', window.scrollY > 50);
+        });
+
+        // --- 모바일 메뉴 토글 로직 ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        document.querySelectorAll('.mobile-menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- 탭 기능 로직 ---
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const group = button.dataset.tabGroup;
+                const targetId = button.dataset.tabTarget;
+
+                document.querySelectorAll(`.tab-btn[data-tab-group="${group}"]`).forEach(btn => {
+                    btn.classList.remove('active-tab');
+                    btn.classList.add('inactive-tab');
+                });
+
+                button.classList.add('active-tab');
+                button.classList.remove('inactive-tab');
+
+                document.querySelectorAll(`.tab-content[data-tab-group="${group}"]`).forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    });
+    </script>
 </body>
 </html>
