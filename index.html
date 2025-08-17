@@ -1,703 +1,583 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SNM English - 단단한 관리, 흔들림 없는 결과</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <meta name="description" content="SNM English만의 소수정예 관리와 독자적인 시스템이 결과로 증명합니다.">
+    
+    <!-- Favicon -->
     <link rel="icon" href="https://i.imgur.com/onzqqko.png" type="image/png">
-    <meta name="description" content="소수정예 관리와 독자적인 시스템으로 흔들림 없는 결과를 만드는 SNM English 공식 웹사이트입니다. 교육 철학, 커리큘럼, 시간표를 확인하고 상담을 예약하세요.">
+
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <!-- Swiper JS for Mobile Carousel -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
     <style>
-        body {
-            font-family: 'Pretendard', sans-serif;
-            line-height: 1.7;
+        /* ==========================================================================
+           1. Global Styles & Variables
+           ========================================================================== */
+        :root {
+            --primary-color: #1c29c0;
+            --secondary-color: #131c85;
+            --background-color: #F8F9FA;
+            --text-color: #333;
+            --text-light-color: #555;
+            --white-color: #FFFFFF;
+            --border-color: #E0E0E0;
+            --font-pretendard: 'Pretendard', sans-serif;
+            --bounce-easing: cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
-        .easing-bouncy {
-            transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+        /* 1.1. Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: var(--font-pretendard); color: var(--text-color); background-color: var(--white-color); word-break: keep-all; line-height: 1.7; }
+        a { text-decoration: none; color: inherit; }
+        button { border: none; background: none; cursor: pointer; font-family: var(--font-pretendard); }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        section { padding: 120px 0; }
+        .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; text-align: center; }
+        .section-subtitle { font-size: 1.1rem; color: var(--text-light-color); text-align: center; margin-bottom: 60px; }
+
+        /* 1.2. Global Interaction & Animation */
+        .touch-feedback:active { transform: scale(0.98); filter: brightness(0.95); transition: transform 0.1s, filter 0.1s; }
+        .btn { display: inline-block; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 700; text-align: center; transition: all 0.4s var(--bounce-easing); }
+        .btn-primary { background-color: var(--primary-color); color: var(--white-color); }
+        .btn-primary:hover { background-color: var(--secondary-color); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        .btn-secondary { background-color: var(--white-color); color: var(--primary-color); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { background-color: #f1f3f5; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
+
+        .scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+        .scroll-reveal.delay-1 { transition-delay: 0.1s; }
+        .scroll-reveal.delay-2 { transition-delay: 0.2s; }
+        .scroll-reveal.delay-3 { transition-delay: 0.3s; }
+
+        /* ==========================================================================
+           2. Header
+           ========================================================================== */
+        .header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 16px 0; background-color: rgba(255, 255, 255, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s; }
+        .header.scrolled { background-color: rgba(255, 255, 255, 0.9); border-bottom-color: var(--border-color); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .header-logo img { height: 40px; }
+        .header-nav { display: flex; align-items: center; gap: 24px; }
+        .header-nav .nav-links { display: none; }
+        .header .btn { padding: 10px 20px; }
+        .mobile-menu-button { display: block; z-index: 1001; color: var(--text-color); }
+        .mobile-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; transform: translateY(-100%); transition: transform 0.5s var(--bounce-easing), visibility 0.5s; visibility: hidden; }
+        .mobile-menu.active { transform: translateY(0); visibility: visible; }
+        .mobile-menu a { font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
+
+        @media (min-width: 768px) {
+            .header-nav .nav-links { display: flex; gap: 28px; }
+            .header-nav .nav-links a { font-weight: 600; color: var(--text-light-color); transition: color 0.3s; }
+            .header-nav .nav-links a:hover { color: var(--primary-color); }
+            .mobile-menu-button { display: none; }
         }
-        .active-tab {
-            border-color: #1c29c0;
-            color: #1c29c0;
-            font-weight: 600;
-        }
-        .inactive-tab {
-            border-color: transparent;
-            color: #6b7280;
-        }
-        .section-title {
-            font-size: clamp(2rem, 5vw, 2.5rem);
-            font-weight: 800;
-            color: #111827;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-        .section-subtitle {
-            font-size: 1.125rem;
-            color: #4b5563;
-            margin-bottom: 3rem;
-            text-align: center;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+
+        /* ==========================================================================
+           3. Hero Section
+           ========================================================================== */
+        .hero { height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white-color); position: relative; overflow: hidden; background: linear-gradient(to bottom, #131c85, #2a3ab7); }
+        .hero-content { z-index: 2; position: relative; padding: 0 24px; }
+        .hero-slogan { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -0.02em; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .hero-subtext { font-size: clamp(1rem, 2vw, 1.25rem); margin: 24px auto 40px; max-width: 600px; opacity: 0.9; }
+        .hero-subtext strong { font-weight: 700; }
+        .hero-buttons .btn { margin: 0 10px; }
+        .hero-buttons .btn-primary { background-color: var(--white-color); color: var(--primary-color); }
+        .hero-buttons .btn-primary:hover { background-color: #f1f3f5; }
+        .hero-buttons .btn-secondary { border: 2px solid rgba(255, 255, 255, 0.8); color: var(--white-color); background-color: transparent; }
+        .hero-buttons .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); border-color: var(--white-color); }
+
+        .wave-bg { position: absolute; bottom: 0; left: 0; width: 100%; height: 250px; z-index: 1; }
+        .wave { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background-repeat: no-repeat; background-position: center bottom; background-size: cover; animation: moveWave 10s ease-in-out infinite alternate; }
+        .wave.wave1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%231c29c0' fill-opacity='0.4' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,186.7C960,213,1056,235,1152,218.7C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E"); animation-duration: 12s; }
+        .wave.wave2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%231c29c0' fill-opacity='0.6' d='M0,224L60,208C120,192,240,160,360,165.3C480,171,600,213,720,218.7C840,224,960,192,1080,170.7C1200,149,1320,139,1380,133.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z'%3E%3C/path%3E%3C/svg%3E"); animation-duration: 15s; }
+        @keyframes moveWave { from { transform: translateY(0px); } to { transform: translateY(15px); } }
+
+        .hero-illustration { position: absolute; bottom: 0; left: 0; width: clamp(250px, 40vw, 500px); z-index: 2; opacity: 0; transform: translateY(50px); animation: floatUp 1s ease-out 0.5s forwards, floatAnim 4s ease-in-out infinite; transition: transform 0.3s ease-out; }
+        @keyframes floatUp { to { opacity: 0.9; transform: translateY(0); } }
+        @keyframes floatAnim { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @media (max-width: 992px) { .hero-illustration { left: -80px; width: 350px; } }
+        @media (max-width: 768px) { .hero-illustration { left: -100px; width: 300px; opacity: 0.7; } }
+
+        .scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 3; width: 24px; height: 40px; border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 20px; }
+        .scroll-down::before { content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 4px; height: 8px; background-color: rgba(255, 255, 255, 0.7); border-radius: 2px; animation: scroll-anim 2s infinite; }
+        @keyframes scroll-anim { 0% { transform: translate(-50%, 0); opacity: 1; } 50% { transform: translate(-50%, 10px); opacity: 1; } 100% { transform: translate(-50%, 20px); opacity: 0; } }
+
+        /* ==========================================================================
+           4. Education Section
+           ========================================================================== */
+        #education { background-color: var(--background-color); }
+        .tabs { display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); }
+        .tab-button { padding: 16px 32px; font-size: 1.1rem; font-weight: 600; color: var(--text-light-color); position: relative; transition: color 0.3s; }
+        .tab-button:hover { color: var(--text-color); }
+        .tab-button.active { color: var(--primary-color); font-weight: 700; }
+        .tab-button.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background-color: var(--primary-color); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
         
-        .header-shadow {
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-        }
-
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .scroll-animate.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .philosophy-grid, .curriculum-grid, .vocab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .card { background-color: var(--white-color); border-radius: 12px; padding: 32px; text-align: center; border: 1px solid var(--border-color); transition: all 0.4s var(--bounce-easing); }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
+        .card img { height: 80px; margin: 0 auto 24px; }
+        .card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--secondary-color); }
+        .card p { color: var(--text-light-color); line-height: 1.8; }
         
-        .map-marker {
-            position: absolute;
-            top: 68%; 
-            left: 42%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background-color: #1c29c0;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 10px rgba(28, 41, 192, 0.7);
-            animation: pulse 1.5s infinite;
-        }
+        .curriculum-card, .vocab-card { padding: 24px; text-align: left; display: flex; flex-direction: column; }
+        .icon-wrapper { background-color: #e8eaf6; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .icon-wrapper svg { width: 24px; height: 24px; color: var(--primary-color); }
+        .curriculum-card h4, .vocab-card h4 { font-size: 1.2rem; color: var(--secondary-color); margin-bottom: 12px; }
+        .curriculum-card ul { list-style-position: inside; padding-left: 0; margin-top: auto; }
+        .curriculum-card li { margin-bottom: 8px; color: var(--text-light-color); font-size: 0.95rem; }
+        .vocab-card p { text-align: left; }
 
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
-            70% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
-            100% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
-        }
+        .education-swiper { display: none; width: 100%; padding: 20px 0 40px; }
+        .swiper-slide { padding: 0 10px; }
+        .swiper-slide .card { height: 100%; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+        .swiper-pagination-bullet-active { background-color: var(--primary-color) !important; }
 
-        .philosophy-illustration-wrapper {
-            width: 100%;
-            height: 140px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .philosophy-illustration {
-            width: auto;
-            height: 100%;
-            object-fit: contain;
-        }
+        /* ==========================================================================
+           5. Class Info Section
+           ========================================================================== */
+        .timetable-container { border: 1px solid var(--border-color); border-radius: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 16px; background-color: #fdfdff; }
+        .timetable-grid { display: grid; grid-template-columns: 50px repeat(12, 1fr); grid-template-rows: auto repeat(18, 25px); gap: 4px; min-width: 900px; }
+        .day-header { grid-column: span 2; text-align: center; font-weight: 600; padding: 0.75rem 0; background-color: #f9fafb; position: sticky; top: 0; z-index: 10; border-radius: 6px; }
+        .time-label { grid-column: 1; text-align: right; padding-right: 8px; font-size: 0.7rem; color: #6b7280; background-color: #fdfdff; position: sticky; left: 0; z-index: 5; }
+        .class-block { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #1f2937; font-weight: 500; border-radius: 6px; padding: 4px; font-size: 0.75rem; line-height: 1.2; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); }
+        .color-elem.c1 { background-color: #a5d6a7; color: #1b5e20; } .color-elem.c2 { background-color: #c8e6c9; color: #1b5e20; }
+        .color-middle.c1 { background-color: #9fa8da; color: #1a237e; } .color-middle.c2 { background-color: #c5cae9; color: #1a237e; }
+        .color-high.c1 { background-color: #b39ddb; color: #311b92; } .color-high.c2 { background-color: #d1c4e9; color: #311b92; }
+        .color-clinic { background-color: #e0e0e0; color: #424242; }
+        .closed { background-image: repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 10px); }
         
-        .timetable-grid {
-            display: grid;
-            grid-template-columns: 50px repeat(12, 1fr);
-            grid-template-rows: auto repeat(18, 20px); 
-            gap: 4px;
-        }
-        .timetable-grid .day-header {
-            grid-column: span 2;
-            text-align: center;
-            font-weight: 600;
-            padding: 0.75rem 0;
-            background-color: #f9fafb;
-            position: sticky;
-            top: 88px;
-            z-index: 10;
-            border-radius: 6px;
-        }
-        .timetable-grid .time-label {
-            grid-column: 1;
-            text-align: right;
-            padding-right: 8px;
-            font-size: 0.7rem;
-            color: #6b7280;
-            background-color: #fff;
-            position: sticky;
-            left: 0;
-            z-index: 5;
-        }
-        .class-block {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #1f2937;
-            font-weight: 500;
-            border-radius: 6px;
-            padding: 4px;
-            font-size: 0.75rem;
-            line-height: 1.2;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
+        .placement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .placement-card { border: 1px solid transparent; border-radius: 12px; padding: 32px; background-color: var(--white-color); box-shadow: 0 5px 25px rgba(0,0,0,0.05); transition: all 0.4s var(--bounce-easing); }
+        .placement-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+        .placement-card h3 { font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .placement-class { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #f5f5f5; }
+        .placement-class:last-child { border-bottom: none; }
+        .placement-class-name { font-weight: 600; }
+        .time-block { display: flex; gap: 6px; }
+        .time-block span { background-color: #f0f0f0; color: var(--text-light-color); font-size: 0.8rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; }
+        .class-tag { padding: 4px 10px; border-radius: 16px; font-size: 0.8rem; font-weight: 700; }
+        .tag-closed { background-color: #ffeded; color: #d32f2f; }
+        .tag-soon { background-color: #e8f5e9; color: #388e3c; }
+
+        /* ==========================================================================
+           6. Management System Section
+           ========================================================================== */
+        #management { background-color: var(--background-color); }
+        .management-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .management-card { background: var(--white-color); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; transition: all 0.4s var(--bounce-easing); display: flex; flex-direction: column; position: relative; }
+        .management-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.1), transparent 40%); z-index: 1; opacity: 0; transition: opacity 0.5s; }
+        .management-card:hover { transform: translateY(-8px) perspective(1000px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y)); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .management-card:hover::before { opacity: 1; }
+        .management-header { display: flex; align-items: center; padding: 24px; z-index: 2; }
+        .management-logo { width: 40px; height: 40px; margin-right: 16px; flex-shrink: 0; }
+        .management-title h3 { font-size: 1.25rem; }
+        .management-title p { font-size: 0.95rem; color: var(--text-light-color); }
+        .management-content { padding: 0 24px 24px; font-size: 1.05rem; line-height: 1.8; flex-grow: 1; z-index: 2; }
+        .management-content strong { color: var(--primary-color); font-weight: 600; }
+        .management-images { padding: 0 24px 24px; margin-top: auto; z-index: 2; }
+        .management-images.single-image img { width: 100%; height: auto; aspect-ratio: 16/10; object-fit: cover; }
+        .management-images.multi-image { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .management-images img { border-radius: 8px; cursor: pointer; transition: transform 0.3s; }
+        .management-images img:hover { transform: scale(1.05); }
+        @media (max-width: 768px) { .management-grid { display: none; } }
+        .management-swiper { display: none; }
+        @media (max-width: 768px) { .management-swiper { display: block; } .swiper-slide { height: auto; } .management-card { min-height: 480px; } }
+
+        /* ==========================================================================
+           7. Contact & Map Section
+           ========================================================================== */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .contact-form h2 { font-size: 2rem; margin-bottom: 12px; }
+        .contact-form p { color: var(--text-light-color); margin-bottom: 32px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: var(--font-pretendard); font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(28, 41, 192, 0.1); }
+        .map-container { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .map-marker { position: absolute; top: 65%; left: 39%; width: 40px; height: 40px; transform: translate(-50%, -100%); animation: bounce-marker 2s ease-in-out infinite; }
+        .map-marker-pin { width: 100%; height: 100%; background-color: var(--primary-color); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 3px solid white; }
+        .map-marker-pin::after { content: ''; position: absolute; width: 10px; height: 10px; background-color: white; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        @keyframes bounce-marker { 0%, 20%, 50%, 80%, 100% { transform: translate(-50%, -100%); } 40% { transform: translate(-50%, -120%); } 60% { transform: translate(-50%, -110%); } }
+
+        /* ==========================================================================
+           8. Footer & Go To Top
+           ========================================================================== */
+        .footer { background-color: #1a1a1a; color: #ccc; padding: 60px 0; }
+        .footer .container { display: flex; justify-content: space-between; align-items: center; }
+        .footer-logo img { height: 40px; filter: brightness(0) invert(1); }
+        .footer-info { font-size: 0.9rem; line-height: 1.8; }
+        .footer-info span { margin: 0 10px; color: #666; }
+        .footer-social a { font-weight: 600; color: var(--white-color); }
+        .go-to-top { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; background-color: var(--primary-color); color: var(--white-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.4s var(--bounce-easing); z-index: 999; }
+        .go-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .go-to-top:hover { background-color: var(--secondary-color); }
+        .go-to-top svg { width: 24px; height: 24px; }
+
+        /* ==========================================================================
+           9. Lightbox & Scroll Spy
+           ========================================================================== */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+        .lightbox.visible { opacity: 1; visibility: visible; }
+        .lightbox-content { max-width: 90%; max-height: 90%; transform: scale(0.8); transition: transform 0.3s var(--bounce-easing); }
+        .lightbox.visible .lightbox-content { transform: scale(1); }
+        .lightbox-content img { width: 100%; height: 100%; object-fit: contain; }
+
+        #scroll-spy { position: fixed; top: 50%; right: 24px; transform: translateY(-50%); z-index: 998; display: flex; flex-direction: column; gap: 16px; opacity: 0; transition: opacity 0.5s; }
+        #scroll-spy.visible { opacity: 1; }
+        .spy-dot { width: 12px; height: 12px; background-color: rgba(0,0,0,0.2); border-radius: 50%; transition: background-color 0.3s, transform 0.3s; position: relative; }
+        .spy-dot.active { background-color: var(--primary-color); transform: scale(1.2); }
+        .spy-dot .tooltip { position: absolute; top: 50%; right: 20px; transform: translateY(-50%); background-color: var(--text-color); color: var(--white-color); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+        .spy-dot:hover .tooltip { opacity: 1; visibility: visible; }
+        @media (max-width: 992px) { #scroll-spy { display: none; } }
+
+        /* ==========================================================================
+           10. Responsive Styles
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .map-container { margin-top: 60px; }
+            .footer .container { flex-direction: column; text-align: center; }
+            .footer-info { margin: 24px 0; }
+            .footer-info p { display: flex; flex-direction: column; }
+            .footer-info span { display: none; }
         }
 
-        .system-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-        .accordion-arrow {
-            transition: transform 0.3s ease;
-        }
-        .accordion-item.active .accordion-arrow {
-            transform: rotate(180deg);
-        }
-
-        .touch-feedback {
-            transition: transform 0.1s ease-out, filter 0.1s ease-out;
-        }
-        .touch-feedback:active {
-            transform: scale(0.98);
-            filter: brightness(0.95);
-        }
-
-        .carousel-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 1rem;
-            padding-bottom: 1rem;
-        }
-        .carousel-container::-webkit-scrollbar {
-            height: 8px;
-        }
-        .carousel-container::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 10px;
-        }
-        .carousel-item {
-            flex: 0 0 80%;
-            scroll-snap-align: center;
-        }
-        .accordion-content-mobile {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-        .accordion-arrow-mobile {
-            transition: transform 0.3s ease;
-        }
-        .accordion-item-mobile.active .accordion-arrow-mobile {
-            transform: rotate(180deg);
-        }
-        
-        #scroll-down-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            z-index: 20;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-            40% { transform: translate(-50%, -20px); }
-            60% { transform: translate(-50%, -10px); }
-        }
-        
-        #back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
-            background-color: rgba(28, 41, 192, 0.8);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-            z-index: 100;
-        }
-        #back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        #back-to-top:hover {
-            transform: scale(1.1);
+        @media (max-width: 768px) {
+            section { padding: 80px 0; }
+            .section-title { font-size: 2rem; }
+            .hero-slogan { line-height: 1.3; }
+            .tabs { display: none; }
+            .education-swiper { display: block; }
+            .tab-content { display: block !important; }
+            .philosophy-grid, .curriculum-grid, .vocab-grid { grid-template-columns: 1fr; gap: 0; }
+            .placement-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
 
-    <!-- Header -->
-    <header id="header" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 transition-shadow duration-300">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#hero" class="flex items-center">
-                <img src="https://i.imgur.com/onzqqko.png" alt="SNM English 로고" class="h-8 md:h-10">
+    <header class="header">
+        <div class="container">
+            <a href="#" class="header-logo">
+                <img src="https://i.imgur.com/onzqqko.png" alt="SNM English Logo">
             </a>
-            <div class="flex items-center">
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#education" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">SNM의 교육</a>
-                    <a href="#classes" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">수업 안내</a>
-                    <a href="#systems" class="text-gray-600 hover:text-blue-800 transition-colors duration-300 easing-bouncy">관리 시스템</a>
-                </nav>
-                <a href="#contact" class="hidden md:inline-block bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors easing-bouncy ml-8 touch-feedback">상담 예약</a>
-                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none ml-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <nav class="header-nav">
+                <div class="nav-links">
+                    <a href="#education">SNM의 교육</a>
+                    <a href="#class-info">수업 안내</a>
+                    <a href="#management">관리 시스템</a>
+                </div>
+                <a href="#contact" class="btn btn-primary touch-feedback">상담 예약</a>
+                <button class="mobile-menu-button touch-feedback" aria-label="Open menu">
+                    <svg style="width:24px; height:24px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white">
-            <a href="#education" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50 touch-feedback">SNM의 교육</a>
-            <a href="#classes" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50 touch-feedback">수업 안내</a>
-            <a href="#systems" class="mobile-menu-link block text-center py-3 px-4 text-sm text-gray-700 hover:bg-blue-50 border-b touch-feedback">관리 시스템</a>
-            <a href="#contact" class="mobile-menu-link block text-center my-3 mx-4 bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors easing-bouncy touch-feedback">상담 예약</a>
+            </nav>
         </div>
     </header>
+    
+    <div class="mobile-menu">
+        <a href="#education" class="mobile-menu-link">SNM의 교육</a>
+        <a href="#class-info" class="mobile-menu-link">수업 안내</a>
+        <a href="#management" class="mobile-menu-link">관리 시스템</a>
+        <a href="#contact" class="mobile-menu-link">상담 예약</a>
+    </div>
+
+    <nav id="scroll-spy">
+        <a href="#hero" class="spy-dot" data-section="hero"><span class="tooltip">메인</span></a>
+        <a href="#education" class="spy-dot" data-section="education"><span class="tooltip">SNM의 교육</span></a>
+        <a href="#class-info" class="spy-dot" data-section="class-info"><span class="tooltip">수업 안내</span></a>
+        <a href="#management" class="spy-dot" data-section="management"><span class="tooltip">관리 시스템</span></a>
+        <a href="#contact" class="spy-dot" data-section="contact"><span class="tooltip">상담 예약</span></a>
+    </nav>
 
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="relative h-screen flex items-center justify-center text-center bg-white overflow-hidden">
-            <div class="absolute bottom-0 right-0 w-1/2 md:w-1/3 max-w-lg h-auto z-10 opacity-90 pointer-events-none hidden lg:block">
-                <img src="https://i.imgur.com/O1LCJng.png" alt="계단을 오르며 성장하는 학생 일러스트">
-            </div>
-            <div class="z-20 px-4 relative">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 leading-tight">
-                    단단한 관리, <span class="text-blue-800">흔들림 없는 결과</span>
-                </h1>
-                <p class="mt-4 text-lg text-gray-500">SNM English만의 <strong class="font-semibold text-gray-600">소수정예 관리</strong>와 <strong class="font-semibold text-gray-600">독자적인 시스템</strong>이 결과로 증명합니다.</p>
-                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="https://blog.naver.com/snm_english" target="_blank" class="w-full sm:w-auto inline-block bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy touch-feedback">
-                        학원 블로그
-                    </a>
-                     <a href="#contact" class="w-full sm:w-auto inline-block bg-gray-200 text-gray-800 font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy touch-feedback">
-                        상담 예약하기
-                    </a>
+        <section class="hero" id="hero">
+            <img src="https://i.imgur.com/O1LCJng.png" alt="성장 그래프 일러스트" class="hero-illustration" loading="lazy">
+            <div class="hero-content scroll-reveal visible">
+                <h1 class="hero-slogan">단단한 관리,<br>흔들림 없는 결과</h1>
+                <p class="hero-subtext">SNM English만의 <strong>소수정예 관리</strong>와<br class="br-mobile"> <strong>독자적인 시스템</strong>이 결과로 증명합니다.</p>
+                <div class="hero-buttons">
+                    <a href="https://blog.naver.com/snm_english" target="_blank" class="btn btn-secondary touch-feedback">학원 블로그</a>
+                    <a href="#contact" class="btn btn-primary touch-feedback">상담 예약</a>
                 </div>
             </div>
-            <div id="scroll-down-indicator" class="text-gray-400">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            
+            <div class="wave-bg">
+                <div class="wave wave1"></div>
+                <div class="wave wave2"></div>
             </div>
-            <div class="absolute bottom-0 left-0 w-full h-auto z-0">
-                <svg viewBox="0 0 1440 160" xmlns="http://www.w3.org/2000/svg"><path d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,85.3C672,75,768,85,864,96C960,107,1056,117,1152,112C1248,107,1344,85,1392,74.7L1440,64L1440,160L1392,160C1344,160,1248,160,1152,160C1056,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z" fill="#1c29c0" fill-opacity="0.3"></path><path d="M0,96L48,90.7C96,85,192,75,288,85.3C384,96,480,128,576,133.3C672,139,768,117,864,106.7C960,96,1056,96,1152,96C1248,96,1344,96,1392,96L1440,96L1440,160L1392,160C1344,160,1248,160,1152,160C1056,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z" fill="#1c29c0" fill-opacity="0.6"></path><path d="M0,128L48,112C96,96,192,64,288,58.7C384,53,480,75,576,96C672,117,768,139,864,133.3C960,128,1056,96,1152,80C1248,64,1344,64,1392,64L1440,64L1440,160L1392,160C1344,160,1248,160,1152,160C1056,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z" fill="#1c29c0"></path></svg>
-            </div>
+            <a href="#education" class="scroll-down" aria-label="Scroll down"></a>
         </section>
 
-        <!-- SNM's Education Section -->
-        <section id="education" class="py-20 md:py-32 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">SNM의 교육</h2>
-                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate">SNM English의 <strong class="font-semibold text-gray-600">소수정예</strong> 교육은 본질에 집중하며 과정에 충실한 지도를 약속합니다.</p>
+        <section id="education">
+            <div class="container">
+                <h2 class="section-title scroll-reveal">SNM의 교육</h2>
+                <p class="section-subtitle scroll-reveal">본질에 집중한 교육, 결과의 차이를 만듭니다.</p>
+
+                <div class="tabs scroll-reveal">
+                    <button class="tab-button active" data-tab="philosophy">교육 철학</button>
+                    <button class="tab-button" data-tab="curriculum">커리큘럼</button>
+                    <button class="tab-button" data-tab="vocab">어휘 시스템</button>
+                </div>
                 
-                <div class="max-w-4xl mx-auto">
-                    <!-- Tabs for Desktop -->
-                    <div class="hidden md:block border-b border-gray-200 mb-8 scroll-animate">
-                        <nav class="flex justify-center -mb-px space-x-2 sm:space-x-4 md:space-x-8" aria-label="Tabs">
-                            <button class="tab-btn py-4 px-1 border-b-2 text-sm sm:text-base md:text-lg transition-colors duration-500 easing-bouncy active-tab" data-tab-group="education" data-tab-target="philosophy">교육 철학</button>
-                            <button class="tab-btn py-4 px-1 border-b-2 text-sm sm:text-base md:text-lg transition-colors duration-500 easing-bouncy inactive-tab" data-tab-group="education" data-tab-target="curriculum">커리큘럼</button>
-                            <button class="tab-btn py-4 px-1 border-b-2 text-sm sm:text-base md:text-lg transition-colors duration-500 easing-bouncy inactive-tab" data-tab-group="education" data-tab-target="vocabulary">어휘 시스템</button>
-                        </nav>
+                <div class="tab-content active" id="philosophy">
+                    <div class="philosophy-grid">
+                        <div class="card scroll-reveal"><img src="https://i.imgur.com/1phDbSt.png" alt="균형잡힌 저울 일러스트" loading="lazy"><h3>균형잡힌 커리큘럼</h3><p>단편적인 지식 암기를 넘어<br>언어의 4대 영역을 고르게 발전시켜<br>수능과 내신을 모두 잡습니다.</p></div>
+                        <div class="card scroll-reveal delay-1"><img src="https://i.imgur.com/bsegki0.png" alt="체계적인 관리 시스템 일러스트" loading="lazy"><h3>체계적인 관리</h3><p>데이터 기반의 학습 분석과<br>개인별 맞춤 피드백을 통해<br>학습 효율을 극대화합니다.</p></div>
+                        <div class="card scroll-reveal delay-2"><img src="https://i.imgur.com/1kIEMZU.png" alt="소수정예 수업 일러스트" loading="lazy"><h3>소수정예 수업</h3><p>선생님의 세심한 케어 속에서<br>모든 학생이 주인공이 되는<br>최적의 학습 환경을 제공합니다.</p></div>
                     </div>
+                </div>
 
-                    <!-- Accordion for Mobile -->
-                    <div class="md:hidden space-y-2 scroll-animate">
-                        <div class="accordion-item-mobile border rounded-lg overflow-hidden bg-white shadow-sm">
-                            <button class="accordion-header-mobile w-full flex justify-between items-center p-4">
-                                <span class="font-semibold text-lg text-gray-800">교육 철학</span>
-                                <svg class="accordion-arrow-mobile w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div class="accordion-content-mobile bg-white p-4 pt-0">
-                                <div id="philosophy-mobile"></div>
-                            </div>
-                        </div>
-                        <div class="accordion-item-mobile border rounded-lg overflow-hidden bg-white shadow-sm">
-                             <button class="accordion-header-mobile w-full flex justify-between items-center p-4">
-                                <span class="font-semibold text-lg text-gray-800">커리큘럼</span>
-                                <svg class="accordion-arrow-mobile w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div class="accordion-content-mobile bg-white p-4 pt-0">
-                                 <div id="curriculum-mobile"></div>
-                            </div>
-                        </div>
-                        <div class="accordion-item-mobile border rounded-lg overflow-hidden bg-white shadow-sm">
-                             <button class="accordion-header-mobile w-full flex justify-between items-center p-4">
-                                <span class="font-semibold text-lg text-gray-800">어휘 시스템</span>
-                                <svg class="accordion-arrow-mobile w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div class="accordion-content-mobile bg-white p-4 pt-0">
-                                 <div id="vocabulary-mobile"></div>
-                            </div>
+                <div class="tab-content" id="curriculum">
+                    <div class="curriculum-grid">
+                        <div class="card curriculum-card scroll-reveal"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg></div><h4>초등부</h4><ul><li>영어의 흥미를 높이고 기본기 형성</li><li>중등 과정 대비 안정적인 선행학습</li></ul></div>
+                        <div class="card curriculum-card scroll-reveal delay-1"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0V3.75m0 16.5" /></svg></div><h4>중등부</h4><ul><li>내신 완벽 대비 및 수행평가 관리</li><li>고등영어 완성을 위한 초석 마련</li></ul></div>
+                        <div class="card curriculum-card scroll-reveal delay-2"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg></div><h4>고등부</h4><ul><li>수능 1등급을 위한 심화 학습</li><li>고난도 서술형 등 내신 집중 대비</li></ul></div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="vocab">
+                    <div class="vocab-grid">
+                        <div class="card vocab-card scroll-reveal"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg></div><h4>수준별 맞춤 어휘</h4><p>학생 수준에 맞는 단어장을 활용하고,<br>수업마다 60-100개의 단어를<br>체계적으로 암기합니다.</p></div>
+                        <div class="card vocab-card scroll-reveal delay-1"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg></div><h4>월간 복습 시험</h4><p>단순 암기를 넘어,<br>월별 학습 내용 범위의 시험을 통해<br>핵심 내용을 완벽히 복습합니다.</p></div>
+                        <div class="card vocab-card scroll-reveal delay-2"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 11.667 0l3.181-3.183m-4.991-2.691v4.992h-4.992m0 0-3.181-3.183a8.25 8.25 0 0 1 11.667 0l3.181 3.183" /></svg></div><h4>누적 복습 시스템</h4><p>에빙하우스 망각 곡선에 기반한<br>과학적인 누적 복습으로<br>장기 기억을 완성합니다.</p></div>
+                    </div>
+                </div>
+                
+                <div class="swiper-container education-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><div class="card"><img src="https://i.imgur.com/1phDbSt.png" alt="균형잡힌 저울 일러스트" loading="lazy"><h3>균형잡힌 커리큘럼</h3><p>단편적인 지식 암기를 넘어<br>언어의 4대 영역을 고르게 발전시켜<br>수능과 내신을 모두 잡습니다.</p></div></div>
+                        <div class="swiper-slide"><div class="card"><img src="https://i.imgur.com/bsegki0.png" alt="체계적인 관리 시스템 일러스트" loading="lazy"><h3>체계적인 관리</h3><p>데이터 기반의 학습 분석과<br>개인별 맞춤 피드백을 통해<br>학습 효율을 극대화합니다.</p></div></div>
+                        <div class="swiper-slide"><div class="card"><img src="https://i.imgur.com/1kIEMZU.png" alt="소수정예 수업 일러스트" loading="lazy"><h3>소수정예 수업</h3><p>선생님의 세심한 케어 속에서<br>모든 학생이 주인공이 되는<br>최적의 학습 환경을 제공합니다.</p></div></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="class-info">
+            <div class="container">
+                <h2 class="section-title scroll-reveal">수업 안내</h2>
+                <p class="section-subtitle scroll-reveal">SNM English의 수업은 언제나 학생들을 위해 열려있습니다.</p>
+
+                <div class="tabs scroll-reveal">
+                    <button class="tab-button active" data-tab="timetable">주간 시간표</button>
+                    <button class="tab-button" data-tab="placement">반편성 안내</button>
+                </div>
+                
+                <div class="tab-content active" id="timetable">
+                    <div class="timetable-container scroll-reveal">
+                        <div class="timetable-grid">
+                            <div class="day-header" style="grid-column: 2 / 4;">월</div><div class="day-header" style="grid-column: 4 / 6;">화</div><div class="day-header" style="grid-column: 6 / 8;">수</div><div class="day-header" style="grid-column: 8 / 10;">목</div><div class="day-header" style="grid-column: 10 / 12;">금</div><div class="day-header" style="grid-column: 12 / 14;">토</div>
+                            <div class="time-label" style="grid-row: 2 / 4;">1시</div><div class="time-label" style="grid-row: 4 / 6;">2시</div><div class="time-label" style="grid-row: 6 / 8;">3시</div><div class="time-label" style="grid-row: 8 / 10;">4시</div><div class="time-label" style="grid-row: 10 / 12;">5시</div><div class="time-label" style="grid-row: 12 / 14;">6시</div><div class="time-label" style="grid-row: 14 / 16;">7시</div><div class="time-label" style="grid-row: 16 / 18;">8시</div><div class="time-label" style="grid-row: 18 / 20;">9시</div>
+                            <div class="class-block color-elem c2" style="grid-area: 6 / 4 / 10 / 5;"><p>초5</p></div><div class="class-block color-elem c1" style="grid-area: 6 / 5 / 10 / 6;"><p>초6</p></div>
+                            <div class="class-block color-elem c2" style="grid-area: 6 / 8 / 10 / 9;"><p>초5</p></div><div class="class-block color-elem c1" style="grid-area: 6 / 9 / 10 / 10;"><p>초6</p></div>
+                            <div class="class-block color-middle c2 closed" style="grid-area: 10 / 3 / 14 / 4;"><p>중2</p></div><div class="class-block color-middle c1" style="grid-area: 10 / 4 / 14 / 5;"><p>중2</p></div>
+                            <div class="class-block color-middle c2" style="grid-area: 10 / 5 / 14 / 6;"><p>중3</p></div><div class="class-block color-middle c1 closed" style="grid-area: 10 / 6 / 14 / 7;"><p>중2</p></div>
+                            <div class="class-block color-middle c1" style="grid-area: 10 / 8 / 14 / 9;"><p>중3</p></div><div class="class-block color-middle c2" style="grid-area: 10 / 9 / 14 / 10;"><p>중2</p></div>
+                            <div class="class-block color-middle c2" style="grid-area: 15 / 3 / 19 / 4;"><p>중1</p></div><div class="class-block color-middle c2" style="grid-area: 15 / 7 / 19 / 8;"><p>중1</p></div>
+                            <div class="class-block color-high c2" style="grid-area: 15 / 5 / 20 / 6;"><p>배명고1</p></div><div class="class-block color-high c2" style="grid-area: 15 / 7 / 20 / 8;"><p>배명고1</p></div>
+                            <div class="class-block color-high c2" style="grid-area: 15 / 9 / 20 / 10;"><p>배명고1</p></div><div class="class-block color-high c2" style="grid-area: 15 / 11 / 20 / 12;"><p>배명고1</p></div>
+                            <div class="class-block color-high c1 closed" style="grid-area: 14 / 10 / 18 / 11;"><p>고3 수능</p></div><div class="class-block color-high c2 closed" style="grid-area: 10 / 11 / 14 / 12;"><p>고3 수능</p></div>
+                            <div class="class-block color-clinic" style="grid-area: 2 / 12 / 20 / 14;"><p>클리닉 & 재시험</p></div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Content for Desktop Tabs -->
-                    <div class="hidden md:block">
-                        <div id="philosophy" class="tab-content active" data-tab-group="education"></div>
-                        <div id="curriculum" class="tab-content" data-tab-group="education"></div>
-                        <div id="vocabulary" class="tab-content" data-tab-group="education"></div>
+                <div class="tab-content" id="placement">
+                    <div class="placement-grid scroll-reveal">
+                        <div class="placement-card"><h3>초등부</h3><div class="placement-class"><span class="placement-class-name">초등 5학년</span><div class="time-block"><span>화</span><span>목</span><span>15-17시</span></div></div><div class="placement-class"><span class="placement-class-name">초등 6학년</span><div class="time-block"><span>화</span><span>목</span><span>15-17시</span></div></div></div>
+                        <div class="placement-card"><h3>중등부</h3><div class="placement-class"><span class="placement-class-name">중1</span><div class="time-block"><span>월</span><span>수</span><span>19:30-21:30</span></div></div><div class="placement-class"><span class="placement-class-name">중2</span><div class="time-block"><span>화</span><span>목</span><span>17-19시</span></div></div><div class="placement-class"><span class="placement-class-name">중2</span><span class="class-tag tag-closed">마감</span></div><div class="placement-class"><span class="placement-class-name">중3</span><div class="time-block"><span>화</span><span>목</span><span>17-19시</span></div></div></div>
+                        <div class="placement-card"><h3>고등부</h3><div class="placement-class"><span class="placement-class-name">고3 수능반</span><span class="class-tag tag-closed">마감</span></div><div class="placement-class"><span class="placement-class-name">배명고 1학년</span><div class="time-block"><span>화목/수금</span></div></div><div class="placement-class"><span class="placement-class-name">잠실여고 1학년</span><span class="class-tag tag-soon">개강 예정</span></div></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Class Information Section -->
-        <section id="classes" class="py-20 md:py-32 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">수업 안내</h2>
-                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate"><strong class="font-semibold text-gray-600">소수정예</strong>로 운영되는 SNM English의 수업과 반편성을 안내합니다.</p>
-                <div class="max-w-6xl mx-auto">
-                    <div class="border-b border-gray-200 mb-8 scroll-animate">
-                        <nav class="flex justify-center -mb-px space-x-4 md:space-x-8" aria-label="Tabs">
-                            <button class="tab-btn py-4 px-1 border-b-2 text-lg transition-colors duration-500 easing-bouncy active-tab" data-tab-group="classes" data-tab-target="timetable">주간 시간표</button>
-                            <button class="tab-btn py-4 px-1 border-b-2 text-lg transition-colors duration-500 easing-bouncy inactive-tab" data-tab-group="classes" data-tab-target="class-info">반편성 안내</button>
-                        </nav>
+        <section id="management">
+            <div class="container">
+                <h2 class="section-title scroll-reveal">독자적인 관리 시스템</h2>
+                <p class="section-subtitle scroll-reveal">결과가 증명하는 SNM English만의 학습 관리 노하우입니다.</p>
+                
+                <div class="management-grid scroll-reveal">
+                    <div class="management-card"><div class="management-header"><img src="https://i.imgur.com/wkcXum1.png" alt="NELT Logo" class="management-logo" loading="lazy"><div class="management-title"><h3>NELT</h3><p>데이터 기반 능력 평가</p></div></div><div class="management-content"><p><strong>전국 단위 데이터</strong>와 비교하여<br>학생의 위치를 정확히 진단하고,<br>영역별 강점과 약점을 정밀하게 분석하여<br><strong>개인별 맞춤 학습 전략</strong>을 수립합니다.</p></div></div>
+                    <div class="management-card"><div class="management-header"><img src="https://i.imgur.com/03VJTJ6.png" alt="Notion Logo" class="management-logo" loading="lazy"><div class="management-title"><h3>개인별 과제관리</h3><p>학습 이력 관리 플랫폼</p></div></div><div class="management-content"><p>Notion으로 <strong>과제 수행률, 테스트 결과</strong> 등을<br>체계적으로 기록하여 성장 과정을<br>한눈에 파악하고, <strong>취약점을<br>집중적으로 보완</strong>합니다.</p></div><div class="management-images single-image"><img src="https://i.imgur.com/rYeumKm.png" alt="Notion 과제관리 예시" class="lightbox-trigger" loading="lazy"></div></div>
+                    <div class="management-card"><div class="management-header"><img src="https://i.imgur.com/gvsWG74.png" alt="ClassCard Logo" class="management-logo" loading="lazy"><div class="management-title"><h3>클래스카드</h3><p>스마트 학습 도구</p></div></div><div class="management-content"><p><strong>게임화 요소</strong>를 통해 학습 동기를 부여하고,<br>다양한 방식의 암기 및 테스트를 지원하여<br><strong>어휘 학습 효과를 극대화</strong>합니다.</p></div><div class="management-images multi-image"><img src="https://i.imgur.com/C1ARgJy.png" alt="클래스카드 예시 1" class="lightbox-trigger" loading="lazy"><img src="https://i.imgur.com/FgEiqq7.png" alt="클래스카드 예시 2" class="lightbox-trigger" loading="lazy"><img src="https://i.imgur.com/2JyNJ0D.png" alt="클래스카드 예시 3" class="lightbox-trigger" loading="lazy"><img src="https://i.imgur.com/2JKcYha.png" alt="클래스카드 예시 4" class="lightbox-trigger" loading="lazy"></div></div>
+                </div>
+
+                <div class="swiper-container management-swiper scroll-reveal">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><div class="management-card"><div class="management-header"><img src="https://i.imgur.com/wkcXum1.png" alt="NELT Logo" class="management-logo" loading="lazy"><div class="management-title"><h3>NELT</h3><p>데이터 기반 능력 평가</p></div></div><div class="management-content"><p><strong>전국 단위 데이터</strong>와 비교하여<br>학생의 위치를 정확히 진단하고,<br>영역별 강점과 약점을 정밀하게 분석하여<br><strong>개인별 맞춤 학습 전략</strong>을 수립합니다.</p></div></div></div>
+                        <div class="swiper-slide"><div class="management-card"><div class="management-header"><img src="https://i.imgur.com/03VJTJ6.png" alt="Notion Logo" class="management-logo" loading="lazy"><div class="management-title"><h3>개인별 과제관리</h3><p>학습 이력 관리 플랫폼</p></div></div><div class="management-content"><p>Notion으로 <strong>과제 수행률, 테스트 결과</strong> 등을<br>체계적으로 기록하여 성장 과정을<br>한눈에 파악하고, <strong>취약점을<br>집중적으로 보완</strong>합니다.</p></div><div class="management-images single-image"><img src="https://i.imgur.com/rYeumKm.png" alt="Notion 과제관리 예시" class="lightbox-trigger" loading="lazy"></div></div></div>
+                        <div class="swiper-slide"><div class="management-card"><div class="management-header"><img src="https://i.imgur.com/gvsWG74.png" alt="ClassCard Logo" class="management-logo" loading="lazy"><div class="management-title"><h3>클래스카드</h3><p>스마트 학습 도구</p></div></div><div class="management-content"><p><strong>게임화 요소</strong>를 통해 학습 동기를 부여하고,<br>다양한 방식의 암기 및 테스트를 지원하여<br><strong>어휘 학습 효과를 극대화</strong>합니다.</p></div><div class="management-images multi-image"><img src="https://i.imgur.com/C1ARgJy.png" alt="클래스카드 예시 1" class="lightbox-trigger" loading="lazy"><img src="https://i.imgur.com/FgEiqq7.png" alt="클래스카드 예시 2" class="lightbox-trigger" loading="lazy"><img src="https://i.imgur.com/2JyNJ0D.png" alt="클래스카드 예시 3" class="lightbox-trigger" loading="lazy"><img src="https://i.imgur.com/2JKcYha.png" alt="클래스카드 예시 4" class="lightbox-trigger" loading="lazy"></div></div></div>
                     </div>
-                    <div id="timetable" class="tab-content active" data-tab-group="classes">
-                        <div class="hidden md:block bg-white p-4 rounded-xl shadow-lg border border-gray-100 scroll-animate">
-                            <div class="timetable-grid">
-                                <!-- Headers -->
-                                <div class="time-label"></div>
-                                <div class="day-header" style="grid-column: 2 / 4;">월</div>
-                                <div class="day-header" style="grid-column: 4 / 6;">화</div>
-                                <div class="day-header" style="grid-column: 6 / 8;">수</div>
-                                <div class="day-header" style="grid-column: 8 / 10;">목</div>
-                                <div class="day-header" style="grid-column: 10 / 12;">금</div>
-                                <div class="day-header" style="grid-column: 12 / 14;">토</div>
-                                <!-- Time Labels -->
-                                <div class="time-label" style="grid-row: 2 / 4;">1시</div>
-                                <div class="time-label" style="grid-row: 4 / 6;">2시</div>
-                                <div class="time-label" style="grid-row: 6 / 8;">3시</div>
-                                <div class="time-label" style="grid-row: 8 / 10;">4시</div>
-                                <div class="time-label" style="grid-row: 10 / 12;">5시</div>
-                                <div class="time-label" style="grid-row: 12 / 14;">6시</div>
-                                <div class="time-label" style="grid-row: 14 / 16;">7시</div>
-                                <div class="time-label" style="grid-row: 16 / 18;">8시</div>
-                                <div class="time-label" style="grid-row: 18 / 20;">9시</div>
-                                <!-- Class Blocks -->
-                                <div class="class-block bg-blue-100" style="grid-area: 6 / 4 / 10 / 5;"><p>초6<br>(C1)</p></div>
-                                <div class="class-block bg-blue-200" style="grid-area: 6 / 5 / 10 / 6;"><p>초5<br>(C2)</p></div>
-                                <div class="class-block bg-blue-100" style="grid-area: 6 / 8 / 10 / 9;"><p>초6<br>(C1)</p></div>
-                                <div class="class-block bg-blue-200" style="grid-area: 6 / 9 / 10 / 10;"><p>초5<br>(C2)</p></div>
-                                <div class="class-block bg-green-200" style="grid-area: 10 / 3 / 14 / 4;"><p>중2<br>(C2)</p></div>
-                                <div class="class-block bg-green-100" style="grid-area: 10 / 4 / 14 / 5;"><p>중2<br>(C1)</p></div>
-                                <div class="class-block bg-green-200" style="grid-area: 10 / 5 / 14 / 6;"><p>중3<br>(C2)</p></div>
-                                <div class="class-block bg-green-100" style="grid-area: 10 / 6 / 14 / 7;"><p>중2<br>(C1)</p></div>
-                                <div class="class-block bg-green-100" style="grid-area: 10 / 8 / 14 / 9;"><p>중3<br>(C1)</p></div>
-                                <div class="class-block bg-green-200" style="grid-area: 10 / 9 / 14 / 10;"><p>중2<br>(C2)</p></div>
-                                <div class="class-block bg-green-200" style="grid-area: 15 / 3 / 19 / 4;"><p>중1<br>(C2)</p></div>
-                                <div class="class-block bg-green-200" style="grid-area: 15 / 7 / 19 / 8;"><p>중1<br>(C2)</p></div>
-                                <div class="class-block bg-purple-200" style="grid-area: 15 / 5 / 20 / 6;"><p>배명고1<br>(C2)</p></div>
-                                <div class="class-block bg-purple-200" style="grid-area: 15 / 7 / 20 / 8;"><p>배명고1<br>(C2)</p></div>
-                                <div class="class-block bg-purple-200" style="grid-area: 15 / 9 / 20 / 10;"><p>배명고1<br>(C2)</p></div>
-                                <div class="class-block bg-purple-200" style="grid-area: 15 / 11 / 20 / 12;"><p>배명고1<br>(C2)</p></div>
-                                <div class="class-block bg-purple-100" style="grid-area: 14 / 10 / 18 / 11;"><p>고3 수능<br>(C1)</p></div>
-                                <div class="class-block bg-purple-200" style="grid-area: 10 / 11 / 14 / 12;"><p>고3 수능<br>(C2)</p></div>
-                                <div class="class-block bg-gray-200" style="grid-area: 2 / 12 / 20 / 14;"><p>클리닉<br>&<br>재시험</p></div>
-                            </div>
-                        </div>
-                        <div class="md:hidden space-y-4 scroll-animate">
-                            <div class="bg-white p-4 rounded-lg shadow">
-                                <h3 class="font-bold text-lg border-b pb-2 mb-3">월요일</h3>
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 2학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 1학년</p> <p class="text-sm text-gray-500">19:30 - 21:30</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                </div>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg shadow">
-                                <h3 class="font-bold text-lg border-b pb-2 mb-3">화요일</h3>
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">초등 6학년</p> <p class="text-sm text-gray-500">15:00 - 17:00</p> </div> <span class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
-                                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">초등 5학년</p> <p class="text-sm text-gray-500">15:00 - 17:00</p> </div> <span class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 2학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
-                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 3학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">배명고 1학년</p> <p class="text-sm text-gray-500">19:30 - 22:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                </div>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg shadow">
-                                <h3 class="font-bold text-lg border-b pb-2 mb-3">수요일</h3>
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 2학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
-                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 1학년</p> <p class="text-sm text-gray-500">19:30 - 21:30</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">배명고 1학년</p> <p class="text-sm text-gray-500">19:30 - 22:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                </div>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg shadow">
-                                <h3 class="font-bold text-lg border-b pb-2 mb-3">목요일</h3>
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">초등 6학년</p> <p class="text-sm text-gray-500">15:00 - 17:00</p> </div> <span class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
-                                    <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">초등 5학년</p> <p class="text-sm text-gray-500">15:00 - 17:00</p> </div> <span class="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 3학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
-                                    <div class="flex items-center justify-between bg-green-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">중등 2학년</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">배명고 1학년</p> <p class="text-sm text-gray-500">19:30 - 22:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                </div>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg shadow">
-                                <h3 class="font-bold text-lg border-b pb-2 mb-3">금요일</h3>
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">고3 수능반</p> <p class="text-sm text-gray-500">17:00 - 19:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">고3 수능반</p> <p class="text-sm text-gray-500">19:00 - 21:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 1</span></div>
-                                    <div class="flex items-center justify-between bg-purple-50 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">배명고 1학년</p> <p class="text-sm text-gray-500">19:30 - 22:00</p> </div> <span class="bg-purple-200 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">Class 2</span></div>
-                                </div>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg shadow">
-                                <h3 class="font-bold text-lg border-b pb-2 mb-3">토요일</h3>
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between bg-gray-100 p-3 rounded-md"><div class="pr-2"> <p class="font-semibold text-gray-800">클리닉 및 재시험</p> <p class="text-sm text-gray-500">1:00 - 10:00</p> </div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="class-info" class="tab-content" data-tab-group="classes">
-                        <div class="grid md:grid-cols-3 gap-8">
-                            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 scroll-animate">
-                                <h3 class="text-2xl font-bold text-blue-800 mb-4 pb-4 border-b-2 border-blue-200">초등부</h3>
-                                <div class="space-y-4 text-gray-800 mt-4">
-                                    <div class="flex justify-between items-center"><p>초6 화목반</p></div>
-                                    <div class="flex justify-between items-center"><p>초5 화목반</p></div>
-                                    <div class="flex justify-between items-center"><p>초등부 수금반</p><span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">개설 예정</span></div>
-                                </div>
-                            </div>
-                             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 scroll-animate" style="transition-delay: 150ms;">
-                                <h3 class="text-2xl font-bold text-green-800 mb-4 pb-4 border-b-2 border-green-200">중등부</h3>
-                                <div class="space-y-4 text-gray-800 mt-4">
-                                    <div class="flex justify-between items-center"><p>중3 화목반</p></div>
-                                    <div class="flex justify-between items-center"><p>중2 화목반</p></div>
-                                    <div class="flex justify-between items-center"><p>중2 월수반</p><span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-1 rounded-full">마감</span></div>
-                                    <div class="flex justify-between items-center"><p>중1 월수반</p></div>
-                                </div>
-                            </div>
-                             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 scroll-animate" style="transition-delay: 300ms;">
-                                <h3 class="text-2xl font-bold text-purple-800 mb-4 pb-4 border-b-2 border-purple-200">고등부</h3>
-                                <div class="space-y-4 text-gray-800 mt-4">
-                                    <div class="flex justify-between items-center"><p>고3 수능반 금요반</p><span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-1 rounded-full">마감</span></div>
-                                    <div class="flex justify-between items-center"><p>배명고 1학년 화목반</p></div>
-                                    <div class="flex justify-between items-center"><p>배명고 1학년 수금반</p></div>
-                                    <div class="flex justify-between items-center"><p>잠실여고 1학년</p><span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">개강 예정</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Management Systems Section -->
-        <section id="systems" class="py-20 md:py-32 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">체계적인 관리 시스템</h2>
-                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate">SNM English는 효과적인 학습 관리를 위해 검증된 시스템을 활용합니다.</p>
-                <div class="space-y-4 max-w-3xl mx-auto">
-                    <!-- NELT -->
-                    <div class="accordion-item bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy scroll-animate">
-                        <div class="accordion-header flex items-center justify-between p-6 cursor-pointer touch-feedback">
-                            <div class="flex items-center">
-                                <img src="https://i.imgur.com/wkcXum1.png" alt="NELT 로고" class="w-12 h-12 object-contain rounded-md mr-4">
-                                <div>
-                                    <h3 class="text-xl font-bold">NELT</h3>
-                                    <p class="text-gray-600 text-sm">데이터 기반의 객관적인 영어 능력 평가</p>
-                                </div>
-                            </div>
-                            <svg class="accordion-arrow w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                        <div class="system-details">
-                            <div class="p-6 pt-0 text-gray-700">
-                                <p>단순한 점수를 넘어, 학생의 영어 능력을 영역별로 정밀하게 분석합니다. 축적된 데이터를 기반으로 학생 개개인의 강점과 약점을 정확히 파악하고, 가장 효과적인 학습 방향을 제시하는 맞춤형 지도의 핵심입니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Notion -->
-                    <div class="accordion-item bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 150ms;">
-                         <div class="accordion-header flex items-center justify-between p-6 cursor-pointer touch-feedback">
-                            <div class="flex items-center">
-                                <img src="https://i.imgur.com/03VJTJ6.png" alt="Notion 로고" class="w-12 h-12 object-contain rounded-md mr-4">
-                                <div>
-                                    <h3 class="text-xl font-bold">개인별 과제관리</h3>
-                                    <p class="text-gray-600 text-sm">체계적인 학습 이력 관리 플랫폼</p>
-                                </div>
-                            </div>
-                            <svg class="accordion-arrow w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                        <div class="system-details">
-                            <div class="p-6 pt-0 text-gray-700">
-                                <p>모든 과제와 학습 자료, 성취도 분석표가 Notion 페이지에 투명하게 기록됩니다. 학생과 학부모님은 언제든지 학습 현황을 확인할 수 있으며, 이를 통해 학습의 전 과정을 체계적으로 추적하고 관리합니다.</p>
-                                <img src="https://i.imgur.com/rYeumKm.png" alt="Notion 과제 관리 예시 화면" class="mt-4 rounded-lg shadow-md" loading="lazy">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Classcard -->
-                    <div class="accordion-item bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-500 easing-bouncy scroll-animate" style="transition-delay: 300ms;">
-                         <div class="accordion-header flex items-center justify-between p-6 cursor-pointer touch-feedback">
-                            <div class="flex items-center">
-                                <img src="https://i.imgur.com/gvsWG74.png" alt="클래스카드 로고" class="w-12 h-12 object-contain rounded-md mr-4">
-                                <div>
-                                    <h3 class="text-xl font-bold">클래스카드</h3>
-                                    <p class="text-gray-600 text-sm">효율을 극대화하는 스마트 학습 도구</p>
-                                </div>
-                            </div>
-                            <svg class="accordion-arrow w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                        <div class="system-details">
-                            <div class="p-6 pt-0 text-gray-700">
-                                <p>단순한 단어 암기를 넘어, 문장 재구성, 스펠링, 듣기 등 다채로운 드릴 학습을 통해 배운 내용을 완벽하게 체화시키는 검증된 학습 도구입니다. 실시간 학습 현황 확인으로 완전 학습을 이끌어냅니다.</p>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                                    <img src="https://i.imgur.com/C1ARgJy.png" alt="클래스카드 단어 학습 예시" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                                    <img src="https://i.imgur.com/FgEiqq7.png" alt="클래스카드 문장 학습 예시" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                                    <img src="https://i.imgur.com/2JyNJ0D.png" alt="클래스카드 드릴 학습 예시" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                                    <img src="https://i.imgur.com/2JKcYha.png" alt="클래스카드 OMR 테스트 예시" class="w-full h-auto rounded-lg shadow-md" loading="lazy">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 md:py-32 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4 text-center scroll-animate">상담 신청 및 오시는 길</h2>
-                <p class="text-base sm:text-lg text-gray-500 mb-12 text-center max-w-xl mx-auto scroll-animate">SNM English에 대해 궁금한 점이 있으신가요? 언제든지 편하게 문의해주세요.</p>
-                <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
-                    <div class="scroll-animate">
-                        <h3 class="text-2xl font-bold mb-6">상담 신청</h3>
-                        <form id="contact-form" action="https://formspree.io/f/xgvzqjdq" method="POST" class="space-y-6">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700">이름</label>
-                                <input type="text" name="name" id="name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                            </div>
-                            <div>
-                                <label for="contact-info" class="block text-sm font-medium text-gray-700">연락처</label>
-                                <input type="text" name="연락처" id="contact-info" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="전화번호 또는 이메일">
-                            </div>
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-gray-700">문의 내용 (학생 이름/학년, 상담 희망 시간 등)</label>
-                                <textarea name="message" id="message" rows="4" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
-                            </div>
-                            <div>
-                                <button type="submit" class="w-full bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:-translate-y-1 transition-all duration-500 easing-bouncy touch-feedback">
-                                    상담 신청하기
-                                </button>
-                            </div>
+        <section id="contact">
+            <div class="container">
+                <div class="contact-grid scroll-reveal">
+                    <div class="contact-form">
+                        <h2>상담 예약</h2>
+                        <p>SNM English의 문은 항상 열려있습니다.<br>궁금한 점이 있다면 언제든지 문의해주세요.</p>
+                        <form>
+                            <div class="form-group"><label for="name">학생 이름</label><input type="text" id="name" name="name" required></div>
+                            <div class="form-group"><label for="phone">연락처</label><input type="tel" id="phone" name="phone" required></div>
+                            <div class="form-group"><label for="message">문의 내용</label><textarea id="message" name="message" rows="4"></textarea></div>
+                            <button type="submit" class="btn btn-primary touch-feedback" style="width: 100%;">상담 예약하기</button>
                         </form>
                     </div>
-                    <div class="scroll-animate" style="transition-delay: 150ms;">
-                        <h3 class="text-2xl font-bold mb-6">오시는 길</h3>
-                        <div class="relative w-full h-80 rounded-lg shadow-md border overflow-hidden">
-                            <img src="https://i.imgur.com/p8GQoow.png" alt="SNM English 오시는 길 약도" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Image+Not+Found';" loading="lazy">
-                            <div class="map-marker"></div>
-                        </div>
-                        <div class="mt-4 text-gray-700 bg-gray-100 p-4 rounded-lg">
-                            <p class="font-bold text-blue-600">송파역 3번출구 앞</p>
-                            <p class="font-semibold mt-1">서울특별시 송파구 송파대로 345, 뚜레쥬르 건물 2층에 위치</p>
-                            <p class="font-semibold mt-2"><a href="tel:0264026768" class="text-blue-600 hover:underline">02 6402 6768</a></p>
-                        </div>
+                    <div class="map-container">
+                        <img src="https://i.imgur.com/p8GQoow.png" alt="SNM English 오시는 길 약도" loading="lazy">
+                        <div class="map-marker"><div class="map-marker-pin"></div></div>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white">
-        <div class="container mx-auto px-6 py-12 text-center">
-            <img src="https://i.imgur.com/KjlZGfN.png" alt="SNM English 푸터 로고 (흰색)" class="h-12 mx-auto mb-6">
-            <div class="text-gray-400 space-y-3">
-                <p>SNM English</p>
-                <p class="text-sm">송파대로 345, 헬리오시티 상가B동 2층</p>
-                <p class="text-sm">02 6402 6768</p>
-                <p>
-                    <a href="https://blog.naver.com/snm_english" target="_blank" class="hover:text-white transition-colors">학원 블로그</a>
-                </p>
-            </div>
-            <p class="text-gray-500 text-sm mt-8">&copy; 2024 SNM English. All Rights Reserved.</p>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"><img src="https://i.imgur.com/KjlZGfN.png" alt="SNM English White Logo"></div>
+            <div class="footer-info"><p><strong>SNM English</strong><span>|</span>주소: 송파대로 345, 헬리오시티 상가B동 2층<span>|</span>연락처: 02 6402 6768</p></div>
+            <div class="footer-social"><a href="https://blog.naver.com/snm_english" target="_blank">학원 블로그</a></div>
         </div>
     </footer>
+    
+    <a href="#hero" class="go-to-top touch-feedback" aria-label="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>
+    </a>
 
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <img src="" alt="확대 이미지">
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // --- 스크롤 애니메이션 로직 ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.scroll-animate').forEach(el => {
-            observer.observe(el);
-        });
-
-        // --- 헤더 그림자 로직 ---
-        const header = document.getElementById('header');
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const header = document.querySelector('.header');
         window.addEventListener('scroll', () => {
-            header.classList.toggle('header-shadow', window.scrollY > 50);
+            header.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // --- 모바일 메뉴 토글 로직 ---
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('active'); });
+        mobileMenuLinks.forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.remove('active'); }); });
+
+        // Tab Logic
+        const tabContainers = document.querySelectorAll('#education .container, #class-info .container');
+        tabContainers.forEach(container => {
+            const tabButtons = container.querySelectorAll('.tab-button');
+            const tabContents = container.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    tabContents.forEach(content => { content.classList.toggle('active', content.id === tabId); });
+                });
+            });
         });
         
-        document.querySelectorAll('.mobile-menu-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+        // Swiper for Education Section (Mobile)
+        new Swiper('.education-swiper', { loop: true, slidesPerView: 1.2, spaceBetween: 20, centeredSlides: true, pagination: { el: '.swiper-pagination', clickable: true, }, breakpoints: { 576: { slidesPerView: 2, spaceBetween: 20 }, } });
+        
+        // Swiper for Management Section (Mobile)
+        new Swiper('.management-swiper', { loop: false, slidesPerView: 1.1, spaceBetween: 20, centeredSlides: true, pagination: { el: '.swiper-pagination', clickable: true, } });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); } 
+                else { entry.target.classList.remove('visible'); }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Go To Top Button
+        const goToTopBtn = document.querySelector('.go-to-top');
+        window.addEventListener('scroll', () => { goToTopBtn.classList.toggle('visible', window.scrollY > 300); });
+
+        // Lightbox Logic
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const triggerImages = document.querySelectorAll('.lightbox-trigger');
+        triggerImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('visible');
+            });
+        });
+        lightbox.addEventListener('click', () => { lightbox.classList.remove('visible'); });
+
+        // Interactive Illustration
+        const hero = document.querySelector('.hero');
+        const illustration = document.querySelector('.hero-illustration');
+        hero.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { offsetWidth, offsetHeight } = hero;
+            const x = (clientX - offsetWidth / 2) / 25;
+            const y = (clientY - offsetHeight / 2) / 25;
+            illustration.style.transform = `translate(${-x}px, ${-y}px)`;
+        });
+
+        // Management Card Hover Effect
+        const managementCards = document.querySelectorAll('.management-card');
+        managementCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateY = -1 * ((x - rect.width / 2) / 20);
+                const rotateX = (y - rect.height / 2) / 20;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                card.style.setProperty('--rotate-x', `${rotateX}deg`);
+                card.style.setProperty('--rotate-y', `${rotateY}deg`);
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.setProperty('--rotate-x', '0deg');
+                card.style.setProperty('--rotate-y', '0deg');
             });
         });
 
-        // --- 탭 기능 로직 ---
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const group = button.dataset.tabGroup;
-                const targetId = button.dataset.tabTarget;
-
-                document.querySelectorAll(`.tab-btn[data-tab-group="${group}"]`).forEach(btn => {
-                    btn.classList.remove('active-tab');
-                    btn.classList.add('inactive-tab');
-                });
-
-                button.classList.add('active-tab');
-                button.classList.remove('inactive-tab');
-
-                document.querySelectorAll(`.tab-content[data-tab-group="${group}"]`).forEach(content => {
-                    content.classList.remove('active');
-                });
-
-                document.getElementById(targetId).classList.add('active');
-            });
-        });
-
-        // --- 관리 시스템 아코디언 로직 ---
-        const accordionItems = document.querySelectorAll('.accordion-item');
-        accordionItems.forEach(item => {
-            const header = item.querySelector('.accordion-header');
-            const details = item.querySelector('.system-details');
-
-            header.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                
-                accordionItems.forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.system-details').style.maxHeight = '0px';
-                });
-
-                if (!isActive) {
-                    item.classList.add('active');
-                    details.style.maxHeight = details.scrollHeight + 'px';
+        // Scroll Spy
+        const scrollSpy = document.getElementById('scroll-spy');
+        const spyDots = document.querySelectorAll('.spy-dot');
+        const sections = document.querySelectorAll('section');
+        const spyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    spyDots.forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.section === entry.target.id);
+                    });
                 }
             });
+        }, { rootMargin: '-50% 0px -50% 0px' });
+        sections.forEach(sec => spyObserver.observe(sec));
+        window.addEventListener('scroll', () => {
+            scrollSpy.classList.toggle('visible', window.scrollY > window.innerHeight / 2);
         });
     });
     </script>
+
 </body>
 </html>
