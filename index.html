@@ -34,7 +34,7 @@
         /* 1.1. Reset & Base */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         html { font-size: 16px; scroll-behavior: smooth; }
-        body { font-family: var(--font-pretendard); color: var(--text-color); background-color: var(--white-color); word-break: keep-all; line-height: 1.7; overflow-x: hidden; /* Prevent horizontal scroll globally */ }
+        body { font-family: var(--font-pretendard); color: var(--text-color); background-color: var(--white-color); word-break: keep-all; line-height: 1.7; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         button { border: none; background: none; cursor: pointer; font-family: var(--font-pretendard); }
         img { max-width: 100%; height: auto; display: block; }
@@ -255,81 +255,11 @@
             section { padding: 80px 0; }
             .section-title { font-size: 2rem; }
             .hero-slogan { line-height: 1.3; }
-            
-            /* --- [START] MOBILE REDESIGN (PROJECT REQUIREMENTS) --- */
-            
-            /* 5.1. Global Fixes: Hide desktop elements and fix bugs */
-            .tabs, .education-swiper { display: none; } /* Hide original tabs and swiper */
-            #scroll-spy { display: none; } /* [FIX] Hide scroll-spy to remove duplicate 'go to top' button */
-            .mobile-menu { z-index: 10001; } /* [FIX] Ensure mobile menu is always on top */
-
-            /* 5.2. UI/UX 재설계: Accordion UI for Education & Class Info sections */
-            .tab-content { display: block !important; } /* Ensure content is visible for accordion logic */
-            .philosophy-grid, .curriculum-grid, .vocab-grid, .placement-grid, .timetable-container { display: none; } /* Hide original content grids */
-            
-            .accordion-item { border-bottom: 1px solid var(--border-color); }
-            .accordion-item:first-child { border-top: 1px solid var(--border-color); }
-            .accordion-header { padding: 20px 16px; font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-            .accordion-header::after { content: '+'; font-size: 2rem; color: var(--primary-color); transition: transform 0.3s; }
-            .accordion-item.active .accordion-header::after { transform: rotate(45deg); }
-            .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background-color: #fdfdff; }
-            .accordion-content-inner { padding: 24px; }
-            .accordion-content-inner .card { margin-bottom: 20px; }
-            .accordion-content-inner .card:last-child { margin-bottom: 0; }
-
-            /* Redesign for 'SNM의 교육' cards: horizontal layout */
-            #education .card { 
-                display: flex; 
-                align-items: center; 
-                text-align: left; 
-                padding: 20px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            }
-            #education .card img { 
-                width: 60px; 
-                height: 60px; 
-                margin: 0 20px 0 0; 
-                flex-shrink: 0;
-            }
-            #education .card-text { flex-grow: 1; }
-            #education .card h3, #education .curriculum-card h4, #education .vocab-card h4 { font-size: 1.1rem; margin-bottom: 8px; }
-            #education .card p, #education .curriculum-card li { font-size: 0.9rem; line-height: 1.6; }
-
-            #education .curriculum-card, #education .vocab-card { 
-                padding: 20px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            }
-             #education .icon-wrapper { width: 40px; height: 40px; margin-bottom: 16px; }
-             #education .icon-wrapper svg { width: 20px; height: 20px; }
-
-
-            /* Grid setup for accordion content */
-            .philosophy-grid-mobile, .curriculum-grid-mobile, .vocab-grid-mobile {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            /* [FIX] Management System: Stabilize card height */
-            .management-swiper .management-card { min-height: 460px; }
-
-            /* Redesign for '반편성 안내' cards: Styled time blocks */
-            #class-info .placement-card { padding: 24px; }
-            #class-info .placement-class { flex-wrap: wrap; } /* Allow wrapping on small screens */
-            .time-block { gap: 8px; margin-top: 8px; flex-basis: 100%; }
-            .time-block .days, .time-block .time { display: none; } /* Hide old spans */
-            .time-block .day-tag, .time-block .time-tag {
-                display: inline-block;
-                padding: 5px 12px;
-                border-radius: 6px;
-                font-size: 0.85rem;
-                font-weight: 600;
-                line-height: 1.4;
-            }
-            .time-block .day-tag { background-color: #e8eaf6; color: var(--secondary-color); }
-            .time-block .time-tag { background-color: #f1f3f5; color: var(--text-light-color); }
-            
-            /* --- [END] MOBILE REDESIGN --- */
+            .tabs { display: none; }
+            .education-swiper { display: block; }
+            .tab-content { display: block !important; }
+            .philosophy-grid, .curriculum-grid, .vocab-grid { grid-template-columns: 1fr; gap: 0; }
+            .placement-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -399,47 +329,6 @@
                     <button class="tab-button" data-tab="vocab">어휘 시스템</button>
                 </div>
                 
-                <!-- MOBILE ACCORDION REPLACEMENT -->
-                <div class="accordion scroll-reveal">
-                    <div class="accordion-item">
-                        <div class="accordion-header">교육 철학</div>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <div class="philosophy-grid-mobile">
-                                    <div class="card"><img src="https://i.imgur.com/1phDbSt.png" alt="균형잡힌 저울 일러스트" loading="lazy"><div class="card-text"><h3>균형잡힌 커리큘럼</h3><p>언어의 4대 영역을 고르게 발전시켜 수능과 내신을 모두 잡습니다.</p></div></div>
-                                    <div class="card"><img src="https://i.imgur.com/bsegki0.png" alt="체계적인 관리 시스템 일러스트" loading="lazy"><div class="card-text"><h3>체계적인 관리</h3><p>데이터 기반 학습 분석과 개인별 맞춤 피드백으로 학습 효율을 극대화합니다.</p></div></div>
-                                    <div class="card"><img src="https://i.imgur.com/1kIEMZU.png" alt="소수정예 수업 일러스트" loading="lazy"><div class="card-text"><h3>소수정예 수업</h3><p>모든 학생이 주인공이 되는 최적의 학습 환경을 제공합니다.</p></div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <div class="accordion-header">커리큘럼</div>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <div class="curriculum-grid-mobile">
-                                    <div class="card curriculum-card"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg></div><h4>초등부</h4><ul><li>영어의 흥미를 높이고 기본기 형성</li><li>중등 과정 대비 안정적인 선행학습</li></ul></div>
-                                    <div class="card curriculum-card"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6-2.292m0 0V3.75m0 16.5" /></svg></div><h4>중등부</h4><ul><li>내신 완벽 대비 및 수행평가 관리</li><li>고등영어 완성을 위한 초석 마련</li></ul></div>
-                                    <div class="card curriculum-card"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg></div><h4>고등부</h4><ul><li>수능 1등급을 위한 심화 학습</li><li>고난도 서술형 등 내신 집중 대비</li></ul></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <div class="accordion-header">어휘 시스템</div>
-                        <div class="accordion-content">
-                            <div class="accordion-content-inner">
-                                <div class="vocab-grid-mobile">
-                                    <div class="card vocab-card"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg></div><h4>수준별 맞춤 어휘</h4><p>학생 수준에 맞는 단어장을 활용하고, 수업마다 60-100개의 단어를 체계적으로 암기합니다.</p></div>
-                                    <div class="card vocab-card"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg></div><h4>월간 복습 시험</h4><p>단순 암기를 넘어, 월별 학습 내용 범위의 시험을 통해 핵심 내용을 완벽히 복습합니다.</p></div>
-                                    <div class="card vocab-card"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 11.667 0l3.181-3.183m-4.991-2.691v4.992h-4.992m0 0-3.181-3.183a8.25 8.25 0 0 1 11.667 0l3.181 3.183" /></svg></div><h4>누적 복습 시스템</h4><p>에빙하우스 망각 곡선에 기반한 과학적인 누적 복습으로 장기 기억을 완성합니다.</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DESKTOP CONTENT (untouched) -->
                 <div class="tab-content active" id="philosophy">
                     <div class="philosophy-grid">
                         <div class="card scroll-reveal"><img src="https://i.imgur.com/1phDbSt.png" alt="균형잡힌 저울 일러스트" loading="lazy"><h3>균형잡힌 커리큘럼</h3><p>단편적인 지식 암기를 넘어<br>언어의 4대 영역을 고르게 발전시켜<br>수능과 내신을 모두 잡습니다.</p></div>
@@ -447,6 +336,7 @@
                         <div class="card scroll-reveal delay-2"><img src="https://i.imgur.com/1kIEMZU.png" alt="소수정예 수업 일러스트" loading="lazy"><h3>소수정예 수업</h3><p>선생님의 세심한 케어 속에서<br>모든 학생이 주인공이 되는<br>최적의 학습 환경을 제공합니다.</p></div>
                     </div>
                 </div>
+
                 <div class="tab-content" id="curriculum">
                     <div class="curriculum-grid">
                         <div class="card curriculum-card scroll-reveal"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg></div><h4>초등부</h4><ul><li>영어의 흥미를 높이고 기본기 형성</li><li>중등 과정 대비 안정적인 선행학습</li></ul></div>
@@ -454,12 +344,22 @@
                         <div class="card curriculum-card scroll-reveal delay-2"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg></div><h4>고등부</h4><ul><li>수능 1등급을 위한 심화 학습</li><li>고난도 서술형 등 내신 집중 대비</li></ul></div>
                     </div>
                 </div>
+
                 <div class="tab-content" id="vocab">
                     <div class="vocab-grid">
                         <div class="card vocab-card scroll-reveal"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg></div><h4>수준별 맞춤 어휘</h4><p>학생 수준에 맞는 단어장을 활용하고,<br>수업마다 60-100개의 단어를<br>체계적으로 암기합니다.</p></div>
                         <div class="card vocab-card scroll-reveal delay-1"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg></div><h4>월간 복습 시험</h4><p>단순 암기를 넘어,<br>월별 학습 내용 범위의 시험을 통해<br>핵심 내용을 완벽히 복습합니다.</p></div>
                         <div class="card vocab-card scroll-reveal delay-2"><div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 11.667 0l3.181-3.183m-4.991-2.691v4.992h-4.992m0 0-3.181-3.183a8.25 8.25 0 0 1 11.667 0l3.181 3.183" /></svg></div><h4>누적 복습 시스템</h4><p>에빙하우스 망각 곡선에 기반한<br>과학적인 누적 복습으로<br>장기 기억을 완성합니다.</p></div>
                     </div>
+                </div>
+                
+                <div class="swiper-container education-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><div class="card"><img src="https://i.imgur.com/1phDbSt.png" alt="균형잡힌 저울 일러스트" loading="lazy"><h3>균형잡힌 커리큘럼</h3><p>단편적인 지식 암기를 넘어<br>언어의 4대 영역을 고르게 발전시켜<br>수능과 내신을 모두 잡습니다.</p></div></div>
+                        <div class="swiper-slide"><div class="card"><img src="https://i.imgur.com/bsegki0.png" alt="체계적인 관리 시스템 일러스트" loading="lazy"><h3>체계적인 관리</h3><p>데이터 기반의 학습 분석과<br>개인별 맞춤 피드백을 통해<br>학습 효율을 극대화합니다.</p></div></div>
+                        <div class="swiper-slide"><div class="card"><img src="https://i.imgur.com/1kIEMZU.png" alt="소수정예 수업 일러스트" loading="lazy"><h3>소수정예 수업</h3><p>선생님의 세심한 케어 속에서<br>모든 학생이 주인공이 되는<br>최적의 학습 환경을 제공합니다.</p></div></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
@@ -474,46 +374,6 @@
                     <button class="tab-button" data-tab="placement">반편성 안내</button>
                 </div>
                 
-                <!-- MOBILE ACCORDION REPLACEMENT -->
-                <div class="accordion scroll-reveal">
-                    <div class="accordion-item">
-                        <div class="accordion-header">주간 시간표</div>
-                        <div class="accordion-content">
-                             <div class="accordion-content-inner">
-                                <div class="timetable-container" style="display: block;"><!-- Re-enable for mobile view -->
-                                    <div class="timetable-grid">
-                                        <div class="day-header" style="grid-column: 2 / 4;">월</div><div class="day-header" style="grid-column: 4 / 6;">화</div><div class="day-header" style="grid-column: 6 / 8;">수</div><div class="day-header" style="grid-column: 8 / 10;">목</div><div class="day-header" style="grid-column: 10 / 12;">금</div><div class="day-header" style="grid-column: 12 / 14;">토</div>
-                                        <div class="time-label" style="grid-row: 2 / 4;">1시</div><div class="time-label" style="grid-row: 4 / 6;">2시</div><div class="time-label" style="grid-row: 6 / 8;">3시</div><div class="time-label" style="grid-row: 8 / 10;">4시</div><div class="time-label" style="grid-row: 10 / 12;">5시</div><div class="time-label" style="grid-row: 12 / 14;">6시</div><div class="time-label" style="grid-row: 14 / 16;">7시</div><div class="time-label" style="grid-row: 16 / 18;">8시</div><div class="time-label" style="grid-row: 18 / 20;">9시</div>
-                                        <div class="class-block color-elem c2" style="grid-area: 6 / 4 / 10 / 5;"><p>초5</p></div><div class="class-block color-elem c1" style="grid-area: 6 / 5 / 10 / 6;"><p>초6</p></div>
-                                        <div class="class-block color-elem c2" style="grid-area: 6 / 8 / 10 / 9;"><p>초5</p></div><div class="class-block color-elem c1" style="grid-area: 6 / 9 / 10 / 10;"><p>초6</p></div>
-                                        <div class="class-block color-middle c2 closed" style="grid-area: 10 / 3 / 14 / 4;"><p>중2</p></div><div class="class-block color-middle c1" style="grid-area: 10 / 4 / 14 / 5;"><p>중2</p></div>
-                                        <div class="class-block color-middle c2" style="grid-area: 10 / 5 / 14 / 6;"><p>중3</p></div><div class="class-block color-middle c1 closed" style="grid-area: 10 / 6 / 14 / 7;"><p>중2</p></div>
-                                        <div class="class-block color-middle c1" style="grid-area: 10 / 8 / 14 / 9;"><p>중3</p></div><div class="class-block color-middle c2" style="grid-area: 10 / 9 / 14 / 10;"><p>중2</p></div>
-                                        <div class="class-block color-middle c2" style="grid-area: 15 / 3 / 19 / 4;"><p>중1</p></div><div class="class-block color-middle c2" style="grid-area: 15 / 7 / 19 / 8;"><p>중1</p></div>
-                                        <div class="class-block color-high c2" style="grid-area: 15 / 5 / 20 / 6;"><p>배명고1</p></div><div class="class-block color-high c2" style="grid-area: 15 / 7 / 20 / 8;"><p>배명고1</p></div>
-                                        <div class="class-block color-high c2" style="grid-area: 15 / 9 / 20 / 10;"><p>배명고1</p></div><div class="class-block color-high c2" style="grid-area: 15 / 11 / 20 / 12;"><p>배명고1</p></div>
-                                        <div class="class-block color-high c1 closed" style="grid-area: 14 / 10 / 18 / 11;"><p>고3 수능</p></div><div class="class-block color-high c2 closed" style="grid-area: 10 / 11 / 14 / 12;"><p>고3 수능</p></div>
-                                        <div class="class-block color-clinic" style="grid-area: 2 / 12 / 20 / 14;"><p>클리닉 & 재시험</p></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <div class="accordion-header">반편성 안내</div>
-                        <div class="accordion-content">
-                             <div class="accordion-content-inner">
-                                <div class="placement-grid" style="display: grid; grid-template-columns: 1fr; gap: 20px;"><!-- Re-enable for mobile -->
-                                    <div class="placement-card"><h3>초등부</h3><div class="placement-class"><span class="placement-class-name">초등 5학년</span><div class="time-block"><span class="day-tag">화 | 목</span><span class="time-tag">15:00-17:00</span></div></div><div class="placement-class"><span class="placement-class-name">초등 6학년</span><div class="time-block"><span class="day-tag">화 | 목</span><span class="time-tag">15:00-17:00</span></div></div></div>
-                                    <div class="placement-card"><h3>중등부</h3><div class="placement-class"><span class="placement-class-name">중1</span><div class="time-block"><span class="day-tag">월 | 수</span><span class="time-tag">19:30-21:30</span></div></div><div class="placement-class"><span class="placement-class-name">중2</span><div class="time-block"><span class="day-tag">화 | 목</span><span class="time-tag">17:00-19:00</span></div></div><div class="placement-class"><span class="placement-class-name">중2</span><span class="class-tag tag-closed">마감</span></div><div class="placement-class"><span class="placement-class-name">중3</span><div class="time-block"><span class="day-tag">화 | 목</span><span class="time-tag">17:00-19:00</span></div></div></div>
-                                    <div class="placement-card"><h3>고등부</h3><div class="placement-class"><span class="placement-class-name">고3 수능반</span><span class="class-tag tag-closed">마감</span></div><div class="placement-class"><span class="placement-class-name">배명고 1학년</span><div class="time-block"><span class="day-tag">화목/수금</span></div></div><div class="placement-class"><span class="placement-class-name">잠실여고 1학년</span><span class="class-tag tag-soon">개강 예정</span></div></div>
-                                </div>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DESKTOP CONTENT (untouched) -->
                 <div class="tab-content active" id="timetable">
                     <div class="timetable-container scroll-reveal">
                         <div class="timetable-grid">
@@ -532,6 +392,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-content" id="placement">
                     <div class="placement-grid scroll-reveal">
                         <div class="placement-card"><h3>초등부</h3><div class="placement-class"><span class="placement-class-name">초등 5학년</span><div class="time-block"><span class="days">화 | 목</span><span class="time">15:00-17:00</span></div></div><div class="placement-class"><span class="placement-class-name">초등 6학년</span><div class="time-block"><span class="days">화 | 목</span><span class="time">15:00-17:00</span></div></div></div>
@@ -709,27 +570,16 @@
             // Swiper for Management Section
             new Swiper('.management-swiper', { loop: false, slidesPerView: 1.1, spaceBetween: 20, centeredSlides: true, pagination: { el: '.swiper-pagination', clickable: true, } });
 
-            // --- [FIXED] Accordion Logic for Mobile Redesign ---
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-
+            // Accordion Logic for Mobile
+            const accordionHeaders = document.querySelectorAll('.mobile-accordion-header');
             accordionHeaders.forEach(header => {
-                header.addEventListener('click', function() {
-                    const currentItem = this.parentElement;
-                    const currentContent = this.nextElementSibling;
-                    const accordionContainer = currentItem.parentElement;
-
-                    const isActive = currentItem.classList.contains('active');
-
-                    // Close all items in the same accordion container first
-                    accordionContainer.querySelectorAll('.accordion-item').forEach(item => {
-                        item.classList.remove('active');
-                        item.querySelector('.accordion-content').style.maxHeight = null;
-                    });
-
-                    // If the clicked item was not already active, open it
-                    if (!isActive) {
-                        currentItem.classList.add('active');
-                        currentContent.style.maxHeight = currentContent.scrollHeight + 'px';
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    header.parentElement.classList.toggle('active');
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
                     }
                 });
             });
