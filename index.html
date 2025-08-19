@@ -66,7 +66,7 @@
     .timetable-sticky-header{position:sticky;top:calc(var(--header-height) + 8px);z-index:10;background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(10px);border-radius:10px;border:1px solid rgba(0,0,0,.04)}
 
     /* Chips / badges */
-    .badge,.status-badge{font-weight:700;font-size:.75rem;line-height:1;display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .62rem;border-radius:8px;white-space:nowrap}
+    .badge,.status-badge{font-family:inherit;font-weight:700;font-size:.75rem;line-height:1;display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .62rem;border-radius:8px;white-space:nowrap}
     .badge-blue{background:#EDF2FF;color:#2538B8;border:1px solid #DFE6FF}
     .badge-red{background:#FFE9EC;color:#B42318;border:1px solid #FFD5DA}
     .badge-green{background:#EAF7EF;color:#157F3B;border:1px solid #D2EFDC}
@@ -74,30 +74,24 @@
     .day-chip{background:#EEF2FF;color:#243EA3;border:1px solid #E0E7FF;border-radius:8px;padding:.36rem .56rem;font-weight:800;font-size:.78rem;letter-spacing:.02em}
     .time-chip{background:#F5F7FF;color:#1c29c0;border:1px dashed #D9E0FF;border-radius:8px;padding:.36rem .56rem;font-weight:700;font-size:.78rem}
 
-    /* Education carousel — refined typography/spacing/color */
+    /* Education carousel (요약) */
     .edu-carousel{position:relative}
     .edu-carousel .ctrl{position:absolute;top:50%;transform:translateY(-50%);z-index:30;background:#fff;box-shadow:0 10px 30px -12px rgba(15,23,42,.35);border:1px solid rgba(15,23,42,.08);width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center}
     .edu-carousel .ctrl-left{left:-6px}@media(min-width:768px){.edu-carousel .ctrl-left{left:-18px}}
     .edu-carousel .ctrl-right{right:-6px}@media(min-width:768px){.edu-carousel .ctrl-right{right:-18px}}
     .edu-track{display:flex;transition:transform .5s cubic-bezier(.22,1,.36,1)}
     .edu-slide{min-width:100%;min-height:360px;display:flex}
-    @media(max-width:390px){.edu-slide{min-height:330px}}
-    .edu-dots button{width:8px;height:8px;border-radius:9999px;background:#CBD5E1}
-    .edu-dots button[aria-current="true"]{background:#1c29c0;width:22px;border-radius:9999px;transition:width .25s}
     .edu-shell{position:relative;overflow:hidden;background:#ffffff;border:1px solid rgba(2,6,23,.06);border-radius:18px;padding:18px;box-shadow:0 14px 36px -18px rgba(2,6,23,.35);width:100%}
     .edu-title{display:flex;align-items:baseline;gap:.75rem}
     .edu-eyebrow{font-size:.75rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#6366f1;background:#EEF2FF;border:1px solid #E0E7FF;border-radius:9999px;padding:.2rem .6rem}
     .edu-title h3{font-size:1.18rem;font-weight:900;letter-spacing:-.01em}
     .edu-sub{font-size:.92rem;color:var(--text-muted);margin-top:2px}
     .edu-divider{height:1px;background:linear-gradient(90deg,rgba(28,41,192,.14),rgba(28,41,192,.04));margin:10px 0 12px}
-
     .edu-grid{display:grid;gap:14px}
     @media(min-width:768px){.edu-grid{grid-template-columns:repeat(3,1fr)}}
     .edu-card{background:#fff;border:1px solid rgba(2,6,23,.06);border-radius:14px;padding:14px;box-shadow:0 8px 24px -14px rgba(2,6,23,.28);display:flex;flex-direction:column;gap:10px}
     .edu-card h4{font-size:1.02rem;font-weight:900;letter-spacing:-.01em}
     .edu-chip{display:inline-flex;align-items:center;padding:.28rem .5rem;border-radius:8px;background:#F3F4FF;color:#243EA3;font-weight:800;font-size:.72rem;border:1px solid #E3E8FF}
-
-    /* 모바일 세그먼트 — 더 여백 주고 간결화 */
     .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#F6F8FC;border:1px solid #E7ECF5;border-radius:12px;padding:4px}
     .seg-btn{padding:.5rem .25rem;border-radius:9px;font-weight:900;font-size:.85rem;letter-spacing:-.01em;color:#475569}
     .seg-btn[aria-selected="true"]{background:#fff;color:#1c29c0;box-shadow:inset 0 0 0 1px #C7D2FE}
@@ -106,13 +100,12 @@
     .seg-panel p{font-size:.95rem}
     .point-list{display:flex;flex-wrap:wrap;gap:.45rem}
     .point{font-size:.72rem;font-weight:800;background:#EEF2FF;color:#243EA3;border:1px solid #E0E7FF;border-radius:9999px;padding:.26rem .58rem}
-
-    /* 워터마크 */
     .wm::after{content:'';position:absolute;right:-6px;bottom:-10px;width:160px;height:160px;background-size:contain;background-repeat:no-repeat;opacity:.075;pointer-events:none;filter:grayscale(100%)}
     .wm-philo::after{background-image:url('https://i.imgur.com/1kIEMZU.png')}
     .wm-curric::after{background-image:url('https://i.imgur.com/1phDbSt.png')}
     .wm-vocab::after{background-image:url('https://i.imgur.com/gvsWG74.png')}
     @media(max-width:640px){
+      .edu-slide{min-height:330px}
       .edu-shell{padding:16px}
       .edu-title h3{font-size:1.08rem}
       .edu-sub{font-size:.88rem}
@@ -120,15 +113,13 @@
       .wm::after{width:120px;height:120px;opacity:.06}
     }
 
-    /* 모바일 시간표: 스크롤-펼침 (보일 때 펼치고, 지나가면 접힘) */
-    .course-row{border-radius:12px;padding:.8rem .9rem;transition:background .25s ease, box-shadow .25s ease}
+    /* 모바일 시간표: 스크롤-펼침 (보이면 펼치고, 지나가면 접힘) */
+    .course-row{border-radius:12px;padding:.8rem .9rem;transition:background .25s ease, box-shadow .25s ease;will-change:transform}
     .course-row .inner{display:flex;align-items:center;gap:.75rem}
     .course-row .title{font-weight:800;color:#0f172a}
     .course-row .trailing{margin-left:auto;display:flex;align-items:center;gap:.5rem;max-width:0;opacity:0;transform:translateX(6px);overflow:hidden;transition:max-width .45s cubic-bezier(.22,1,.36,1), opacity .3s ease, transform .35s ease}
-    .course-row.open .trailing{max-width:260px;opacity:1;transform:none}
+    .course-row.open .trailing{opacity:1;transform:none}
     .course-row:hover{box-shadow:0 10px 26px -18px rgba(2,6,23,.35)}
-    .hidden-on-init{opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
-    .fade-in-up{opacity:1;transform:none}
 
     /* Scrollbar */
     ::-webkit-scrollbar{width:8px;height:8px}
@@ -181,7 +172,7 @@
       <a href="#education" class="scroll-down" aria-label="스크롤 다운"></a>
     </section>
 
-    <!-- SNM의 교육 -->
+    <!-- SNM의 교육 (요약: 기존 구조 유지) -->
     <section id="education" class="py-20 md:py-32">
       <div class="container mx-auto px-6">
         <h2 class="section-title scroll-animate">SNM의 교육</h2>
@@ -205,14 +196,12 @@
         </div>
       </div>
 
-      <!-- 템플릿: 카드 내부에 타이틀 일체화 & 여백 개선 -->
+      <!-- 템플릿들 -->
       <template id="tpl-philosophy-card">
         <div class="edu-shell wm wm-philo w-full">
           <div class="edu-title"><span class="edu-eyebrow">Philosophy</span><h3>교육 철학</h3></div>
           <p class="edu-sub">개인별 성장에 집중하는 운영 원칙</p>
           <div class="edu-divider"></div>
-
-          <!-- 모바일: 세그먼트 (간결 요약) -->
           <div class="md:hidden space-y-3">
             <div class="seg" data-seg="philo">
               <button class="seg-btn" data-panel="philo-1" aria-selected="true">집중 관리</button>
@@ -232,22 +221,17 @@
               <div class="point-list mt-2"><span class="point">성과 지표</span><span class="point">누적 추적</span></div>
             </div>
           </div>
-
-          <!-- 데스크톱: 3카드 — 구분감↑, 여백 균형 -->
           <div class="hidden md:grid edu-grid mt-1">
             <article class="edu-card md:border-l md:border-gray-100 md:pl-5">
-              <h4>소수정예 집중 관리</h4>
-              <span class="edu-chip w-fit">개별 피드백</span>
+              <h4>소수정예 집중 관리</h4><span class="edu-chip w-fit">개별 피드백</span>
               <p class="text-gray-700">학생 수를 제한하고 정례화된 피드백으로 <strong>학습 밀도</strong>를 높입니다.</p>
             </article>
             <article class="edu-card md:border-l md:border-gray-100 md:pl-5">
-              <h4>단단한 커리큘럼</h4>
-              <span class="edu-chip w-fit">완전학습 루틴</span>
+              <h4>단단한 커리큘럼</h4><span class="edu-chip w-fit">완전학습 루틴</span>
               <p class="text-gray-700">듣기·독해·문법·어휘를 균형 설계해 <strong>단계별 완성</strong>을 지향합니다.</p>
             </article>
             <article class="edu-card md:border-l md:border-gray-100 md:pl-5">
-              <h4>데이터 기반 관리</h4>
-              <span class="edu-chip w-fit">성과 데이터</span>
+              <h4>데이터 기반 관리</h4><span class="edu-chip w-fit">성과 데이터</span>
               <p class="text-gray-700">누적 데이터를 토대로 학습 경로를 조정해 <strong>결과</strong>를 만듭니다.</p>
             </article>
           </div>
@@ -259,7 +243,6 @@
           <div class="edu-title"><span class="edu-eyebrow">Curriculum</span><h3>커리큘럼</h3></div>
           <p class="edu-sub">학년·난이도별로 누적 가능한 구조</p>
           <div class="edu-divider"></div>
-
           <div class="md:hidden space-y-3">
             <div class="seg" data-seg="curr">
               <button class="seg-btn" data-panel="curr-elem" aria-selected="true">초등</button>
@@ -267,47 +250,19 @@
               <button class="seg-btn" data-panel="curr-high" aria-selected="false">고등</button>
             </div>
             <div class="seg-panel active" id="curr-elem">
-              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside">
-                <li>기초 문장력 · 필수 어휘</li><li>듣기 리듬/패턴</li>
-              </ul>
-              <div class="point-list mt-2"><span class="point">리딩 스타터</span><span class="point">문장 만들기</span></div>
+              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside"><li>기초 문장력 · 필수 어휘</li><li>듣기 리듬/패턴</li></ul>
             </div>
             <div class="seg-panel" id="curr-mid">
-              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside">
-                <li>독해 구조 훈련 · 문법 체계화</li><li>내신/수능형 문제 해결 루틴</li>
-              </ul>
-              <div class="point-list mt-2"><span class="point">구문 트레이닝</span><span class="point">서술형 루틴</span></div>
+              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside"><li>독해 구조 훈련 · 문법 체계화</li><li>내신/수능형 문제 해결 루틴</li></ul>
             </div>
             <div class="seg-panel" id="curr-high">
-              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside">
-                <li>EBS·수능 유형 집중</li><li>학교별 내신 전략</li>
-              </ul>
-              <div class="point-list mt-2"><span class="point">킬러 유형</span><span class="point">전략 노트</span></div>
+              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside"><li>EBS·수능 유형 집중</li><li>학교별 내신 전략</li></ul>
             </div>
           </div>
-
           <div class="hidden md:grid grid-cols-3 gap-6 mt-1">
-            <div class="edu-card">
-              <h4>초등</h4>
-              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside">
-                <li>기초 문장력 · 필수 어휘</li><li>듣기 리듬/패턴</li>
-              </ul>
-              <div class="mt-2 flex flex-wrap gap-1.5"><span class="badge badge-gray">리딩 스타터</span><span class="badge badge-gray">문장 만들기</span></div>
-            </div>
-            <div class="edu-card">
-              <h4>중등</h4>
-              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside">
-                <li>독해 구조 훈련 · 문법 체계화</li><li>내신/수능형 문제 해결 루틴</li>
-              </ul>
-              <div class="mt-2 flex flex-wrap gap-1.5"><span class="badge badge-gray">구문 트레이닝</span><span class="badge badge-gray">서술형 루틴</span></div>
-            </div>
-            <div class="edu-card">
-              <h4>고등</h4>
-              <ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside">
-                <li>EBS·수능 유형 집중</li><li>학교별 내신 전략</li>
-              </ul>
-              <div class="mt-2 flex flex-wrap gap-1.5"><span class="badge badge-gray">킬러 유형</span><span class="badge badge-gray">전략 노트</span></div>
-            </div>
+            <div class="edu-card"><h4>초등</h4><ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside"><li>기초 문장력 · 필수 어휘</li><li>듣기 리듬/패턴</li></ul></div>
+            <div class="edu-card"><h4>중등</h4><ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside"><li>독해 구조 훈련 · 문법 체계화</li><li>내신/수능형 문제 해결 루틴</li></ul></div>
+            <div class="edu-card"><h4>고등</h4><ul class="mt-1 text-gray-700 space-y-1 list-disc list-inside"><li>EBS·수능 유형 집중</li><li>학교별 내신 전략</li></ul></div>
           </div>
         </div>
       </template>
@@ -317,33 +272,20 @@
           <div class="edu-title"><span class="edu-eyebrow">Vocabulary</span><h3>어휘 시스템</h3></div>
           <p class="edu-sub">Classcard 기반, 장기기억 최적화</p>
           <div class="edu-divider"></div>
-
           <div class="md:hidden space-y-3">
             <div class="seg" data-seg="voca">
               <button class="seg-btn" data-panel="voca-1" aria-selected="true">드릴</button>
               <button class="seg-btn" data-panel="voca-2" aria-selected="false">테스트</button>
               <button class="seg-btn" data-panel="voca-3" aria-selected="false">오답</button>
             </div>
-            <div class="seg-panel active" id="voca-1">
-              <p><strong>반복 드릴</strong>로 인출 빈도를 높여 체화</p>
-              <div class="h-1.5 rounded-full bg-gradient-to-r from-blue-200 to-blue-500 mt-2"></div>
-            </div>
-            <div class="seg-panel" id="voca-2">
-              <p><strong>정기 테스트</strong>로 공백 최소화</p>
-              <div class="h-1.5 rounded-full bg-gradient-to-r from-indigo-200 to-indigo-500 mt-2"></div>
-            </div>
-            <div class="seg-panel" id="voca-3">
-              <p><strong>오답 누적</strong>으로 약점 묶음 재학습</p>
-              <div class="h-1.5 rounded-full bg-gradient-to-r from-purple-200 to-purple-500 mt-2"></div>
-            </div>
-            <div class="point-list mt-2"><span class="point">세트 모듈</span><span class="point">진도 커스텀</span><span class="point">현황 대시보드</span></div>
+            <div class="seg-panel active" id="voca-1"><p><strong>반복 드릴</strong>로 인출 빈도를 높여 체화</p></div>
+            <div class="seg-panel" id="voca-2"><p><strong>정기 테스트</strong>로 공백 최소화</p></div>
+            <div class="seg-panel" id="voca-3"><p><strong>오답 누적</strong>으로 약점 묶음 재학습</p></div>
           </div>
-
           <div class="hidden md:grid grid-cols-3 gap-3 mt-1">
-            <div class="edu-card"><h4>드릴</h4><p class="text-gray-700 text-sm">반복 노출로 인출 빈도↑</p><div class="h-1.5 rounded-full bg-gradient-to-r from-blue-200 to-blue-500 mt-1.5"></div></div>
-            <div class="edu-card"><h4>테스트</h4><p class="text-gray-700 text-sm">정기 평가로 공백 최소화</p><div class="h-1.5 rounded-full bg-gradient-to-r from-indigo-200 to-indigo-500 mt-1.5"></div></div>
-            <div class="edu-card"><h4>오답 누적</h4><p class="text-gray-700 text-sm">개인별 약점 묶음 재학습</p><div class="h-1.5 rounded-full bg-gradient-to-r from-purple-200 to-purple-500 mt-1.5"></div></div>
-            <div class="col-span-3 mt-1 flex flex-wrap gap-1.5"><span class="badge badge-blue">세트 모듈</span><span class="badge badge-blue">진도 커스텀</span><span class="badge badge-blue">현황 대시보드</span></div>
+            <div class="edu-card"><h4>드릴</h4><p class="text-gray-700 text-sm">반복 노출로 인출 빈도↑</p></div>
+            <div class="edu-card"><h4>테스트</h4><p class="text-gray-700 text-sm">정기 평가로 공백 최소화</p></div>
+            <div class="edu-card"><h4>오답 누적</h4><p class="text-gray-700 text-sm">개인별 약점 묶음 재학습</p></div>
           </div>
         </div>
       </template>
@@ -418,7 +360,7 @@
               </div>
             </div>
 
-            <!-- Timetable (Mobile): 스크롤-펼침 카드 (보일 때 펼치고, 지나가면 접힘) -->
+            <!-- Timetable (Mobile): 스크롤-펼침 카드 -->
             <div class="md:hidden space-y-4 scroll-animate">
               <!-- 월 -->
               <div class="bg-white p-4 rounded-lg shadow">
@@ -493,7 +435,7 @@
             </div><!-- /md:hidden -->
           </div><!-- /#timetable -->
 
-          <!-- 반편성 안내 -->
+          <!-- 반편성 안내 (생략 없이 유지) -->
           <div id="class-info" class="tab-content" data-tab-group="classes">
             <div class="grid md:grid-cols-3 gap-8">
               <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 scroll-animate">
@@ -660,7 +602,17 @@
           document.querySelectorAll(`.tab-btn[data-tab-group="${g}"]`).forEach(b=>{b.classList.remove('active-tab');b.classList.add('inactive-tab')});
           btn.classList.add('active-tab');btn.classList.remove('inactive-tab');
           document.querySelectorAll(`.tab-content[data-tab-group="${g}"]`).forEach(c=>c.classList.remove('active'));
-          document.getElementById(t).classList.add('active');
+          const tgt=document.getElementById(t);tgt.classList.add('active');
+
+          // (중요) 시간표 탭으로 돌아올 때 관찰자 재설정 & 수평스크롤 초기화
+          if (t === 'timetable') {
+            requestAnimationFrame(()=>{
+              document.querySelectorAll('#timetable .overflow-x-auto').forEach(sc=>{sc.scrollLeft=0;sc.style.overflowX='hidden';void sc.offsetHeight;sc.style.overflowX='auto'});
+              teardownScheduleIO(); setupScheduleIO(); // 재초기화
+            });
+          } else {
+            teardownScheduleIO(); // 다른 탭이면 관찰 중지
+          }
         });
       });
 
@@ -675,22 +627,22 @@
       });
 
       /* Back to top */
-      const backToTop=document.getElementById('back-to-top');window.addEventListener('scroll',()=>{backToTop.classList.toggle('opacity-100',window.scrollY>600);backToTop.classList.toggle('visible',window.scrollY>600);backToTop.classList.toggle('invisible',window.scrollY<=600);backToTop.classList.toggle('opacity-0',window.scrollY<=600)});backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+      const backToTop=document.getElementById('back-to-top');window.addEventListener('scroll',()=>{const show=window.scrollY>600;backToTop.classList.toggle('opacity-100',show);backToTop.classList.toggle('visible',show);backToTop.classList.toggle('invisible',!show);backToTop.classList.toggle('opacity-0',!show)});backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
       /* Hero parallax (desktop) */
-      const isMobile=window.innerWidth<=768;
-      if(!isMobile){
+      const isMobile=()=>window.innerWidth<=768;
+      if(!isMobile()){
         const hero=document.querySelector('.hero'),illu=document.querySelector('.hero-illustration');
         hero.addEventListener('mousemove',e=>{const{clientX,clientY}=e;const{offsetWidth,offsetHeight}=hero;const x=(clientX-offsetWidth/2)/25,y=(clientY-offsetHeight/2)/25;illu.style.transform=`translateX(calc(-50% - ${x}px)) translateY(${-y}px)`});hero.addEventListener('mouseleave',()=>{illu.style.transform=''})
       }
 
-      /* ===== EDUCATION: 템플릿 주입 ===== */
+      /* ===== EDUCATION 템플릿 주입 & 캐러셀 ===== */
       const mount=(tpl,into)=>{const t=document.getElementById(tpl),m=document.getElementById(into);if(t&&m)m.innerHTML=t.innerHTML.trim()};
       mount('tpl-philosophy-card','slide-philosophy');
       mount('tpl-curriculum-card','slide-curriculum');
       mount('tpl-vocabulary-card','slide-vocabulary');
 
-      /* ===== 모바일 세그먼트 토글 ===== */
+      // 모바일 세그먼트
       function initSegments(){
         document.querySelectorAll('.seg').forEach(seg=>{
           const buttons=[...seg.querySelectorAll('.seg-btn')];
@@ -706,8 +658,9 @@
           });
         });
       }
+      initSegments();
 
-      /* ===== Carousel ===== */
+      // 캐러셀
       const track=document.getElementById('edu-track');
       const slides=[...track.children];
       const dotsWrap=document.getElementById('edu-dots');
@@ -716,26 +669,84 @@
       const prev=document.getElementById('edu-prev'),next=document.getElementById('edu-next');
       function go(n){idx=(n+slides.length)%slides.length;track.style.transform=`translateX(-${idx*100}%)`;dotsWrap.querySelectorAll('button').forEach((d,i)=>d.setAttribute('aria-current',i===idx?'true':'false'))}
       prev.addEventListener('click',()=>go(idx-1));next.addEventListener('click',()=>go(idx+1));
-      initSegments();
 
-      /* ===== 주간 시간표 탭 복귀시 잘림 방지 ===== */
-      document.querySelectorAll('.tab-btn[data-tab-group="classes"][data-tab-target="timetable"]').forEach(btn=>{
-        btn.addEventListener('click',()=>{requestAnimationFrame(()=>{document.querySelectorAll('#timetable .overflow-x-auto').forEach(sc=>{sc.scrollLeft=0;sc.style.overflowX='hidden';void sc.offsetHeight;sc.style.overflowX='auto'})})})
+      /* ===== 모바일 시간표: 스크롤-펼침 IO ===== */
+      let scheduleIO=null, scheduleRows=[];
+      function measureAndClose(row){
+        const trail=row.querySelector('.trailing');
+        // 실측 너비 저장
+        const w = trail.scrollWidth; // max-width:0이어도 내용 폭은 측정됨
+        row.dataset.targetWidth = Math.max(0, w) + 12; // 여유
+        // 접은 상태로 초기화
+        trail.style.maxWidth = '0px';
+        row.classList.remove('open');
+        row.dataset.open='false';
+      }
+      function openRow(row){
+        const trail=row.querySelector('.trailing');
+        trail.style.maxWidth = (row.dataset.targetWidth || trail.scrollWidth) + 'px';
+        row.classList.add('open');
+        row.dataset.open='true';
+      }
+      function closeRow(row){
+        const trail=row.querySelector('.trailing');
+        trail.style.maxWidth = '0px';
+        row.classList.remove('open');
+        row.dataset.open='false';
+      }
+      function setupScheduleIO(){
+        if (!isMobile()) return; // 데스크톱에서는 불필요
+        teardownScheduleIO();
+        scheduleRows = [...document.querySelectorAll('#timetable .course-row')];
+        if (scheduleRows.length===0) return;
+
+        // 초기 측정 & 접기
+        scheduleRows.forEach(measureAndClose);
+
+        // 관찰자 생성(히스테리시스)
+        scheduleIO = new IntersectionObserver((entries)=>{
+          entries.forEach(ent=>{
+            const row=ent.target, ratio=ent.intersectionRatio, open=row.dataset.open==='true';
+            if (ratio >= 0.66 && !open) openRow(row);
+            else if (ratio <= 0.20 && open) closeRow(row);
+          });
+        }, { threshold:[0,0.2,0.66,1], rootMargin:'0px 0px -15% 0px' });
+
+        scheduleRows.forEach(r=>scheduleIO.observe(r));
+
+        // 첫 화면에 보이는 것들 즉시 반영
+        requestAnimationFrame(()=>{
+          scheduleRows.forEach(r=>{
+            const rect=r.getBoundingClientRect();
+            const vh=window.innerHeight||document.documentElement.clientHeight;
+            const visible=Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+            const ratio = visible / Math.max(1, rect.height);
+            if (ratio>=0.66) openRow(r); else closeRow(r);
+          });
+        });
+      }
+      function teardownScheduleIO(){
+        if (scheduleIO){ scheduleIO.disconnect(); scheduleIO=null; }
+      }
+
+      // 최초 셋업 (모바일일 때만)
+      setupScheduleIO();
+
+      // 리사이즈 시 브레이크포인트 전환 대응
+      let resizeTimer;
+      window.addEventListener('resize', ()=>{
+        clearTimeout(resizeTimer);
+        resizeTimer=setTimeout(()=>{
+          if (isMobile()) { setupScheduleIO(); }
+          else { teardownScheduleIO(); }
+        }, 120);
       });
 
-      /* ===== 모바일 시간표: 스크롤-펼침 (보이면 펼치고, 지나가면 접힘 + 히스테리시스) ===== */
-      const rows=[...document.querySelectorAll('#timetable .md\\:hidden .course-row')];
-      // 초기 상태: 접힘
-      rows.forEach(r=>{const trail=r.querySelector('.trailing');if(trail){trail.style.maxWidth='0px'};r.dataset.open='false'});
-      // 관찰자: ratio 0.6 이상 → 펼침, 0.25 이하 → 접힘 (깜빡임 방지)
-      const io=new IntersectionObserver((entries)=>{
-        entries.forEach(ent=>{
-          const r=ent.target, ratio=ent.intersectionRatio, open=r.dataset.open==='true';
-          if(ratio>=0.6 && !open){r.classList.add('open');r.dataset.open='true'}
-          else if(ratio<=0.25 && open){r.classList.remove('open');r.dataset.open='false'}
-        });
-      },{threshold:[0,0.25,0.6,1],rootMargin:'0px 0px -5% 0px'});
-      rows.forEach(r=>io.observe(r));
+      // 페이지 로드시 시간표 탭이 아닌 상태였다가 anchor로 진입할 수도 있으므로 보정
+      if (location.hash === '#classes' || location.hash === '#timetable') {
+        requestAnimationFrame(()=>{ setupScheduleIO(); });
+      }
+
     });
   </script>
 </body>
