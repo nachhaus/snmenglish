@@ -14,23 +14,22 @@
   <style>
     :root {
       --brand: #0021C5; --ink: #0f172a; --muted: #64748b; --bg: #f8fafc;
-      --card: #fff; --border: #e5e7eb; --shadow: 0 8px 24px rgba(15,23,42,.04);
+      --card: #fff; --border: #e2e8f0; --shadow: 0 8px 24px rgba(15,23,42,.04);
       --radius-card: 16px; --radius-btn: 10px; 
-      /* 하이엔드 이징 곡선 및 지속 시간 (Apple/Linear 스타일) */
       --dur: 800ms; --curve: cubic-bezier(0.16, 1, 0.3, 1);
       --header-h: 72px;
     }
     html, body { height: 100%; } 
-    body { font-family: 'Pretendard', system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.65; overflow-x: hidden; }
+    body { font-family: 'Pretendard', system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; overflow-x: hidden; word-break: keep-all; }
 
     .section-title { font-size: clamp(28px, 4.6vw, 40px); font-weight: 900; letter-spacing: -.02em; text-align: center; margin-bottom: .4rem; }
-    .section-subtitle { font-size: 16px; color: var(--muted); text-align: center; max-width: 720px; margin: 0 auto 32px; }
+    .section-subtitle { font-size: 16px; color: var(--muted); text-align: center; max-width: 600px; margin: 0 auto 36px; line-height: 1.5; }
 
-    /* 광학적 스크롤 등장 (언블러 + 깊은 Y축 이동) */
+    /* 광학적 스크롤 등장 */
     .scroll-animate { 
       opacity: 0; 
-      transform: translateY(40px); 
-      filter: blur(12px); 
+      transform: translateY(30px); 
+      filter: blur(8px); 
       will-change: transform, opacity, filter;
       transition: opacity var(--dur) var(--curve), transform var(--dur) var(--curve), filter var(--dur) var(--curve); 
     }
@@ -40,11 +39,11 @@
       filter: blur(0); 
     }
 
-    /* 공통 버튼 인터랙션 강화 */
+    /* 공통 버튼 */
     .btn { 
       display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; 
       border-radius: var(--radius-btn); font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
-      transition: all 400ms var(--curve); 
+      transition: transform 400ms var(--curve), box-shadow 400ms var(--curve), background-color 300ms ease; 
       will-change: transform, box-shadow;
     }
     .btn-primary { 
@@ -53,9 +52,9 @@
     }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,33,197,.25), 0 0 12px rgba(255,255,255,0.5) inset;
+      box-shadow: 0 12px 28px rgba(0,33,197,.2), 0 0 12px rgba(255,255,255,0.4) inset;
     }
-    .btn-primary:active { transform: translateY(0) scale(.97); }
+    .btn-primary:active { transform: translateY(0); }
 
     .btn-outline { 
       border: 1.5px solid rgba(255,255,255,.8); color: #fff; background: rgba(255,255,255,.05); 
@@ -66,17 +65,16 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,.15);
     }
-    .btn-outline:active { transform: translateY(0) scale(.97); }
 
     .header-shadow { box-shadow: 0 4px 24px rgba(15,23,42,.04); }
     .mobile-menu-sheet { box-shadow: 0 16px 32px rgba(15,23,42,.16); border-top: 1px solid var(--border); background: #fff; }
 
-    /* HERO: 플루이드 배경 애니메이션 & 패럴랙스 준비 */
+    /* HERO */
     .hero { 
       position: relative; height: 100vh; min-height: 720px; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; 
       background: linear-gradient(-45deg, #0b125e, #131c85, #2a3ab7, #1a279c);
-      background-size: 400% 400%;
-      animation: gradientBG 20s ease infinite;
+      background-size: 300% 300%;
+      animation: gradientBG 24s ease infinite;
       overflow: hidden; 
     }
     @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -88,19 +86,21 @@
     }
     
     .hero-content { position: relative; z-index: 2; will-change: transform; }
+    /* 패럴랙스 타겟들은 CSS transition 제거 (Jittering 방지) */
     .hero-illustration { 
       position: absolute; bottom: 0; left: 50%; width: min(520px, 82vw); 
       transform-origin: bottom center; will-change: transform; z-index: 0; 
+      /* transform 적용 시 부드럽게 초기 진입용 애니메이션만 허용, 이후 JS 제어 */
     }
-    .hero-slogan { font-size: clamp(42px, 6.5vw, 76px); font-weight: 900; letter-spacing: -.03em; line-height: 1.15; text-shadow: 0 1px 0 rgba(0,0,0,.18), 0 8px 24px rgba(0,0,0,.3); margin-bottom: 16px; }
-    .hero-subtext { font-size: clamp(16px, 2.2vw, 19px); opacity: .95; margin: 0 auto 36px; max-width: 640px; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,.28); letter-spacing: -0.01em; }
+    .hero-slogan { font-size: clamp(42px, 6vw, 72px); font-weight: 900; letter-spacing: -.03em; line-height: 1.15; text-shadow: 0 1px 0 rgba(0,0,0,.18), 0 8px 24px rgba(0,0,0,.3); margin-bottom: 16px; }
+    .hero-subtext { font-size: clamp(16px, 2vw, 19px); opacity: .95; margin: 0 auto 36px; max-width: 540px; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,.28); letter-spacing: -0.01em; }
     .wave-bg { position: absolute; left: 0; right: 0; bottom: 0; height: 220px; pointer-events: none; z-index: 0; opacity: .85; will-change: transform; }
     .wave-bg svg { display: block; width: 100%; height: 100%; }
 
     /* Chips */
-    .chip { display: inline-flex; align-items: center; gap: .35rem; font-size: 13px; line-height: 1; font-variant-numeric: tabular-nums; font-weight: 700; border-radius: 9999px; padding: .4rem .6rem; border: 1px solid var(--border); background: transparent; color: #334155; white-space: nowrap; }
-    .chip-day { color: #334155; background: #f8fafc; }
-    .chip-time { color: #475569; border-style: dashed; }
+    .chip { display: inline-flex; align-items: center; gap: .35rem; font-size: 13px; font-weight: 700; border-radius: 6px; padding: .3rem .5rem; border: 1px solid var(--border); background: transparent; color: #475569; white-space: nowrap; }
+    .chip-day { background: #f8fafc; }
+    .chip-time { border-style: dashed; }
     .chip-level { color: var(--brand); border-color: #c7d2fe; background: #eef2ff; }
     .chip-status-open { color: #1d4ed8; background: #eef2ff; border-color: #dbe4ff; }
     .chip-status-closed { color: #b91c1c; background: #fef2f2; border-color: #fee2e2; }
@@ -108,68 +108,82 @@
     /* Tabs */
     .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 400ms var(--curve), transform 400ms var(--curve); }
     .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
-    .tab-btn { height: 40px; padding: 0 12px; border-bottom: 2px solid transparent; color: #94a3b8; font-weight: 700; font-size: 16px; transition: color 300ms ease, border-color 300ms ease; }
+    .tab-btn { height: 44px; padding: 0 16px; border-bottom: 2px solid transparent; color: #94a3b8; font-weight: 700; font-size: 16px; transition: color 300ms ease, border-color 300ms ease; }
     .tab-btn.active-tab { color: var(--brand); border-color: var(--brand); }
-    .tab-btn:hover:not(.active-tab) { color: #475569; }
+    .tab-btn:hover:not(.active-tab) { color: #64748b; }
 
-    /* EDUCATION & SYSTEMS Cards - Depth & Hover */
+    /* EDUCATION & SYSTEMS Cards */
     .edu-rail, .sys-rail { position: relative; }
     .edu-track, .sys-track { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 24px; padding: 12px 24px 32px; margin: 0 -24px; }
     
     .edu-card, .sys-card { 
       flex: 0 0 84vw; scroll-snap-align: center; position: relative; background: var(--card); 
-      border: 1px solid rgba(226, 232, 240, 0.8); border-radius: var(--radius-card); 
-      box-shadow: 0 4px 12px rgba(15,23,42,.03); padding: 24px; overflow: hidden;
-      transition: transform 600ms var(--curve), box-shadow 600ms var(--curve), border-color 600ms var(--curve);
+      border: 1px solid var(--border); border-radius: var(--radius-card); 
+      box-shadow: 0 4px 12px rgba(15,23,42,.02); padding: 28px; overflow: hidden;
+      transition: transform 500ms var(--curve), box-shadow 500ms var(--curve), border-color 300ms ease;
       will-change: transform, box-shadow;
     }
     .edu-card:hover, .sys-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(15,23,42,.08), 0 0 0 1px rgba(0,33,197,.05);
-      border-color: transparent;
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(15,23,42,.08);
+      border-color: #cbd5e1;
     }
 
     .edu-head, .sys-head { display: flex; align-items: baseline; gap: .7rem; margin-bottom: 12px; }
     .sys-head { align-items: center; }
-    .edu-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); background: #eef2ff; border-radius: 9999px; padding: .2rem .7rem; }
+    .edu-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); background: #eef2ff; border-radius: 6px; padding: .2rem .5rem; }
     .edu-head h3, .sys-head h3 { font-size: 22px; font-weight: 900; letter-spacing: -.02em; }
     .edu-note { font-size: 15px; color: var(--muted); margin-bottom: 16px; font-weight: 500; }
     
     .edu-grid { display: grid; gap: 12px; }
-    .edu-item { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: #fafafa; transition: background 300ms ease; }
-    .edu-card:hover .edu-item { background: #fff; border-color: #e2e8f0; }
+    .edu-item { border: 1px solid var(--border); border-radius: 10px; padding: 16px; background: #f8fafc; transition: background 300ms ease; }
+    .edu-card:hover .edu-item { background: #fff; }
     .edu-item h4 { font-weight: 800; margin-bottom: 6px; font-size: 15px; color: #1e293b; }
     
     .sys-logo { width: 60px; height: 60px; border-radius: 12px; object-fit: contain; background: #fff; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
-    .sys-img-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
-    .sys-img { width: 100%; aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 10px; object-fit: cover; cursor: zoom-in; transition: transform 400ms var(--curve); }
-    .sys-img:hover { transform: scale(1.02); }
+    .sys-img-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+    .sys-img { width: 100%; aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 8px; object-fit: cover; cursor: zoom-in; transition: transform 400ms var(--curve), opacity 300ms ease; }
+    .sys-img:hover { transform: translateY(-2px); opacity: 0.9; box-shadow: 0 8px 16px rgba(0,0,0,.08); }
 
-    .edu-ctrl, .sys-ctrl { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: #fff; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(0,0,0,.08); color: #334155; transition: all 300ms var(--curve); cursor: pointer; }
+    .edu-ctrl, .sys-ctrl { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: #fff; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(0,0,0,.06); color: #475569; transition: all 300ms var(--curve); cursor: pointer; }
     .edu-ctrl:hover, .sys-ctrl:hover { background: var(--brand); color: #fff; border-color: var(--brand); transform: translateY(-50%) scale(1.05); }
     .edu-ctrl.left, .sys-ctrl.left { left: -12px; } .edu-ctrl.right, .sys-ctrl.right { right: -12px; }
 
     /* 워터마크 */
-    .wm::after { content: ''; position: absolute; right: -16px; bottom: -16px; width: 180px; height: 180px; background-repeat: no-repeat; background-size: contain; opacity: .04; pointer-events: none; filter: grayscale(1); transition: opacity 600ms var(--curve), transform 600ms var(--curve); }
-    .edu-card:hover.wm::after { opacity: .08; transform: scale(1.05); }
+    .wm::after { content: ''; position: absolute; right: -16px; bottom: -16px; width: 180px; height: 180px; background-repeat: no-repeat; background-size: contain; opacity: .03; pointer-events: none; filter: grayscale(1); transition: opacity 600ms var(--curve), transform 600ms var(--curve); }
+    .edu-card:hover.wm::after { opacity: .06; transform: scale(1.05); }
     .wm-philo::after { background-image: url('https://i.imgur.com/1kIEMZU.png'); }
     .wm-curric::after { background-image: url('https://i.imgur.com/1phDbSt.png'); }
     .wm-vocab::after { background-image: url('https://i.imgur.com/gvsWG74.png'); }
 
+    /* 데스크탑 그리드 최적화 (1024px 이상) */
     @media(min-width: 1024px) {
       .edu-ctrl, .sys-ctrl { display: none; }
-      .edu-track, .sys-track { overflow: visible; justify-content: center; padding-bottom: 0; }
-      .edu-card { flex: unset; width: clamp(340px, 28vw, 400px); min-height: 420px; padding: 32px; }
-      .sys-card { flex: unset; width: clamp(340px, 30vw, 380px); min-height: 360px; padding: 28px; }
+      .edu-track, .sys-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; overflow: visible; padding: 12px 0 32px; margin: 0; }
+      .edu-card, .sys-card { flex: unset; width: 100%; min-height: 400px; padding: 36px; }
       .edu-grid { grid-template-rows: 1fr 1fr 1fr; gap: 14px; }
     }
 
     /* TIMETABLE — Desktop */
     .timetable-columns { display: grid; grid-template-columns: 72px repeat(6, minmax(160px, 1fr)); gap: 8px; min-width: 1080px; }
-    .timetable-hours { display: grid; grid-template-rows: repeat(18, 26px); grid-auto-rows: 26px; }
+    .timetable-hours { display: grid; grid-template-rows: repeat(18, 28px); grid-auto-rows: 28px; }
     .time-label { display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; font-size: 12px; font-weight: 600; color: #94a3b8; position: sticky; left: 0; background: #fff; z-index: 2; }
-    .class-block { display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 10px; padding: 8px 4px; font-weight: 700; font-size: 13px; border: 1px solid var(--border); transition: transform 300ms var(--curve), box-shadow 300ms var(--curve); cursor: default; }
-    .class-block:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 16px rgba(0,0,0,.06); z-index: 10; position: relative; }
+    
+    /* 프로덕트 레벨 호버링 렌더링 최적화 */
+    .class-block { 
+      display: flex; align-items: center; justify-content: center; text-align: center; 
+      border-radius: 10px; padding: 8px 4px; font-weight: 700; font-size: 13px; 
+      border: 1px solid var(--border); 
+      transition: transform 300ms cubic-bezier(0.2, 0, 0, 1), box-shadow 300ms ease, border-color 300ms ease; 
+      will-change: transform, box-shadow; 
+      cursor: default; 
+    }
+    .class-block:hover { 
+      transform: translateY(-3px); /* scale 대신 Y축 이동으로 픽셀 뭉개짐 방지 */
+      box-shadow: 0 12px 24px rgba(15,23,42,0.06); 
+      border-color: #a5b4fc; /* 은은한 보더 컬러 전환 */
+      z-index: 10; position: relative; 
+    }
     .c-elem { background: #eef2ff; color: #243ea3; border-color: #dbe4ff; }
     .c-mid { background: #ecfeff; color: #0e7490; border-color: #bae6fd; }
     .c-high { background: #f3e8ff; color: #6b21a8; border-color: #e9d5ff; }
@@ -178,27 +192,25 @@
     /* TIMETABLE — Mobile */
     .ttm-wrap { display: flex; border: 1px solid var(--border); border-radius: 14px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.02); position: relative; }
     .ttm-time-rail { width: 60px; border-right: 1px solid var(--border); background: #fafafa; border-radius: 14px 0 0 14px; }
-    .ttm-time { height: 24px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 11px; font-weight: 600; color: #94a3b8; }
-    .ttm-time.head { height: 32px; font-weight: 800; color: #334155; border-bottom: 1px solid var(--border); font-size: 12px; justify-content: center; padding: 0; }
+    .ttm-time { height: 26px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 11px; font-weight: 600; color: #94a3b8; }
+    .ttm-time.head { height: 36px; font-weight: 800; color: #334155; border-bottom: 1px solid var(--border); font-size: 12px; justify-content: center; padding: 0; }
     .ttm-scroller { overflow-x: auto; scroll-snap-type: x mandatory; flex: 1; padding-bottom: 8px; }
     .ttm-days { display: flex; padding-right: 12px; }
     .ttm-day { flex: 0 0 180px; scroll-snap-align: start; border-left: 1px solid var(--border); }
     .ttm-day:first-child { border-left: none; }
-    .ttm-dayhead { position: sticky; top: 0; background: #fff; text-align: center; font-weight: 800; height: 32px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); z-index: 1; font-size: 14px; color: #1e293b; }
-    .ttm-col { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(18, 24px); gap: 4px; padding: 6px; }
+    .ttm-dayhead { position: sticky; top: 0; background: #fff; text-align: center; font-weight: 800; height: 36px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); z-index: 1; font-size: 14px; color: #1e293b; }
+    .ttm-col { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(18, 26px); gap: 4px; padding: 6px; }
     .ttm-class { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 12px; padding: 4px; border-radius: 8px; border: 1px solid var(--border); line-height: 1.3; grid-column: 1; }
     .ttm-class[data-lane="2"] { grid-column: 2; }
     .ttm-class b { font-weight: 800; letter-spacing: -0.02em; }
-    .ttm-class small { display: block; font-size: 10px; color: opacity: 0.8; margin-top: 2px; }
+    .ttm-class small { display: block; font-size: 10px; color: #64748b; margin-top: 2px; }
     .mobile-scroll-hint { text-align: center; font-size: 12px; color: #64748b; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; }
-    .mobile-scroll-hint svg { width: 16px; height: 16px; animation: swipeAnim 2s infinite; opacity: 0.6; }
-    @keyframes swipeAnim { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
 
     /* CLASS INFO */
-    .ci-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: transform 500ms var(--curve), box-shadow 500ms var(--curve); }
-    .ci-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15,23,42,.06); }
+    .ci-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: transform 400ms var(--curve), box-shadow 400ms var(--curve); will-change: transform; }
+    .ci-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(15,23,42,.06); border-color: #cbd5e1; }
     .ci-title { font-size: 20px; font-weight: 900; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; letter-spacing: -0.02em; }
-    .ci-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #f1f5f9; }
+    .ci-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed #f1f5f9; }
     .ci-row:last-child { border-bottom: none; }
 
     /* Lightbox */
@@ -207,20 +219,17 @@
     .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 24px 48px rgba(0,0,0,.4); transform: scale(0.95); transition: transform 400ms var(--curve); }
     .lightbox.open img { transform: scale(1); }
 
-    /* Misc */
     ::-webkit-scrollbar { height: 6px; width: 6px; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     ::-webkit-scrollbar-track { background: transparent; }
 
-    /* Contact Form Notification */
-    #form-success { display: none; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 16px; border-radius: 12px; text-align: center; font-weight: 700; margin-top: 16px; animation: popIn 500ms var(--curve) forwards; }
-    @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(10px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+    #form-success { display: none; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 16px; border-radius: 10px; text-align: center; font-weight: 700; margin-top: 16px; }
   </style>
 </head>
 <body>
 
-  <header id="site-header" class="bg-white/80 backdrop-blur-xl fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent" style="height:var(--header-h);">
-    <div class="container mx-auto px-6 h-full flex justify-between items-center">
+  <header id="site-header" class="bg-white/80 backdrop-blur-xl fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent" style="height:var(--header-h);">
+    <div class="container mx-auto px-6 max-w-7xl h-full flex justify-between items-center">
       <a href="#hero" class="flex items-center">
         <img src="https://i.imgur.com/onzqqko.png" alt="SNM English 로고" class="h-8 md:h-10 transition-transform duration-300 hover:scale-105"/>
       </a>
@@ -230,7 +239,7 @@
           <a href="#classes" class="text-slate-600 hover:text-[var(--brand)] transition-colors">수업 안내</a>
           <a href="#systems" class="text-slate-600 hover:text-[var(--brand)] transition-colors">관리 시스템</a>
         </nav>
-        <a href="#contact" class="hidden md:inline-flex btn btn-primary ml-8">상담 예약</a>
+        <a href="#contact" class="hidden md:inline-flex btn btn-primary ml-10">상담 예약</a>
         <button id="mobile-menu-button" class="md:hidden text-slate-700 ml-4 p-2" aria-label="모바일 메뉴">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"/></svg>
         </button>
@@ -256,18 +265,18 @@
           <a href="#contact" class="btn btn-primary">상담 예약</a>
         </div>
       </div>
-      <img src="https://i.imgur.com/O1LCJng.png" alt="성장 그래프 일러스트" id="hero-img" class="hero-illustration scroll-animate" style="transition-delay: 300ms;" loading="eager"/>
-      <div id="hero-wave" class="wave-bg">
+      <img src="https://i.imgur.com/O1LCJng.png" alt="성장 그래프 일러스트" id="hero-img" class="hero-illustration" style="opacity:0; transform:translate3d(-50%, 40px, 0); transition: opacity 800ms ease, transform 800ms ease;" loading="eager"/>
+      <div id="hero-wave" class="wave-bg" style="transform:translate3d(0,0,0);">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="#1c29c0" fill-opacity="0.40" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,186.7C960,213,1056,235,1152,218.7C1248,203,1344,149,1392,122.7L1440,96L1440,320L0,320Z"/></svg>
       </div>
     </section>
 
-    <section id="education" class="py-20 md:py-32 relative z-10 bg-white">
-      <div class="container mx-auto px-6">
+    <section id="education" class="py-24 md:py-32 relative z-10 bg-white">
+      <div class="container mx-auto px-6 max-w-7xl">
         <h2 class="section-title scroll-animate">SNM의 교육</h2>
         <p class="section-subtitle scroll-animate">SNM English은 학생에 집중하며 결과에 충실한 수업을 약속합니다.</p>
 
-        <div class="edu-rail mt-10">
+        <div class="edu-rail mt-12">
           <button class="edu-ctrl left scroll-animate" id="edu-prev" aria-label="이전">←</button>
           <button class="edu-ctrl right scroll-animate" id="edu-next" aria-label="다음">→</button>
 
@@ -306,12 +315,12 @@
       </div>
     </section>
 
-    <section id="classes" class="py-20 md:py-32 bg-slate-50/50">
-      <div class="container mx-auto px-6">
+    <section id="classes" class="py-24 md:py-32 bg-slate-50">
+      <div class="container mx-auto px-6 max-w-7xl">
         <h2 class="section-title scroll-animate">수업 안내</h2>
         <p class="section-subtitle scroll-animate">주간 시간표와 반편성을 확인하세요.</p>
 
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto mt-12">
           <div class="border-b border-[var(--border)] mb-10 scroll-animate">
             <nav class="flex justify-center gap-8" aria-label="Tabs">
               <button class="tab-btn active-tab" data-tab-group="classes" data-tab-target="timetable">주간 시간표</button>
@@ -320,15 +329,15 @@
           </div>
 
           <div id="timetable" class="tab-content active" data-tab-group="classes">
-            <div class="hidden md:block bg-white p-6 rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-[var(--border)] scroll-animate">
-              <div class="p-3 sticky top-[calc(var(--header-h)+12px)] z-20 bg-white/90 backdrop-blur-md border border-[var(--border)] rounded-xl mb-4">
+            <div class="hidden lg:block bg-white p-6 rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.03)] border border-[var(--border)] scroll-animate">
+              <div class="p-3 sticky top-[calc(var(--header-h)+12px)] z-20 bg-white/95 backdrop-blur border border-[var(--border)] rounded-xl mb-4">
                 <div class="timetable-columns text-center font-bold text-slate-800">
                   <div></div><div class="py-1">월</div><div class="py-1">화</div><div class="py-1">수</div><div class="py-1">목</div><div class="py-1">금</div><div class="py-1 text-[var(--brand)]">토</div>
                 </div>
               </div>
               <div class="overflow-x-auto pb-4">
                 <div class="timetable-columns relative">
-                  <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to bottom, #f1f5f9 1px, transparent 1px); background-size: 100% 52px; opacity: 0.5;"></div>
+                  <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to bottom, #f1f5f9 1px, transparent 1px); background-size: 100% 56px; opacity: 0.6;"></div>
                   
                   <div class="timetable-hours col-span-1">
                     <div class="time-label" style="grid-row:1">13:00</div><div class="time-label" style="grid-row:3">14:00</div>
@@ -343,9 +352,9 @@
                   </div>
                   <div class="timetable-hours relative">
                     <div class="class-block c-elem w-[48%] absolute left-0" style="grid-row:5 / span 4; height:100%">초6 C1<br/>15:00–17:00</div>
-                    <div class="class-block c-elem w-[48%] absolute right-0" style="grid-row:5 / span 4; height:100%; opacity:0.9">초5 C2<br/>15:00–17:00</div>
+                    <div class="class-block c-elem w-[48%] absolute right-0" style="grid-row:5 / span 4; height:100%;">초5 C2<br/>15:00–17:00</div>
                     <div class="class-block c-mid w-[48%] absolute left-0" style="grid-row:9 / span 4; height:100%">중2 C1<br/>17:00–19:00</div>
-                    <div class="class-block c-mid w-[48%] absolute right-0" style="grid-row:9 / span 4; height:100%; opacity:0.9">중3 C2<br/>17:00–19:00</div>
+                    <div class="class-block c-mid w-[48%] absolute right-0" style="grid-row:9 / span 4; height:100%;">중3 C2<br/>17:00–19:00</div>
                     <div class="class-block c-high" style="grid-row:14 / span 5;">배명고1 C2<br/>19:30–22:00</div>
                   </div>
                   <div class="timetable-hours relative">
@@ -355,9 +364,9 @@
                   </div>
                   <div class="timetable-hours relative">
                     <div class="class-block c-elem w-[48%] absolute left-0" style="grid-row:5 / span 4; height:100%">초6 C1<br/>15:00–17:00</div>
-                    <div class="class-block c-elem w-[48%] absolute right-0" style="grid-row:5 / span 4; height:100%; opacity:0.9">초5 C2<br/>15:00–17:00</div>
+                    <div class="class-block c-elem w-[48%] absolute right-0" style="grid-row:5 / span 4; height:100%;">초5 C2<br/>15:00–17:00</div>
                     <div class="class-block c-mid w-[48%] absolute left-0" style="grid-row:9 / span 4; height:100%">중3 C1<br/>17:00–19:00</div>
-                    <div class="class-block c-mid w-[48%] absolute right-0" style="grid-row:9 / span 4; height:100%; opacity:0.9">중2 C2<br/>17:00–19:00</div>
+                    <div class="class-block c-mid w-[48%] absolute right-0" style="grid-row:9 / span 4; height:100%;">중2 C2<br/>17:00–19:00</div>
                     <div class="class-block c-high" style="grid-row:14 / span 5;">배명고1 C2<br/>19:30–22:00</div>
                   </div>
                   <div class="timetable-hours relative">
@@ -372,7 +381,7 @@
               </div>
             </div>
 
-            <div class="md:hidden scroll-animate">
+            <div class="lg:hidden scroll-animate">
               <div class="ttm-wrap" id="ttm-wrap">
                 <div class="ttm-time-rail" id="ttm-time-rail">
                   <div class="ttm-time head">시간</div>
@@ -421,7 +430,7 @@
           </div>
 
           <div id="class-info" class="tab-content" data-tab-group="classes">
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid lg:grid-cols-3 gap-6">
               <div class="ci-card scroll-animate stagger-item">
                 <h3 class="ci-title text-blue-800">초등부</h3>
                 <div class="ci-row"><span class="font-bold text-slate-800">초6</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">15:00–17:00</span></span></div>
@@ -450,11 +459,11 @@
       </div>
     </section>
 
-    <section id="systems" class="py-20 md:py-32 bg-white">
-      <div class="container mx-auto px-6">
+    <section id="systems" class="py-24 md:py-32 bg-white">
+      <div class="container mx-auto px-6 max-w-7xl">
         <h2 class="section-title scroll-animate">체계적인 관리 시스템</h2>
         
-        <div class="sys-rail mt-10">
+        <div class="sys-rail mt-12">
           <button class="sys-ctrl left scroll-animate" id="sys-prev" aria-label="이전">←</button>
           <button class="sys-ctrl right scroll-animate" id="sys-next" aria-label="다음">→</button>
 
@@ -464,7 +473,7 @@
                 <img class="sys-logo" src="https://i.imgur.com/wkcXum1.png" alt="NELT" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=NELT'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">NELT</h3><p class="text-sm text-slate-500 font-semibold">데이터 기반의 객관적 평가</p></div>
               </div>
-              <p class="text-[15px] text-slate-600 mb-4">영역별 <b>정밀 진단</b>으로 강·약점을 파악하고, 누적 데이터로 학습 경로를 최적화합니다.</p>
+              <p class="text-[15px] text-slate-600 mb-5">영역별 <b>정밀 진단</b>으로 강·약점을 파악하고, 누적 데이터로 학습 경로를 최적화합니다.</p>
               <img src="https://i.imgur.com/pVCjKgl.png" alt="NELT 성적표 예시" class="w-full rounded-lg border border-[var(--border)] sys-img" loading="lazy"/>
             </article>
 
@@ -473,7 +482,7 @@
                 <img class="sys-logo p-2" src="https://i.imgur.com/03VJTJ6.png" alt="Notion" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=N'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">개인별 과제관리</h3><p class="text-sm text-slate-500 font-semibold">체계적인 학습 이력</p></div>
               </div>
-              <p class="text-[15px] text-slate-600 mb-4">과제·자료·성취도를 Notion에 기록해 <b>학생/학부모와 공유</b>. 진도는 데이터로 조정합니다.</p>
+              <p class="text-[15px] text-slate-600 mb-5">과제·자료·성취도를 Notion에 기록해 <b>학생/학부모와 공유</b>. 진도는 데이터로 조정합니다.</p>
               <img src="https://i.imgur.com/rYeumKm.png" alt="Notion 보드" class="w-full rounded-lg border border-[var(--border)] sys-img" loading="lazy"/>
             </article>
 
@@ -482,7 +491,7 @@
                 <img class="sys-logo" src="https://i.imgur.com/gvsWG74.png" alt="Classcard" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=C'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">클래스카드</h3><p class="text-sm text-slate-500 font-semibold">드릴·테스트·오답 누적</p></div>
               </div>
-              <p class="text-[15px] text-slate-600 mb-4">단어·문장·듣기 등 다양한 드릴로 <b>체화</b>. 실시간 현황으로 완전학습을 이끕니다.</p>
+              <p class="text-[15px] text-slate-600 mb-5">단어·문장·듣기 등 다양한 드릴로 <b>체화</b>. 실시간 현황으로 완전학습을 이끕니다.</p>
               <div class="sys-img-grid">
                 <img class="sys-img" src="https://i.imgur.com/C1ARgJy.png" alt="단어 학습" loading="lazy"/>
                 <img class="sys-img" src="https://i.imgur.com/FgEiqq7.png" alt="문장 학습" loading="lazy"/>
@@ -495,12 +504,12 @@
       </div>
     </section>
 
-    <section id="contact" class="py-20 md:py-32 bg-slate-50/80 border-t border-[var(--border)]">
-      <div class="container mx-auto px-6">
+    <section id="contact" class="py-24 md:py-32 bg-slate-50 border-t border-[var(--border)]">
+      <div class="container mx-auto px-6 max-w-7xl">
         <h2 class="section-title scroll-animate">상담 신청 및 오시는 길</h2>
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start mt-12">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start mt-14">
           
-          <div class="scroll-animate bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-[var(--border)]">
+          <div class="scroll-animate bg-white p-8 md:p-10 rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.03)] border border-[var(--border)]">
             <h3 class="text-2xl font-extrabold mb-6 text-slate-800">상담 신청</h3>
             <form id="contact-form" action="https://formspree.io/f/xgvzqjdq" method="POST" class="space-y-5">
               <div>
@@ -515,26 +524,26 @@
                 <label for="message" class="block text-sm font-bold text-slate-700 mb-1.5">문의 내용</label>
                 <textarea id="message" name="message" rows="4" class="block w-full p-4 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent transition-all outline-none resize-none"></textarea>
               </div>
-              <button type="submit" id="submit-btn" class="w-full btn btn-primary !h-12 !text-[16px] !mt-2">상담 예약하기</button>
+              <button type="submit" id="submit-btn" class="w-full btn btn-primary !h-12 !text-[16px] !mt-4">상담 예약하기</button>
             </form>
-            <div id="form-success">상담 예약이 성공적으로 접수되었습니다.<br>빠른 시일 내에 연락드리겠습니다.</div>
+            <div id="form-success">상담 예약이 접수되었습니다.<br>빠른 시일 내에 연락드리겠습니다.</div>
           </div>
 
           <div class="scroll-animate">
             <h3 class="text-2xl font-extrabold mb-6 text-slate-800">오시는 길</h3>
-            <div class="relative w-full h-[320px] rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.06)] border border-[var(--border)] overflow-hidden bg-white group">
+            <div class="relative w-full h-[340px] rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-[var(--border)] overflow-hidden bg-white group">
               <img src="https://i.imgur.com/p8GQoow.png" alt="SNM English 약도" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
               <div class="absolute top-[68%] left-[42%] -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[var(--brand)] rounded-full border-[3px] border-white shadow-[0_0_16px_rgba(28,41,192,0.8)] z-10"></div>
               <div class="absolute top-[68%] left-[42%] -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[var(--brand)] rounded-full animate-ping opacity-75"></div>
             </div>
-            <div class="mt-6 text-slate-700 bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(15,23,42,0.03)] border border-[var(--border)]">
-              <div class="flex items-center gap-3 mb-2">
-                <span class="bg-blue-100 text-blue-800 text-xs font-extrabold px-2.5 py-1 rounded-md">송파역 3번출구</span>
+            <div class="mt-6 text-slate-700 bg-white p-6 md:p-8 rounded-2xl shadow-[0_4px_20px_rgba(15,23,42,0.02)] border border-[var(--border)]">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="bg-blue-100 text-blue-800 text-xs font-extrabold px-3 py-1.5 rounded-md">송파역 3번출구</span>
               </div>
-              <p class="font-semibold text-[15px] leading-relaxed">서울특별시 송파구 송파대로 345,<br>헬리오시티 상가B동 2층</p>
-              <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <a href="tel:0264026768" class="font-bold text-lg text-slate-800 hover:text-[var(--brand)] transition-colors">02 6402 6768</a>
-                <a href="https://blog.naver.com/snm_english" target="_blank" class="text-sm font-bold text-[var(--brand)] flex items-center gap-1 hover:underline underline-offset-4">블로그 방문 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
+              <p class="font-semibold text-[16px] leading-relaxed">서울특별시 송파구 송파대로 345,<br>헬리오시티 상가B동 2층</p>
+              <div class="mt-5 pt-5 border-t border-slate-100 flex items-center justify-between">
+                <a href="tel:0264026768" class="font-extrabold text-xl text-slate-800 hover:text-[var(--brand)] transition-colors">02 6402 6768</a>
+                <a href="https://blog.naver.com/snm_english" target="_blank" class="text-[15px] font-bold text-[var(--brand)] flex items-center gap-1 hover:underline underline-offset-4">블로그 방문 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
               </div>
             </div>
           </div>
@@ -544,14 +553,14 @@
   </main>
 
   <footer class="bg-slate-900 text-white border-t border-slate-800">
-    <div class="container mx-auto px-6 py-16 text-center">
+    <div class="container mx-auto px-6 max-w-7xl py-16 text-center">
       <img src="https://i.imgur.com/KjlZGfN.png" alt="SNM English 푸터 로고" class="h-10 mx-auto mb-8 opacity-90"/>
-      <div class="text-slate-400 space-y-2 text-[14px]">
+      <div class="text-slate-400 space-y-2 text-[15px]">
         <p class="font-bold text-slate-200">SNM English</p>
         <p>서울특별시 송파구 송파대로 345, 헬리오시티 상가B동 2층</p>
         <p>상담문의: <a href="tel:0264026768" class="hover:text-white transition-colors">02 6402 6768</a></p>
       </div>
-      <p class="text-slate-500 text-xs mt-10 font-medium tracking-wide">&copy; 2024 SNM English. All Rights Reserved.</p>
+      <p class="text-slate-500 text-sm mt-10 font-medium tracking-wide">&copy; 2024 SNM English. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -561,167 +570,175 @@
     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
- <script>
-  document.addEventListener('DOMContentLoaded', function(){
-    /* Header shadow on scroll */
-    const header = document.getElementById('site-header');
-    const setShadow = () => {
-      if(window.scrollY > 10) {
-        header.classList.add('header-shadow', 'border-slate-200');
-        header.classList.remove('border-transparent');
-      } else {
-        header.classList.remove('header-shadow', 'border-slate-200');
-        header.classList.add('border-transparent');
-      }
-    };
-    window.addEventListener('scroll', setShadow, {passive: true}); setShadow();
-
-    /* Mobile menu toggle */
-    const mobileBtn = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-    document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
-
-    /* 1. 수정됨: 양방향 스크롤 지원 및 반복 애니메이션 상태 관리 */
-    const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -40px 0px" };
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const el = entry.target;
-        if (entry.isIntersecting) {
-          el.classList.add('visible');
-          // 애니메이션이 완료될 즈음 딜레이를 0으로 초기화 (재진입 시 즉각 반응 목적)
-          setTimeout(() => { 
-            if(el.classList.contains('visible')) el.style.transitionDelay = '0ms'; 
-          }, 800);
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      /* Header shadow on scroll */
+      const header = document.getElementById('site-header');
+      const setShadow = () => {
+        if(window.scrollY > 10) {
+          header.classList.add('header-shadow', 'border-slate-200');
+          header.classList.remove('border-transparent');
         } else {
-          // 화면에서 벗어나면 클래스를 제거하여 다음 스크롤 시 다시 올라오도록 세팅
-          el.classList.remove('visible');
+          header.classList.remove('header-shadow', 'border-slate-200');
+          header.classList.add('border-transparent');
         }
-      });
-    }, observerOptions);
+      };
+      window.addEventListener('scroll', setShadow, {passive: true}); setShadow();
 
-    // 초기 로드 시 순차 등장(Stagger) 딜레이 동적 부여
-    let staggerIndex = 0;
-    document.querySelectorAll('.scroll-animate').forEach((el) => {
-      if (el.classList.contains('stagger-item')) {
-        el.style.transitionDelay = `${staggerIndex * 120}ms`;
-        staggerIndex = (staggerIndex + 1) % 3; // 3개 단위로 딜레이 사이클 초기화
-      }
-      io.observe(el);
-    });
+      /* Mobile menu toggle */
+      const mobileBtn = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+      document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
-    /* 2. 수정됨: 모바일 튐 현상 방지를 위한 해상도 분기 패럴랙스 */
-    const heroContent = document.getElementById('hero-content');
-    const heroImg = document.getElementById('hero-img');
-    const heroWave = document.getElementById('hero-wave');
-    
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrolled = window.scrollY;
-          // 데스크탑 환경(768px 이상)이며 스크롤이 유효한 범위 내일 때만 패럴랙스 작동
-          if (window.innerWidth >= 768 && scrolled >= 0 && scrolled < window.innerHeight) {
-            // JS 연산 시 CSS transition 개입을 일시 차단하여 고무줄 현상 방지
-            if(heroImg) { heroImg.style.transitionDuration = '0ms'; heroImg.style.transform = `translate3d(-50%, ${scrolled * 0.3}px, 0)`; }
-            if(heroContent) { heroContent.style.transitionDuration = '0ms'; heroContent.style.transform = `translate3d(0, ${scrolled * -0.15}px, 0)`; }
-            if(heroWave) { heroWave.style.transitionDuration = '0ms'; heroWave.style.transform = `translate3d(0, ${scrolled * 0.15}px, 0)`; }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, {passive: true});
-
-    /* Tabs Logic */
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const g = btn.dataset.tabGroup, t = btn.dataset.tabTarget;
-        document.querySelectorAll(`.tab-btn[data-tab-group="${g}"]`).forEach(b => b.classList.remove('active-tab'));
-        btn.classList.add('active-tab');
-        document.querySelectorAll(`.tab-content[data-tab-group="${g}"]`).forEach(c => c.classList.remove('active'));
-        setTimeout(() => document.getElementById(t).classList.add('active'), 10);
-      });
-    });
-
-    /* Rail Scrollers (Edu & Sys) */
-    const setupRail = (trackId, prevId, nextId) => {
-      const track = document.getElementById(trackId);
-      if(!track) return;
-      const scrollAmt = () => window.innerWidth < 1024 ? window.innerWidth * 0.8 : 400;
-      document.getElementById(prevId).addEventListener('click', () => track.scrollBy({left: -scrollAmt(), behavior: 'smooth'}));
-      document.getElementById(nextId).addEventListener('click', () => track.scrollBy({left: scrollAmt(), behavior: 'smooth'}));
-    };
-    setupRail('edu-track', 'edu-prev', 'edu-next');
-    setupRail('sys-track', 'sys-prev', 'sys-next');
-
-    /* Lightbox */
-    const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
-    document.querySelectorAll('.sys-img').forEach(img => {
-      img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('open'); });
-    });
-    lb.addEventListener('click', () => lb.classList.remove('open'));
-
-    /* Back to top */
-    const back = document.getElementById('back-to-top');
-    back.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
-    window.addEventListener('scroll', () => {
-      const show = window.scrollY > 500;
-      back.style.opacity = show ? '1' : '0';
-      back.style.pointerEvents = show ? 'auto' : 'none';
-      back.style.transform = show ? 'translateY(0)' : 'translateY(20px)';
-    }, {passive: true});
-
-    /* Build Mobile Time Rail Labels (13:00 ~ 21:30) */
-    const buildTime = () => {
-      const rail = document.getElementById('ttm-time-rail'); 
-      if(!rail) return;
-      for(let i = 0; i < 18; i++){
-        const h = 13 + Math.floor(i / 2); 
-        const m = i % 2 === 0 ? '00' : '30';
-        const el = document.createElement('div'); 
-        el.className = 'ttm-time'; 
-        el.textContent = `${String(h).padStart(2, '0')}:${m}`;
-        rail.appendChild(el);
-      }
-    };
-    buildTime();
-
-    /* AJAX Contact Form Submission */
-    const form = document.getElementById('contact-form');
-    const formSuccess = document.getElementById('form-success');
-    const submitBtn = document.getElementById('submit-btn');
-
-    if(form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = '전송 중...';
-        submitBtn.style.opacity = '0.7';
-        submitBtn.disabled = true;
-
-        try {
-          const response = await fetch(form.action, {
-            method: form.method,
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-          });
-          if (response.ok) {
-            form.style.display = 'none';
-            formSuccess.style.display = 'block';
+      /* 양방향 스크롤 애니메이션 옵저버 (리셋 로직 포함) */
+      const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+          if (entry.isIntersecting) {
+            el.classList.add('visible');
+            setTimeout(() => { 
+              if(el.classList.contains('visible')) el.style.transitionDelay = '0ms'; 
+            }, 800);
           } else {
-            alert('오류가 발생했습니다. 다시 시도해주세요.');
+            el.classList.remove('visible');
           }
-        } catch (error) {
-          alert('네트워크 오류가 발생했습니다.');
-        } finally {
-          submitBtn.textContent = originalText;
-          submitBtn.style.opacity = '1';
-          submitBtn.disabled = false;
+        });
+      }, observerOptions);
+
+      let staggerIndex = 0;
+      document.querySelectorAll('.scroll-animate').forEach((el) => {
+        if (el.classList.contains('stagger-item')) {
+          el.style.transitionDelay = `${staggerIndex * 120}ms`;
+          staggerIndex = (staggerIndex + 1) % 3; 
         }
+        io.observe(el);
       });
-    }
-  });
-</script>
+
+      /* 초기 로드 시 히어로 섹션 이미지 부드러운 진입 */
+      setTimeout(() => {
+        const heroImg = document.getElementById('hero-img');
+        if(heroImg) {
+          heroImg.style.opacity = '1';
+          heroImg.style.transform = 'translate3d(-50%, 0, 0)';
+          // 애니메이션 완료 후 트랜지션을 제거하여 패럴랙스 충돌 방지
+          setTimeout(() => { heroImg.style.transition = 'none'; }, 850);
+        }
+      }, 300);
+
+      /* 모바일/데스크탑 분기 패럴랙스 연산 (transition 격리) */
+      const heroContent = document.getElementById('hero-content');
+      const heroImg = document.getElementById('hero-img');
+      const heroWave = document.getElementById('hero-wave');
+      
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const scrolled = window.scrollY;
+            if (window.innerWidth >= 768 && scrolled >= 0 && scrolled < window.innerHeight) {
+              if(heroImg && heroImg.style.transition === 'none') {
+                heroImg.style.transform = `translate3d(-50%, ${scrolled * 0.25}px, 0)`;
+              }
+              if(heroContent) heroContent.style.transform = `translate3d(0, ${scrolled * -0.15}px, 0)`;
+              if(heroWave) heroWave.style.transform = `translate3d(0, ${scrolled * 0.1}px, 0)`;
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, {passive: true});
+
+      /* Tabs Logic */
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const g = btn.dataset.tabGroup, t = btn.dataset.tabTarget;
+          document.querySelectorAll(`.tab-btn[data-tab-group="${g}"]`).forEach(b => b.classList.remove('active-tab'));
+          btn.classList.add('active-tab');
+          document.querySelectorAll(`.tab-content[data-tab-group="${g}"]`).forEach(c => c.classList.remove('active'));
+          setTimeout(() => document.getElementById(t).classList.add('active'), 10);
+        });
+      });
+
+      /* Rail Scrollers (Edu & Sys) */
+      const setupRail = (trackId, prevId, nextId) => {
+        const track = document.getElementById(trackId);
+        if(!track) return;
+        const scrollAmt = () => window.innerWidth < 1024 ? window.innerWidth * 0.8 : 400;
+        document.getElementById(prevId).addEventListener('click', () => track.scrollBy({left: -scrollAmt(), behavior: 'smooth'}));
+        document.getElementById(nextId).addEventListener('click', () => track.scrollBy({left: scrollAmt(), behavior: 'smooth'}));
+      };
+      setupRail('edu-track', 'edu-prev', 'edu-next');
+      setupRail('sys-track', 'sys-prev', 'sys-next');
+
+      /* Lightbox */
+      const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
+      document.querySelectorAll('.sys-img').forEach(img => {
+        img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('open'); });
+      });
+      lb.addEventListener('click', () => lb.classList.remove('open'));
+
+      /* Back to top */
+      const back = document.getElementById('back-to-top');
+      back.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+      window.addEventListener('scroll', () => {
+        const show = window.scrollY > 500;
+        back.style.opacity = show ? '1' : '0';
+        back.style.pointerEvents = show ? 'auto' : 'none';
+        back.style.transform = show ? 'translateY(0)' : 'translateY(20px)';
+      }, {passive: true});
+
+      /* Build Mobile Time Rail Labels (13:00 ~ 21:30) */
+      const buildTime = () => {
+        const rail = document.getElementById('ttm-time-rail'); 
+        if(!rail) return;
+        for(let i = 0; i < 18; i++){
+          const h = 13 + Math.floor(i / 2); 
+          const m = i % 2 === 0 ? '00' : '30';
+          const el = document.createElement('div'); 
+          el.className = 'ttm-time'; 
+          el.textContent = `${String(h).padStart(2, '0')}:${m}`;
+          rail.appendChild(el);
+        }
+      };
+      buildTime();
+
+      /* AJAX Contact Form Submission */
+      const form = document.getElementById('contact-form');
+      const formSuccess = document.getElementById('form-success');
+      const submitBtn = document.getElementById('submit-btn');
+
+      if(form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = '전송 중...';
+          submitBtn.style.opacity = '0.7';
+          submitBtn.disabled = true;
+
+          try {
+            const response = await fetch(form.action, {
+              method: form.method,
+              body: new FormData(form),
+              headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+              form.style.display = 'none';
+              formSuccess.style.display = 'block';
+            } else {
+              alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+          } catch (error) {
+            alert('네트워크 오류가 발생했습니다.');
+          } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.style.opacity = '1';
+            submitBtn.disabled = false;
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
