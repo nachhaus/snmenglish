@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SNM English - 단단한 관리, 흔들림 없는 결과</title>
 
-  <!-- Tailwind & Pretendard -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="icon" href="https://i.imgur.com/onzqqko.png" type="image/png" />
@@ -13,310 +12,293 @@
   <meta name="description" content="소수정예 관리와 독자 시스템으로 흔들림 없는 결과를 만드는 SNM English 공식 웹사이트. 교육 철학, 커리큘럼, 시간표 확인 및 상담 예약." />
 
   <style>
-    :root{
-      --brand:#0021C5; --ink:#0f172a; --muted:#64748b; --bg:#f8fafc;
-      --card:#fff; --border:#e5e7eb; --shadow:0 8px 24px rgba(15,23,42,.06);
-      --radius-card:12px; --radius-btn:10px; --dur:200ms; --curve:cubic-bezier(.2,0,0,1);
-      --header-h:72px;
+    :root {
+      --brand: #0021C5; --ink: #0f172a; --muted: #64748b; --bg: #f8fafc;
+      --card: #fff; --border: #e5e7eb; --shadow: 0 8px 24px rgba(15,23,42,.04);
+      --radius-card: 16px; --radius-btn: 10px; 
+      /* 하이엔드 이징 곡선 및 지속 시간 (Apple/Linear 스타일) */
+      --dur: 800ms; --curve: cubic-bezier(0.16, 1, 0.3, 1);
+      --header-h: 72px;
     }
-    html,body{height:100%} body{font-family:'Pretendard',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65}
+    html, body { height: 100%; } 
+    body { font-family: 'Pretendard', system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.65; overflow-x: hidden; }
 
-    .section-title{font-size:clamp(28px,4.6vw,40px);font-weight:900;letter-spacing:-.015em;text-align:center;margin-bottom:.4rem}
-    .section-subtitle{font-size:16px;color:var(--muted);text-align:center;max-width:720px;margin:0 auto 22px}
+    .section-title { font-size: clamp(28px, 4.6vw, 40px); font-weight: 900; letter-spacing: -.02em; text-align: center; margin-bottom: .4rem; }
+    .section-subtitle { font-size: 16px; color: var(--muted); text-align: center; max-width: 720px; margin: 0 auto 32px; }
 
-    .scroll-animate{opacity:0;transform:translateY(16px);transition:opacity var(--dur) var(--curve),transform var(--dur) var(--curve)}
-    .scroll-animate.visible{opacity:1;transform:none}
+    /* 광학적 스크롤 등장 (언블러 + 깊은 Y축 이동) */
+    .scroll-animate { 
+      opacity: 0; 
+      transform: translateY(40px); 
+      filter: blur(12px); 
+      will-change: transform, opacity, filter;
+      transition: opacity var(--dur) var(--curve), transform var(--dur) var(--curve), filter var(--dur) var(--curve); 
+    }
+    .scroll-animate.visible { 
+      opacity: 1; 
+      transform: translateY(0); 
+      filter: blur(0); 
+    }
 
-    .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 16px;border-radius:var(--radius-btn);font-weight:700;transition:filter .2s var(--curve),transform .12s var(--curve)}
-    .btn:active{transform:scale(.98)}
-    .btn-primary{background:#fff;color:var(--brand)}
-    .btn-outline{border:2px solid rgba(255,255,255,.9);color:#fff;background:transparent}
-    .header-shadow{box-shadow:0 4px 12px rgba(15,23,42,.06)}
-    .mobile-menu-sheet{box-shadow:0 16px 32px rgba(15,23,42,.16);border-top:1px solid var(--border);background:#fff}
+    /* 공통 버튼 인터랙션 강화 */
+    .btn { 
+      display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; 
+      border-radius: var(--radius-btn); font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
+      transition: all 400ms var(--curve); 
+      will-change: transform, box-shadow;
+    }
+    .btn-primary { 
+      background: #fff; color: var(--brand); 
+      box-shadow: 0 4px 14px rgba(0,0,0,.1); 
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,33,197,.25), 0 0 12px rgba(255,255,255,0.5) inset;
+    }
+    .btn-primary:active { transform: translateY(0) scale(.97); }
 
-    /* HERO */
-    .hero{position:relative;height:100vh;min-height:720px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background:linear-gradient(to bottom,#131c85,#2a3ab7);overflow:hidden}
-    .hero-illustration{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,82vw)}
-    .hero-slogan{font-size:clamp(40px,6vw,72px);font-weight:900;letter-spacing:-.02em;text-shadow:0 6px 18px rgba(0,0,0,.22)}
-    .hero-subtext{font-size:clamp(15px,2vw,18px);opacity:.95;margin:16px auto 28px;max-width:640px}
-    .wave-bg{position:absolute;left:0;right:0;bottom:0;height:220px;pointer-events:none;opacity:.9}
-    .wave-bg svg{display:block;width:100%;height:100%}
+    .btn-outline { 
+      border: 1.5px solid rgba(255,255,255,.8); color: #fff; background: rgba(255,255,255,.05); 
+      backdrop-filter: blur(4px);
+    }
+    .btn-outline:hover { 
+      background: rgba(255,255,255,.15); 
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+    .btn-outline:active { transform: translateY(0) scale(.97); }
+
+    .header-shadow { box-shadow: 0 4px 24px rgba(15,23,42,.04); }
+    .mobile-menu-sheet { box-shadow: 0 16px 32px rgba(15,23,42,.16); border-top: 1px solid var(--border); background: #fff; }
+
+    /* HERO: 플루이드 배경 애니메이션 & 패럴랙스 준비 */
+    .hero { 
+      position: relative; height: 100vh; min-height: 720px; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; 
+      background: linear-gradient(-45deg, #0b125e, #131c85, #2a3ab7, #1a279c);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      overflow: hidden; 
+    }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(0,0,0,.34) 0%, rgba(0,0,0,.22) 38%, rgba(0,0,0,.12) 58%, rgba(0,0,0,0) 75%);
+      z-index: 1; pointer-events: none;
+    }
+    
+    .hero-content { position: relative; z-index: 2; will-change: transform; }
+    .hero-illustration { 
+      position: absolute; bottom: 0; left: 50%; width: min(520px, 82vw); 
+      transform-origin: bottom center; will-change: transform; z-index: 0; 
+    }
+    .hero-slogan { font-size: clamp(42px, 6.5vw, 76px); font-weight: 900; letter-spacing: -.03em; line-height: 1.15; text-shadow: 0 1px 0 rgba(0,0,0,.18), 0 8px 24px rgba(0,0,0,.3); margin-bottom: 16px; }
+    .hero-subtext { font-size: clamp(16px, 2.2vw, 19px); opacity: .95; margin: 0 auto 36px; max-width: 640px; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,.28); letter-spacing: -0.01em; }
+    .wave-bg { position: absolute; left: 0; right: 0; bottom: 0; height: 220px; pointer-events: none; z-index: 0; opacity: .85; will-change: transform; }
+    .wave-bg svg { display: block; width: 100%; height: 100%; }
 
     /* Chips */
-    .chip{display:inline-flex;align-items:center;gap:.35rem;font-size:12.5px;line-height:1; font-variant-numeric:tabular-nums;
-          font-weight:700;border-radius:9999px;padding:.34rem .56rem;border:1px solid var(--border);background:transparent;color:#334155;white-space:nowrap}
-    .chip-day{color:#334155;background:#f8fafc}
-    .chip-time{color:#475569;background:transparent;border-style:dashed}
-    .chip-level{color:var(--brand);border-color:#c7d2fe;background:#eef2ff}
-    .chip-status-open{color:#1d4ed8;background:#eef2ff;border-color:#dbe4ff}
-    .chip-status-closed{color:#b91c1c;background:#fef2f2;border-color:#fee2e2}
+    .chip { display: inline-flex; align-items: center; gap: .35rem; font-size: 13px; line-height: 1; font-variant-numeric: tabular-nums; font-weight: 700; border-radius: 9999px; padding: .4rem .6rem; border: 1px solid var(--border); background: transparent; color: #334155; white-space: nowrap; }
+    .chip-day { color: #334155; background: #f8fafc; }
+    .chip-time { color: #475569; border-style: dashed; }
+    .chip-level { color: var(--brand); border-color: #c7d2fe; background: #eef2ff; }
+    .chip-status-open { color: #1d4ed8; background: #eef2ff; border-color: #dbe4ff; }
+    .chip-status-closed { color: #b91c1c; background: #fef2f2; border-color: #fee2e2; }
 
     /* Tabs */
-    .tab-content{display:none}.tab-content.active{display:block}
-    .tab-btn{height:36px;padding:0 8px;border-bottom:2px solid transparent;color:#6b7280;font-weight:700}
-    .tab-btn.active-tab{color:var(--brand);border-color:var(--brand)}
+    .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 400ms var(--curve), transform 400ms var(--curve); }
+    .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
+    .tab-btn { height: 40px; padding: 0 12px; border-bottom: 2px solid transparent; color: #94a3b8; font-weight: 700; font-size: 16px; transition: color 300ms ease, border-color 300ms ease; }
+    .tab-btn.active-tab { color: var(--brand); border-color: var(--brand); }
+    .tab-btn:hover:not(.active-tab) { color: #475569; }
 
-    /* EDUCATION — rail like systems */
-    .edu-rail{position:relative}
-    .edu-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:16px;padding-bottom:2px}
-    .edu-card{flex:0 0 86vw;scroll-snap-align:center;position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-card);box-shadow:var(--shadow);padding:18px;min-height:360px;overflow:hidden}
-    .edu-head{display:flex;align-items:baseline;gap:.6rem;margin-bottom:8px}
-    .edu-eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#334155;background:#eef2ff;border:1px solid #e0e7ff;border-radius:9999px;padding:.2rem .6rem}
-    .edu-head h3{font-size:20px;font-weight:900;letter-spacing:-.01em}
-    .edu-note{font-size:14.5px;color:var(--muted);margin-bottom:10px}
-    .edu-grid{display:grid;gap:12px}
-    .edu-item{border:1px solid var(--border);border-radius:10px;padding:12px}
-    .edu-item h4{font-weight:800;margin-bottom:4px}
-    .edu-ctrl{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:#fff;border:1px solid var(--border);width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
-    .edu-ctrl.left{left:-6px}.edu-ctrl.right{right:-6px}
-    /* 워터마크 */
-    .wm::after{content:'';position:absolute;right:-8px;bottom:-10px;width:160px;height:160px;background-repeat:no-repeat;background-size:contain;opacity:.07;pointer-events:none;filter:grayscale(1)}
-    .wm-philo::after{background-image:url('https://i.imgur.com/1kIEMZU.png')}
-    .wm-curric::after{background-image:url('https://i.imgur.com/1phDbSt.png')}
-    .wm-vocab::after{background-image:url('https://i.imgur.com/gvsWG74.png')}
-    @media(min-width:1024px){
-      .edu-ctrl{display:none}
-      .edu-track{overflow:visible;justify-content:center}
-      .edu-card{flex:unset;width:clamp(340px,28vw,400px);min-height:400px;padding:22px}
-      .edu-grid{grid-template-rows:1fr 1fr 1fr}
+    /* EDUCATION & SYSTEMS Cards - Depth & Hover */
+    .edu-rail, .sys-rail { position: relative; }
+    .edu-track, .sys-track { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 24px; padding: 12px 24px 32px; margin: 0 -24px; }
+    
+    .edu-card, .sys-card { 
+      flex: 0 0 84vw; scroll-snap-align: center; position: relative; background: var(--card); 
+      border: 1px solid rgba(226, 232, 240, 0.8); border-radius: var(--radius-card); 
+      box-shadow: 0 4px 12px rgba(15,23,42,.03); padding: 24px; overflow: hidden;
+      transition: transform 600ms var(--curve), box-shadow 600ms var(--curve), border-color 600ms var(--curve);
+      will-change: transform, box-shadow;
+    }
+    .edu-card:hover, .sys-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(15,23,42,.08), 0 0 0 1px rgba(0,33,197,.05);
+      border-color: transparent;
     }
 
-    /* TIMETABLE — Desktop (hour grid) */
-    .timetable-columns{display:grid;grid-template-columns:72px repeat(6,minmax(160px,1fr));gap:6px;min-width:1080px}
-    .timetable-hours{display:grid;grid-template-rows:repeat(18,24px)}
-.timetable-hours{display:grid;grid-template-rows:repeat(18,24px);grid-auto-rows:24px}
-    .time-label{display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:12px;color:#64748b;position:sticky;left:0;background:#fff;z-index:2}
-    .class-block{display:flex;align-items:center;justify-content:center;text-align:center;border-radius:10px;padding:6px 4px;font-weight:700;font-size:13px;border:1px solid var(--border)}
-    .c-elem{background:#eef2ff;color:#243ea3;border-color:#dbe4ff}
-    .c-mid{background:#ecfeff;color:#0e7490;border-color:#bae6fd}
-    .c-high{background:#f3e8ff;color:#6b21a8;border-color:#e9d5ff}
-    .c-clinic{background:#f1f5f9;color:#334155}
+    .edu-head, .sys-head { display: flex; align-items: baseline; gap: .7rem; margin-bottom: 12px; }
+    .sys-head { align-items: center; }
+    .edu-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); background: #eef2ff; border-radius: 9999px; padding: .2rem .7rem; }
+    .edu-head h3, .sys-head h3 { font-size: 22px; font-weight: 900; letter-spacing: -.02em; }
+    .edu-note { font-size: 15px; color: var(--muted); margin-bottom: 16px; font-weight: 500; }
+    
+    .edu-grid { display: grid; gap: 12px; }
+    .edu-item { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: #fafafa; transition: background 300ms ease; }
+    .edu-card:hover .edu-item { background: #fff; border-color: #e2e8f0; }
+    .edu-item h4 { font-weight: 800; margin-bottom: 6px; font-size: 15px; color: #1e293b; }
+    
+    .sys-logo { width: 60px; height: 60px; border-radius: 12px; object-fit: contain; background: #fff; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+    .sys-img-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+    .sys-img { width: 100%; aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 10px; object-fit: cover; cursor: zoom-in; transition: transform 400ms var(--curve); }
+    .sys-img:hover { transform: scale(1.02); }
 
- /* TIMETABLE — Mobile (time rail fixed + horizontal days) */
-.ttm-wrap{
-  display:flex;border:1px solid var(--border);border-radius:12px;background:#fff;
-}
-.ttm-time-rail{width:64px;border-right:1px solid var(--border)}
-.ttm-time{
-  height:22px;display:flex;align-items:center;justify-content:flex-end;
-  padding-right:6px;font-size:12px;color:#64748b
-}
-.ttm-time.head{
-  height:28px;font-weight:800;color:#334155;border-bottom:1px solid var(--border)
-}
-.ttm-scroller{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:12px;flex:1}
-.ttm-days{display:flex;gap:12px;padding-bottom:6px}
-.ttm-day{
-  /* 요일 칼럼 폭: 필요하면 180→200으로 바꿔도 됨 */
-  flex:0 0 var(--dayw, 180px);
-  scroll-snap-align:start;border-left:1px solid var(--border)
-}
-.ttm-dayhead{
-  position:sticky;top:0;background:#fff;text-align:center;font-weight:800;
-  height:28px;display:flex;align-items:center;justify-content:center;
-  border-bottom:1px solid var(--border);z-index:1
-}
+    .edu-ctrl, .sys-ctrl { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: #fff; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(0,0,0,.08); color: #334155; transition: all 300ms var(--curve); cursor: pointer; }
+    .edu-ctrl:hover, .sys-ctrl:hover { background: var(--brand); color: #fff; border-color: var(--brand); transform: translateY(-50%) scale(1.05); }
+    .edu-ctrl.left, .sys-ctrl.left { left: -12px; } .edu-ctrl.right, .sys-ctrl.right { right: -12px; }
 
-/* 핵심 변경: 18행 × 2열 그리드 (lane 1 | lane 2) — 세로 오프셋 제거 */
-.ttm-col{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  grid-template-rows:repeat(18, var(--slot-h, 22px)); /* 13:00 ~ 21:30 (30분 단위 × 18칸) */
-  gap:2px;
-  padding:2px;
-}
+    /* 워터마크 */
+    .wm::after { content: ''; position: absolute; right: -16px; bottom: -16px; width: 180px; height: 180px; background-repeat: no-repeat; background-size: contain; opacity: .04; pointer-events: none; filter: grayscale(1); transition: opacity 600ms var(--curve), transform 600ms var(--curve); }
+    .edu-card:hover.wm::after { opacity: .08; transform: scale(1.05); }
+    .wm-philo::after { background-image: url('https://i.imgur.com/1kIEMZU.png'); }
+    .wm-curric::after { background-image: url('https://i.imgur.com/1phDbSt.png'); }
+    .wm-vocab::after { background-image: url('https://i.imgur.com/gvsWG74.png'); }
 
-.ttm-class{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;font-size:12px;padding:3px 4px;border-radius:8px;
-  border:1px solid var(--border);margin:0;line-height:1.25;
-  grid-column:1;                 /* 기본 lane = 1 */
-}
-.ttm-class[data-lane="2"]{ grid-column:2; } /* 동시간대 두 번째 반은 오른쪽 칼럼로 */
+    @media(min-width: 1024px) {
+      .edu-ctrl, .sys-ctrl { display: none; }
+      .edu-track, .sys-track { overflow: visible; justify-content: center; padding-bottom: 0; }
+      .edu-card { flex: unset; width: clamp(340px, 28vw, 400px); min-height: 420px; padding: 32px; }
+      .sys-card { flex: unset; width: clamp(340px, 30vw, 380px); min-height: 360px; padding: 28px; }
+      .edu-grid { grid-template-rows: 1fr 1fr 1fr; gap: 14px; }
+    }
 
-.ttm-class b{font-weight:800}
-.ttm-class small{
-  display:block;font-size:11px;color:#475569;margin-top:2px;white-space:nowrap
-}
+    /* TIMETABLE — Desktop */
+    .timetable-columns { display: grid; grid-template-columns: 72px repeat(6, minmax(160px, 1fr)); gap: 8px; min-width: 1080px; }
+    .timetable-hours { display: grid; grid-template-rows: repeat(18, 26px); grid-auto-rows: 26px; }
+    .time-label { display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; font-size: 12px; font-weight: 600; color: #94a3b8; position: sticky; left: 0; background: #fff; z-index: 2; }
+    .class-block { display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 10px; padding: 8px 4px; font-weight: 700; font-size: 13px; border: 1px solid var(--border); transition: transform 300ms var(--curve), box-shadow 300ms var(--curve); cursor: default; }
+    .class-block:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 16px rgba(0,0,0,.06); z-index: 10; position: relative; }
+    .c-elem { background: #eef2ff; color: #243ea3; border-color: #dbe4ff; }
+    .c-mid { background: #ecfeff; color: #0e7490; border-color: #bae6fd; }
+    .c-high { background: #f3e8ff; color: #6b21a8; border-color: #e9d5ff; }
+    .c-clinic { background: #f8fafc; color: #475569; border-color: #e2e8f0; }
 
+    /* TIMETABLE — Mobile */
+    .ttm-wrap { display: flex; border: 1px solid var(--border); border-radius: 14px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.02); position: relative; }
+    .ttm-time-rail { width: 60px; border-right: 1px solid var(--border); background: #fafafa; border-radius: 14px 0 0 14px; }
+    .ttm-time { height: 24px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 11px; font-weight: 600; color: #94a3b8; }
+    .ttm-time.head { height: 32px; font-weight: 800; color: #334155; border-bottom: 1px solid var(--border); font-size: 12px; justify-content: center; padding: 0; }
+    .ttm-scroller { overflow-x: auto; scroll-snap-type: x mandatory; flex: 1; padding-bottom: 8px; }
+    .ttm-days { display: flex; padding-right: 12px; }
+    .ttm-day { flex: 0 0 180px; scroll-snap-align: start; border-left: 1px solid var(--border); }
+    .ttm-day:first-child { border-left: none; }
+    .ttm-dayhead { position: sticky; top: 0; background: #fff; text-align: center; font-weight: 800; height: 32px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); z-index: 1; font-size: 14px; color: #1e293b; }
+    .ttm-col { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(18, 24px); gap: 4px; padding: 6px; }
+    .ttm-class { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 12px; padding: 4px; border-radius: 8px; border: 1px solid var(--border); line-height: 1.3; grid-column: 1; }
+    .ttm-class[data-lane="2"] { grid-column: 2; }
+    .ttm-class b { font-weight: 800; letter-spacing: -0.02em; }
+    .ttm-class small { display: block; font-size: 10px; color: opacity: 0.8; margin-top: 2px; }
+    .mobile-scroll-hint { text-align: center; font-size: 12px; color: #64748b; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; }
+    .mobile-scroll-hint svg { width: 16px; height: 16px; animation: swipeAnim 2s infinite; opacity: 0.6; }
+    @keyframes swipeAnim { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
 
     /* CLASS INFO */
-    .ci-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
-    .ci-title{font-size:20px;font-weight:900;margin-bottom:12px;border-bottom:2px solid #e9eaf5;padding-bottom:10px}
-    .ci-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
-
-    /* SYSTEMS */
-    .sys-rail{position:relative}
-    .sys-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:2px}
-    .sys-card{flex:0 0 86vw;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:16px}
-    .sys-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-    .sys-logo{width:56px;height:56px;border-radius:8px;object-fit:contain;background:#fff;border:1px solid var(--border)}
-    .sys-ctrl{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:#fff;border:1px solid var(--border);width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
-    .sys-ctrl.left{left:-6px}.sys-ctrl.right{right:-6px}
-    .sys-img-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
-    .sys-img{width:100%;aspect-ratio:4/3;border:1px solid var(--border);border-radius:8px;object-fit:cover;cursor:zoom-in}
-    @media(min-width:1024px){
-      .sys-ctrl{display:none}
-      .sys-track{overflow:visible;justify-content:center}
-      .sys-card{flex:unset;width:clamp(340px,30vw,380px);min-height:320px}
-    }
+    .ci-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: transform 500ms var(--curve), box-shadow 500ms var(--curve); }
+    .ci-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15,23,42,.06); }
+    .ci-title { font-size: 20px; font-weight: 900; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; letter-spacing: -0.02em; }
+    .ci-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #f1f5f9; }
+    .ci-row:last-child { border-bottom: none; }
 
     /* Lightbox */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.66);display:none;align-items:center;justify-content:center;z-index:1000}
-    .lightbox.open{display:flex}
-    .lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.5);background:#000}
+    .lightbox { position: fixed; inset: 0; background: rgba(15,23,42,.9); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; opacity: 0; transition: opacity 400ms var(--curve); }
+    .lightbox.open { display: flex; opacity: 1; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 24px 48px rgba(0,0,0,.4); transform: scale(0.95); transition: transform 400ms var(--curve); }
+    .lightbox.open img { transform: scale(1); }
 
     /* Misc */
-    ::-webkit-scrollbar{height:8px;width:8px}
-    ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}
-/* --- HERO legibility polish --- */
-.hero{
-  position:relative;
-}
-/* 일러스트 위, 텍스트 아래에 라디얼 스크림 */
-.hero::before{
-  content:"";
-  position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse 70% 55% at 50% 42%,
-      rgba(0,0,0,.34) 0%,
-      rgba(0,0,0,.22) 38%,
-      rgba(0,0,0,.12) 58%,
-      rgba(0,0,0,0) 75%);
-  z-index:1; pointer-events:none;
-}
+    ::-webkit-scrollbar { height: 6px; width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-track { background: transparent; }
 
-/* 레이어 정렬: 일러스트/웨이브 < 스크림 < 텍스트 */
-.hero-illustration{ z-index:0; }
-.hero .wave-bg{ z-index:0; }
-.hero .hero-content{ position:relative; z-index:2; }
-
-/* 타이포 대비 */
-.hero-slogan{
-  text-shadow:
-    0 1px 0 rgba(0,0,0,.18),
-    0 8px 22px rgba(0,0,0,.32);
-}
-.hero-subtext{
-  color: rgba(255,255,255,.96);
-  text-shadow: 0 1px 2px rgba(0,0,0,.28);
-}
-
-/* 버튼 대비 강화 */
-.btn-primary{
-  background:#ffffff;
-  color:#0021C5; /* brand */
-  box-shadow: 0 6px 20px rgba(0,0,0,.18);
-}
-.btn-outline{
-  border:2px solid rgba(255,255,255,.95);
-  background: rgba(255,255,255,.10);
-  backdrop-filter: saturate(120%) blur(2px);
-  box-shadow: 0 2px 8px rgba(0,0,0,.10), 0 10px 24px rgba(0,0,0,.16);
-}
-.btn-outline:hover{ background: rgba(255,255,255,.16); }
-
-@media (min-width:1024px){
-  .hero-slogan{ text-shadow: 0 1px 0 rgba(0,0,0,.16), 0 10px 26px rgba(0,0,0,.30); }
-}
-
-@media (prefers-reduced-motion: reduce){
-  .hero::before{ background:
-    radial-gradient(ellipse 70% 55% at 50% 42%,
-      rgba(0,0,0,.30) 0%,
-      rgba(0,0,0,.18) 38%,
-      rgba(0,0,0,.10) 58%,
-      rgba(0,0,0,0) 75%); }
-}
+    /* Contact Form Notification */
+    #form-success { display: none; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 16px; border-radius: 12px; text-align: center; font-weight: 700; margin-top: 16px; animation: popIn 500ms var(--curve) forwards; }
+    @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(10px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header id="site-header" class="bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-shadow" style="height:var(--header-h);">
+  <header id="site-header" class="bg-white/80 backdrop-blur-xl fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent" style="height:var(--header-h);">
     <div class="container mx-auto px-6 h-full flex justify-between items-center">
       <a href="#hero" class="flex items-center">
-        <img src="https://i.imgur.com/onzqqko.png" alt="SNM English 로고" class="h-8 md:h-10"/>
+        <img src="https://i.imgur.com/onzqqko.png" alt="SNM English 로고" class="h-8 md:h-10 transition-transform duration-300 hover:scale-105"/>
       </a>
       <div class="flex items-center">
-        <nav class="hidden md:flex items-center gap-8 text-[15px]">
-          <a href="#education" class="text-slate-600 hover:text-[var(--brand)]">SNM의 교육</a>
-          <a href="#classes" class="text-slate-600 hover:text-[var(--brand)]">수업 안내</a>
-          <a href="#systems" class="text-slate-600 hover:text-[var(--brand)]">관리 시스템</a>
+        <nav class="hidden md:flex items-center gap-8 text-[15px] font-semibold">
+          <a href="#education" class="text-slate-600 hover:text-[var(--brand)] transition-colors">SNM의 교육</a>
+          <a href="#classes" class="text-slate-600 hover:text-[var(--brand)] transition-colors">수업 안내</a>
+          <a href="#systems" class="text-slate-600 hover:text-[var(--brand)] transition-colors">관리 시스템</a>
         </nav>
-        <a href="#contact" class="hidden md:inline-flex btn btn-primary ml-6">상담 예약</a>
-        <button id="mobile-menu-button" class="md:hidden text-slate-700 ml-4" aria-label="모바일 메뉴">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        <a href="#contact" class="hidden md:inline-flex btn btn-primary ml-8">상담 예약</a>
+        <button id="mobile-menu-button" class="md:hidden text-slate-700 ml-4 p-2" aria-label="모바일 메뉴">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"/></svg>
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden mobile-menu-sheet">
-      <div class="divide-y divide-[var(--border)]">
-        <a href="#education" class="block text-center py-3 text-[15px] text-slate-800 active:bg-slate-50">SNM의 교육</a>
-        <a href="#classes" class="block text-center py-3 text-[15px] text-slate-800 active:bg-slate-50">수업 안내</a>
-        <a href="#systems" class="block text-center py-3 text-[15px] text-slate-800 active:bg-slate-50">관리 시스템</a>
-        <a href="#contact" class="block text-center py-3 text-[15px] bg-[var(--brand)] text-white">상담 예약</a>
+    <div id="mobile-menu" class="hidden md:hidden mobile-menu-sheet absolute w-full left-0">
+      <div class="divide-y divide-[var(--border)] font-semibold">
+        <a href="#education" class="block text-center py-4 text-[16px] text-slate-800 active:bg-slate-50">SNM의 교육</a>
+        <a href="#classes" class="block text-center py-4 text-[16px] text-slate-800 active:bg-slate-50">수업 안내</a>
+        <a href="#systems" class="block text-center py-4 text-[16px] text-slate-800 active:bg-slate-50">관리 시스템</a>
+        <a href="#contact" class="block text-center py-4 text-[16px] bg-[var(--brand)] text-white">상담 예약</a>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
     <section id="hero" class="hero">
-      <img src="https://i.imgur.com/O1LCJng.png" alt="성장 그래프 일러스트" class="hero-illustration" loading="lazy"/>
-      <div class="relative z-10 px-6">
-        <h1 class="hero-slogan">단단한 관리,<br/>흔들림 없는 결과</h1>
-        <p class="hero-subtext">SNM English만의 <strong>소수정예 관리</strong>와 <strong>독자 시스템</strong>이 결과로 증명합니다.</p>
-        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <div id="hero-content" class="hero-content px-6 w-full">
+        <h1 class="hero-slogan scroll-animate">단단한 관리,<br/>흔들림 없는 결과</h1>
+        <p class="hero-subtext scroll-animate" style="transition-delay: 100ms;">SNM English만의 <strong>소수정예 관리</strong>와 <strong>독자 시스템</strong>이 결과로 증명합니다.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center scroll-animate" style="transition-delay: 200ms;">
           <a href="https://blog.naver.com/snm_english" target="_blank" class="btn btn-outline">학원 블로그</a>
           <a href="#contact" class="btn btn-primary">상담 예약</a>
         </div>
       </div>
-      <div class="wave-bg">
+      <img src="https://i.imgur.com/O1LCJng.png" alt="성장 그래프 일러스트" id="hero-img" class="hero-illustration scroll-animate" style="transition-delay: 300ms;" loading="eager"/>
+      <div id="hero-wave" class="wave-bg">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="#1c29c0" fill-opacity="0.40" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,186.7C960,213,1056,235,1152,218.7C1248,203,1344,149,1392,122.7L1440,96L1440,320L0,320Z"/></svg>
       </div>
     </section>
 
-    <!-- SNM의 교육 -->
-    <section id="education" class="py-16 md:py-24">
+    <section id="education" class="py-20 md:py-32 relative z-10 bg-white">
       <div class="container mx-auto px-6">
         <h2 class="section-title scroll-animate">SNM의 교육</h2>
-        <p class="section-subtitle scroll-animate">SNM English은 학생에 집중하며 결과에 충실한 수업을 약속합니다
+        <p class="section-subtitle scroll-animate">SNM English은 학생에 집중하며 결과에 충실한 수업을 약속합니다.</p>
 
-.</p>
-
-        <div class="edu-rail mt-4 scroll-animate">
-          <button class="edu-ctrl left" id="edu-prev" aria-label="이전">←</button>
-          <button class="edu-ctrl right" id="edu-next" aria-label="다음">→</button>
+        <div class="edu-rail mt-10">
+          <button class="edu-ctrl left scroll-animate" id="edu-prev" aria-label="이전">←</button>
+          <button class="edu-ctrl right scroll-animate" id="edu-next" aria-label="다음">→</button>
 
           <div id="edu-track" class="edu-track">
-            <article class="edu-card wm wm-philo">
+            <article class="edu-card wm wm-philo scroll-animate stagger-item">
               <div class="edu-head"><span class="edu-eyebrow">Philosophy</span><h3>교육 철학</h3></div>
               <p class="edu-note">개인별 성장에 집중하는 운영 원칙</p>
               <div class="edu-grid">
-                <div class="edu-item"><h4>소수정예 집중 관리</h4><p class="text-slate-700">정례 피드백과 밀착 점검으로 <b>학습 밀도</b>를 높입니다.</p></div>
-                <div class="edu-item"><h4>단단한 커리큘럼</h4><p class="text-slate-700">듣기·독해·문법·어휘의 <b>균형</b>과 단계별 완성.</p></div>
-                <div class="edu-item"><h4>데이터 기반 관리</h4><p class="text-slate-700">누적 지표로 학습 <b>경로</b>를 정밀 조정합니다.</p></div>
+                <div class="edu-item"><h4>소수정예 집중 관리</h4><p class="text-slate-600 text-[14px]">정례 피드백과 밀착 점검으로 <b>학습 밀도</b>를 높입니다.</p></div>
+                <div class="edu-item"><h4>단단한 커리큘럼</h4><p class="text-slate-600 text-[14px]">듣기·독해·문법·어휘의 <b>균형</b>과 단계별 완성.</p></div>
+                <div class="edu-item"><h4>데이터 기반 관리</h4><p class="text-slate-600 text-[14px]">누적 지표로 학습 <b>경로</b>를 정밀 조정합니다.</p></div>
               </div>
             </article>
 
-            <article class="edu-card wm wm-curric">
+            <article class="edu-card wm wm-curric scroll-animate stagger-item">
               <div class="edu-head"><span class="edu-eyebrow">Curriculum</span><h3>커리큘럼</h3></div>
               <p class="edu-note">학년·난이도별로 누적 가능한 구조</p>
               <div class="edu-grid">
-                <div class="edu-item"><h4>초등</h4><p class="text-slate-700">기초 문장력, 필수 어휘, 듣기 패턴</p></div>
-                <div class="edu-item"><h4>중등</h4><p class="text-slate-700">독해 구조, 문법 체계, 내신 루틴</p></div>
-                <div class="edu-item"><h4>고등</h4><p class="text-slate-700">EBS 유형, 내신 전략</p></div>
+                <div class="edu-item"><h4>초등</h4><p class="text-slate-600 text-[14px]">기초 문장력, 필수 어휘, 듣기 패턴</p></div>
+                <div class="edu-item"><h4>중등</h4><p class="text-slate-600 text-[14px]">독해 구조, 문법 체계, 내신 루틴</p></div>
+                <div class="edu-item"><h4>고등</h4><p class="text-slate-600 text-[14px]">EBS 유형, 내신 전략</p></div>
               </div>
             </article>
 
-            <article class="edu-card wm wm-vocab">
+            <article class="edu-card wm wm-vocab scroll-animate stagger-item">
               <div class="edu-head"><span class="edu-eyebrow">Vocabulary</span><h3>어휘 시스템</h3></div>
               <p class="edu-note">Classcard 기반, 장기기억 최적화</p>
               <div class="edu-grid">
-                <div class="edu-item"><h4>드릴</h4><p class="text-slate-700">반복 인출로 체화</p></div>
-                <div class="edu-item"><h4>테스트</h4><p class="text-slate-700">정기 평가로 공백 최소화</p></div>
-                <div class="edu-item"><h4>오답 누적</h4><p class="text-slate-700">약점 묶음 재학습</p></div>
+                <div class="edu-item"><h4>드릴</h4><p class="text-slate-600 text-[14px]">반복 인출로 체화</p></div>
+                <div class="edu-item"><h4>테스트</h4><p class="text-slate-600 text-[14px]">정기 평가로 공백 최소화</p></div>
+                <div class="edu-item"><h4>오답 누적</h4><p class="text-slate-600 text-[14px]">약점 묶음 재학습</p></div>
               </div>
             </article>
           </div>
@@ -324,185 +306,143 @@
       </div>
     </section>
 
-    <!-- 수업 안내 -->
-    <section id="classes" class="py-16 md:py-24 bg-white">
+    <section id="classes" class="py-20 md:py-32 bg-slate-50/50">
       <div class="container mx-auto px-6">
         <h2 class="section-title scroll-animate">수업 안내</h2>
         <p class="section-subtitle scroll-animate">주간 시간표와 반편성을 확인하세요.</p>
 
         <div class="max-w-6xl mx-auto">
-          <div class="border-b border-[var(--border)] mb-8 scroll-animate">
-            <nav class="flex justify-center gap-6" aria-label="Tabs">
+          <div class="border-b border-[var(--border)] mb-10 scroll-animate">
+            <nav class="flex justify-center gap-8" aria-label="Tabs">
               <button class="tab-btn active-tab" data-tab-group="classes" data-tab-target="timetable">주간 시간표</button>
               <button class="tab-btn" data-tab-group="classes" data-tab-target="class-info">반편성 안내</button>
             </nav>
           </div>
 
-          <!-- TIMETABLE (Desktop) -->
           <div id="timetable" class="tab-content active" data-tab-group="classes">
-            <div class="hidden md:block bg-white p-4 rounded-xl shadow-sm border border-[var(--border)] scroll-animate">
-              <div class="p-2 sticky top-[calc(var(--header-h)+8px)] z-10 bg-white/90 backdrop-blur border border-[var(--border)] rounded-lg">
-                <div class="timetable-columns text-center font-semibold text-slate-700">
-                  <div></div><div class="py-2">월</div><div class="py-2">화</div><div class="py-2">수</div><div class="py-2">목</div><div class="py-2">금</div><div class="py-2">토</div>
+            <div class="hidden md:block bg-white p-6 rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-[var(--border)] scroll-animate">
+              <div class="p-3 sticky top-[calc(var(--header-h)+12px)] z-20 bg-white/90 backdrop-blur-md border border-[var(--border)] rounded-xl mb-4">
+                <div class="timetable-columns text-center font-bold text-slate-800">
+                  <div></div><div class="py-1">월</div><div class="py-1">화</div><div class="py-1">수</div><div class="py-1">목</div><div class="py-1">금</div><div class="py-1 text-[var(--brand)]">토</div>
                 </div>
               </div>
-              <div class="overflow-x-auto">
-                <div class="timetable-columns">
+              <div class="overflow-x-auto pb-4">
+                <div class="timetable-columns relative">
+                  <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to bottom, #f1f5f9 1px, transparent 1px); background-size: 100% 52px; opacity: 0.5;"></div>
+                  
                   <div class="timetable-hours col-span-1">
-                    <div class="time-label" style="grid-row:1">13:00</div>
-                    <div class="time-label" style="grid-row:3">14:00</div>
-                    <div class="time-label" style="grid-row:5">15:00</div>
-                    <div class="time-label" style="grid-row:7">16:00</div>
-                    <div class="time-label" style="grid-row:9">17:00</div>
-                    <div class="time-label" style="grid-row:11">18:00</div>
-                    <div class="time-label" style="grid-row:13">19:00</div>
-                    <div class="time-label" style="grid-row:15">20:00</div>
+                    <div class="time-label" style="grid-row:1">13:00</div><div class="time-label" style="grid-row:3">14:00</div>
+                    <div class="time-label" style="grid-row:5">15:00</div><div class="time-label" style="grid-row:7">16:00</div>
+                    <div class="time-label" style="grid-row:9">17:00</div><div class="time-label" style="grid-row:11">18:00</div>
+                    <div class="time-label" style="grid-row:13">19:00</div><div class="time-label" style="grid-row:15">20:00</div>
                     <div class="time-label" style="grid-row:17">21:00</div>
                   </div>
-                  <!-- 월 -->
-                  <div class="timetable-hours">
+                  <div class="timetable-hours relative">
                     <div class="class-block c-mid" style="grid-row:9 / span 4;">중2 C2<br/>17:00–19:00</div>
                     <div class="class-block c-mid" style="grid-row:14 / span 4;">중1 C2<br/>19:30–21:30</div>
                   </div>
-                  <!-- 화 -->
-                  <div class="timetable-hours">
-                    <div class="class-block c-elem" style="grid-row:5 / span 4;">초6 C1<br/>15:00–17:00</div>
-                    <div class="class-block c-elem" style="grid-row:5 / span 4; opacity:.92">초5 C2<br/>15:00–17:00</div>
-                    <div class="class-block c-mid"  style="grid-row:9 / span 4;">중2 C1<br/>17:00–19:00</div>
-                    <div class="class-block c-mid"  style="grid-row:9 / span 4; opacity:.92">중3 C2<br/>17:00–19:00</div>
+                  <div class="timetable-hours relative">
+                    <div class="class-block c-elem w-[48%] absolute left-0" style="grid-row:5 / span 4; height:100%">초6 C1<br/>15:00–17:00</div>
+                    <div class="class-block c-elem w-[48%] absolute right-0" style="grid-row:5 / span 4; height:100%; opacity:0.9">초5 C2<br/>15:00–17:00</div>
+                    <div class="class-block c-mid w-[48%] absolute left-0" style="grid-row:9 / span 4; height:100%">중2 C1<br/>17:00–19:00</div>
+                    <div class="class-block c-mid w-[48%] absolute right-0" style="grid-row:9 / span 4; height:100%; opacity:0.9">중3 C2<br/>17:00–19:00</div>
                     <div class="class-block c-high" style="grid-row:14 / span 5;">배명고1 C2<br/>19:30–22:00</div>
                   </div>
-                  <!-- 수 -->
-                  <div class="timetable-hours">
-                    <div class="class-block c-mid"  style="grid-row:9 / span 4;">중2 C1<br/>17:00–19:00</div>
-                    <div class="class-block c-mid"  style="grid-row:14 / span 4;">중1 C2<br/>19:30–21:30</div>
+                  <div class="timetable-hours relative">
+                    <div class="class-block c-mid" style="grid-row:9 / span 4;">중2 C1<br/>17:00–19:00</div>
+                    <div class="class-block c-mid" style="grid-row:14 / span 4;">중1 C2<br/>19:30–21:30</div>
+                    <div class="class-block c-high absolute right-0 w-[48%]" style="grid-row:14 / span 5; height:100%">배명고1 C2<br/>19:30–22:00</div>
+                  </div>
+                  <div class="timetable-hours relative">
+                    <div class="class-block c-elem w-[48%] absolute left-0" style="grid-row:5 / span 4; height:100%">초6 C1<br/>15:00–17:00</div>
+                    <div class="class-block c-elem w-[48%] absolute right-0" style="grid-row:5 / span 4; height:100%; opacity:0.9">초5 C2<br/>15:00–17:00</div>
+                    <div class="class-block c-mid w-[48%] absolute left-0" style="grid-row:9 / span 4; height:100%">중3 C1<br/>17:00–19:00</div>
+                    <div class="class-block c-mid w-[48%] absolute right-0" style="grid-row:9 / span 4; height:100%; opacity:0.9">중2 C2<br/>17:00–19:00</div>
                     <div class="class-block c-high" style="grid-row:14 / span 5;">배명고1 C2<br/>19:30–22:00</div>
                   </div>
-                  <!-- 목 -->
-                  <div class="timetable-hours">
-                    <div class="class-block c-elem" style="grid-row:5 / span 4;">초6 C1<br/>15:00–17:00</div>
-                    <div class="class-block c-elem" style="grid-row:5 / span 4; opacity:.92">초5 C2<br/>15:00–17:00</div>
-                    <div class="class-block c-mid"  style="grid-row:9 / span 4;">중3 C1<br/>17:00–19:00</div>
-                    <div class="class-block c-mid"  style="grid-row:9 / span 4; opacity:.92">중2 C2<br/>17:00–19:00</div>
-                    <div class="class-block c-high" style="grid-row:14 / span 5;">배명고1 C2<br/>19:30–22:00</div>
-                  </div>
-                  <!-- 금 -->
-                  <div class="timetable-hours">
+                  <div class="timetable-hours relative">
                     <div class="class-block c-high" style="grid-row:9 / span 4;">고3 수능 C2<br/>17:00–19:00</div>
                     <div class="class-block c-high" style="grid-row:13 / span 4;">고3 수능 C1<br/>19:00–21:00</div>
-                    <div class="class-block c-high" style="grid-row:14 / span 5;">배명고1 C2<br/>19:30–22:00</div>
+                    <div class="class-block c-high absolute right-0 w-[48%]" style="grid-row:14 / span 5; height:100%">배명고1 C2<br/>19:30–22:00</div>
                   </div>
-                  <!-- 토 -->
-                  <div class="timetable-hours">
+                  <div class="timetable-hours relative">
                     <div class="class-block c-clinic" style="grid-row:1 / span 18;">클리닉 · 재시험<br/>13:00–22:00</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- TIMETABLE (Mobile: fixed time rail + horizontal days) -->
             <div class="md:hidden scroll-animate">
               <div class="ttm-wrap" id="ttm-wrap">
-                <!-- Left time rail -->
                 <div class="ttm-time-rail" id="ttm-time-rail">
                   <div class="ttm-time head">시간</div>
-                  <!-- JS가 13:00~21:30 라벨 채움 -->
                 </div>
-
-                <!-- Horizontal days -->
                 <div class="ttm-scroller" id="ttm-scroller">
                   <div class="ttm-days">
-                    <!-- 월 -->
-                    <div class="ttm-day">
-                      <div class="ttm-dayhead">월</div>
-                      <div class="ttm-col">
-                        <div class="ttm-class c-mid" style="grid-row:10 / span 4;"><b>중2 C2</b><small>17:00–19:00</small></div>
-                        <div class="ttm-class c-mid" style="grid-row:15 / span 4;"><b>중1 C2</b><small>19:30–21:30</small></div>
-                      </div>
-                    </div>
-
-                    <!-- 화 -->
-                    <div class="ttm-day">
-                      <div class="ttm-dayhead">화</div>
-                      <div class="ttm-col">
-                        <div class="ttm-class c-elem" style="grid-row:6 / span 4;"><b>초6 C1</b><small>15:00–17:00</small></div>
-                        <div class="ttm-class c-elem" data-lane="2" style="grid-row:6 / span 4;"><b>초5 C2</b><small>15:00–17:00</small></div>
-                        <div class="ttm-class c-mid"  style="grid-row:10 / span 4;"><b>중2 C1</b><small>17:00–19:00</small></div>
-                        <div class="ttm-class c-mid"  data-lane="2" style="grid-row:10 / span 4;"><b>중3 C2</b><small>17:00–19:00</small></div>
-                        <div class="ttm-class c-high" style="grid-row:15 / span 5;"><b>배명고1 C2</b><small>19:30–22:00</small></div>
-                      </div>
-                    </div>
-
-                    <!-- 수 -->
-                    <div class="ttm-day">
-                      <div class="ttm-dayhead">수</div>
-                      <div class="ttm-col">
-                        <div class="ttm-class c-mid"  style="grid-row:10 / span 4;"><b>중2 C1</b><small>17:00–19:00</small></div>
-                        <div class="ttm-class c-mid"  style="grid-row:15 / span 4;"><b>중1 C2</b><small>19:30–21:30</small></div>
-                        <div class="ttm-class c-high" style="grid-row:15 / span 5;"><b>배명고1 C2</b><small>19:30–22:00</small></div>
-                      </div>
-                    </div>
-
-                    <!-- 목 -->
-                    <div class="ttm-day">
-                      <div class="ttm-dayhead">목</div>
-                      <div class="ttm-col">
-                        <div class="ttm-class c-elem" style="grid-row:6 / span 4;"><b>초6 C1</b><small>15:00–17:00</small></div>
-                        <div class="ttm-class c-elem" data-lane="2" style="grid-row:6 / span 4;"><b>초5 C2</b><small>15:00–17:00</small></div>
-                        <div class="ttm-class c-mid"  style="grid-row:10 / span 4;"><b>중3 C1</b><small>17:00–19:00</small></div>
-                        <div class="ttm-class c-mid"  data-lane="2" style="grid-row:10 / span 4;"><b>중2 C2</b><small>17:00–19:00</small></div>
-                        <div class="ttm-class c-high" style="grid-row:15 / span 5;"><b>배명고1 C2</b><small>19:30–22:00</small></div>
-                      </div>
-                    </div>
-
-                    <!-- 금 -->
-                    <div class="ttm-day">
-                      <div class="ttm-dayhead">금</div>
-                      <div class="ttm-col">
-                        <div class="ttm-class c-high" style="grid-row:10 / span 4;"><b>고3 수능 C2</b><small>17:00–19:00</small></div>
-                        <div class="ttm-class c-high" style="grid-row:14 / span 4;"><b>고3 수능 C1</b><small>19:00–21:00</small></div>
-                        <div class="ttm-class c-high" style="grid-row:15 / span 5;"><b>배명고1 C2</b><small>19:30–22:00</small></div>
-                      </div>
-                    </div>
-
-                    <!-- 토 -->
-                    <div class="ttm-day">
-                      <div class="ttm-dayhead">토</div>
-                      <div class="ttm-col">
-                        <div class="ttm-class c-clinic" style="grid-row:2 / span 18;"><b>클리닉 · 재시험</b><small>13:00–22:00</small></div>
-                      </div>
-                    </div>
+                    <div class="ttm-day"><div class="ttm-dayhead">월</div><div class="ttm-col">
+                      <div class="ttm-class c-mid" style="grid-row:9 / span 4;"><b>중2 C2</b><small>17:00–19:00</small></div>
+                      <div class="ttm-class c-mid" style="grid-row:14 / span 4;"><b>중1 C2</b><small>19:30–21:30</small></div>
+                    </div></div>
+                    <div class="ttm-day"><div class="ttm-dayhead">화</div><div class="ttm-col">
+                      <div class="ttm-class c-elem" style="grid-row:5 / span 4;"><b>초6 C1</b><small>15:00–17:00</small></div>
+                      <div class="ttm-class c-elem" data-lane="2" style="grid-row:5 / span 4;"><b>초5 C2</b><small>15:00–17:00</small></div>
+                      <div class="ttm-class c-mid"  style="grid-row:9 / span 4;"><b>중2 C1</b><small>17:00–19:00</small></div>
+                      <div class="ttm-class c-mid"  data-lane="2" style="grid-row:9 / span 4;"><b>중3 C2</b><small>17:00–19:00</small></div>
+                      <div class="ttm-class c-high" style="grid-row:14 / span 5; grid-column:1 / span 2;"><b>배명고1 C2</b><small>19:30–22:00</small></div>
+                    </div></div>
+                    <div class="ttm-day"><div class="ttm-dayhead">수</div><div class="ttm-col">
+                      <div class="ttm-class c-mid"  style="grid-row:9 / span 4;"><b>중2 C1</b><small>17:00–19:00</small></div>
+                      <div class="ttm-class c-mid"  style="grid-row:14 / span 4;"><b>중1 C2</b><small>19:30–21:30</small></div>
+                      <div class="ttm-class c-high" data-lane="2" style="grid-row:14 / span 5;"><b>배명고1 C2</b><small>19:30–22:00</small></div>
+                    </div></div>
+                    <div class="ttm-day"><div class="ttm-dayhead">목</div><div class="ttm-col">
+                      <div class="ttm-class c-elem" style="grid-row:5 / span 4;"><b>초6 C1</b><small>15:00–17:00</small></div>
+                      <div class="ttm-class c-elem" data-lane="2" style="grid-row:5 / span 4;"><b>초5 C2</b><small>15:00–17:00</small></div>
+                      <div class="ttm-class c-mid"  style="grid-row:9 / span 4;"><b>중3 C1</b><small>17:00–19:00</small></div>
+                      <div class="ttm-class c-mid"  data-lane="2" style="grid-row:9 / span 4;"><b>중2 C2</b><small>17:00–19:00</small></div>
+                      <div class="ttm-class c-high" style="grid-row:14 / span 5; grid-column:1 / span 2;"><b>배명고1 C2</b><small>19:30–22:00</small></div>
+                    </div></div>
+                    <div class="ttm-day"><div class="ttm-dayhead">금</div><div class="ttm-col">
+                      <div class="ttm-class c-high" style="grid-row:9 / span 4;"><b>고3 수능 C2</b><small>17:00–19:00</small></div>
+                      <div class="ttm-class c-high" style="grid-row:13 / span 4;"><b>고3 수능 C1</b><small>19:00–21:00</small></div>
+                      <div class="ttm-class c-high" data-lane="2" style="grid-row:14 / span 5;"><b>배명고1 C2</b><small>19:30–22:00</small></div>
+                    </div></div>
+                    <div class="ttm-day"><div class="ttm-dayhead text-[var(--brand)]">토</div><div class="ttm-col">
+                      <div class="ttm-class c-clinic" style="grid-row:1 / span 18; grid-column:1 / span 2;"><b>클리닉 · 재시험</b><small>13:00–22:00</small></div>
+                    </div></div>
                   </div>
                 </div>
               </div>
-              <p class="text-xs text-slate-500 mt-2 text-center">좌우로 스크롤하여 요일을 확인하세요</p>
+              <div class="mobile-scroll-hint">
+                좌우로 밀어서 전체 요일 확인
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
             </div>
           </div>
 
-          <!-- 반편성 안내 -->
           <div id="class-info" class="tab-content" data-tab-group="classes">
             <div class="grid md:grid-cols-3 gap-6">
-              <div class="ci-card scroll-animate">
+              <div class="ci-card scroll-animate stagger-item">
                 <h3 class="ci-title text-blue-800">초등부</h3>
-                <div class="ci-row"><span class="font-semibold">초6</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">15:00–17:00</span></span></div>
-                <div class="ci-row"><span class="font-semibold">초5</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">15:00–17:00</span></span></div>
-                <div class="ci-row"><span class="font-semibold">초등 수·금</span><span class="chip chip-status-open">개설 예정</span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">초6</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">15:00–17:00</span></span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">초5</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">15:00–17:00</span></span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">초등 수·금</span><span class="chip chip-status-open">개설 예정</span></div>
               </div>
 
-              <div class="ci-card scroll-animate" style="transition-delay:100ms;">
+              <div class="ci-card scroll-animate stagger-item">
                 <h3 class="ci-title text-emerald-700">중등부</h3>
-                <div class="ci-row"><span class="font-semibold">중3</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">17:00–19:00</span></span></div>
-                <div class="ci-row"><span class="font-semibold">중2</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">17:00–19:00</span></span></div>
-                <div class="ci-row"><span class="font-semibold">중2</span><span class="chip chip-status-closed">마감</span></div>
-                <div class="ci-row"><span class="font-semibold">중1</span><span class="flex items-center gap-2"><span class="chip chip-day">월 · 수</span><span class="chip chip-time">19:30–21:30</span></span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">중3</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">17:00–19:00</span></span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">중2</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">17:00–19:00</span></span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">중2</span><span class="chip chip-status-closed">마감</span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">중1</span><span class="flex items-center gap-2"><span class="chip chip-day">월 · 수</span><span class="chip chip-time">19:30–21:30</span></span></div>
               </div>
 
-              <div class="ci-card scroll-animate" style="transition-delay:200ms;">
+              <div class="ci-card scroll-animate stagger-item">
                 <h3 class="ci-title text-purple-800">고등부</h3>
-                <div class="ci-row"><span class="font-semibold">고3 수능</span><span class="chip chip-status-closed">마감</span></div>
-                <div class="ci-row"><span class="font-semibold">배명고 1학년</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">19:30–22:00</span></span></div>
-                <div class="ci-row"><span class="font-semibold">배명고 1학년</span><span class="flex items-center gap-2"><span class="chip chip-day">수 · 금</span><span class="chip chip-time">19:30–22:00</span></span></div>
-                <div class="ci-row"><span class="font-semibold">잠실여고 1학년</span><span class="chip chip-status-open">개강 예정</span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">고3 수능</span><span class="chip chip-status-closed">마감</span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">배명고 1학년</span><span class="flex items-center gap-2"><span class="chip chip-day">화 · 목</span><span class="chip chip-time">19:30–22:00</span></span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">배명고 1학년</span><span class="flex items-center gap-2"><span class="chip chip-day">수 · 금</span><span class="chip chip-time">19:30–22:00</span></span></div>
+                <div class="ci-row"><span class="font-bold text-slate-800">잠실여고 1학년</span><span class="chip chip-status-open">개강 예정</span></div>
               </div>
             </div>
           </div>
@@ -510,40 +450,39 @@
       </div>
     </section>
 
-    <!-- 관리 시스템 -->
-    <section id="systems" class="py-16 md:py-24 bg-slate-50">
+    <section id="systems" class="py-20 md:py-32 bg-white">
       <div class="container mx-auto px-6">
         <h2 class="section-title scroll-animate">체계적인 관리 시스템</h2>
-
-        <div class="sys-rail mt-4 scroll-animate">
-          <button class="sys-ctrl left" id="sys-prev" aria-label="이전">←</button>
-          <button class="sys-ctrl right" id="sys-next" aria-label="다음">→</button>
+        
+        <div class="sys-rail mt-10">
+          <button class="sys-ctrl left scroll-animate" id="sys-prev" aria-label="이전">←</button>
+          <button class="sys-ctrl right scroll-animate" id="sys-next" aria-label="다음">→</button>
 
           <div id="sys-track" class="sys-track">
-            <article class="sys-card">
+            <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
                 <img class="sys-logo" src="https://i.imgur.com/wkcXum1.png" alt="NELT" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=NELT'"/>
-                <div><h3 class="text-lg font-extrabold">NELT</h3><p class="text-sm text-slate-600">데이터 기반의 객관적 평가</p></div>
+                <div><h3 class="text-[20px] font-extrabold text-slate-800">NELT</h3><p class="text-sm text-slate-500 font-semibold">데이터 기반의 객관적 평가</p></div>
               </div>
-              <p class="text-[15px] text-slate-700">영역별 <b>정밀 진단</b>으로 강·약점을 파악하고, 누적 데이터로 학습 경로를 최적화합니다.</p>
-              <img src="https://i.imgur.com/pVCjKgl.png" alt="NELT 성적표 예시" class="w-full mt-3 rounded-md border border-[var(--border)]" loading="lazy" onerror="this.src='https://placehold.co/800x480/ffffff/64748b?text=NELT+Sample'"/>
+              <p class="text-[15px] text-slate-600 mb-4">영역별 <b>정밀 진단</b>으로 강·약점을 파악하고, 누적 데이터로 학습 경로를 최적화합니다.</p>
+              <img src="https://i.imgur.com/pVCjKgl.png" alt="NELT 성적표 예시" class="w-full rounded-lg border border-[var(--border)] sys-img" loading="lazy"/>
             </article>
 
-            <article class="sys-card">
+            <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
-                <img class="sys-logo" src="https://i.imgur.com/03VJTJ6.png" alt="Notion" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=N'"/>
-                <div><h3 class="text-lg font-extrabold">개인별 과제관리</h3><p class="text-sm text-slate-600">체계적인 학습 이력</p></div>
+                <img class="sys-logo p-2" src="https://i.imgur.com/03VJTJ6.png" alt="Notion" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=N'"/>
+                <div><h3 class="text-[20px] font-extrabold text-slate-800">개인별 과제관리</h3><p class="text-sm text-slate-500 font-semibold">체계적인 학습 이력</p></div>
               </div>
-              <p class="text-[15px] text-slate-700">과제·자료·성취도를 Notion에 기록해 <b>학생/학부모와 공유</b>. 진도는 데이터로 조정합니다.</p>
-              <img src="https://i.imgur.com/rYeumKm.png" alt="Notion 보드" class="w-full mt-3 rounded-md border border-[var(--border)]" loading="lazy" onerror="this.src='https://placehold.co/800x480/ffffff/64748b?text=Notion+Board'"/>
+              <p class="text-[15px] text-slate-600 mb-4">과제·자료·성취도를 Notion에 기록해 <b>학생/학부모와 공유</b>. 진도는 데이터로 조정합니다.</p>
+              <img src="https://i.imgur.com/rYeumKm.png" alt="Notion 보드" class="w-full rounded-lg border border-[var(--border)] sys-img" loading="lazy"/>
             </article>
 
-            <article class="sys-card">
+            <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
                 <img class="sys-logo" src="https://i.imgur.com/gvsWG74.png" alt="Classcard" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=C'"/>
-                <div><h3 class="text-lg font-extrabold">클래스카드</h3><p class="text-sm text-slate-600">드릴·테스트·오답 누적</p></div>
+                <div><h3 class="text-[20px] font-extrabold text-slate-800">클래스카드</h3><p class="text-sm text-slate-500 font-semibold">드릴·테스트·오답 누적</p></div>
               </div>
-              <p class="text-[15px] text-slate-700">단어·문장·듣기 등 다양한 드릴로 <b>체화</b>. 실시간 현황으로 완전학습을 이끕니다.</p>
+              <p class="text-[15px] text-slate-600 mb-4">단어·문장·듣기 등 다양한 드릴로 <b>체화</b>. 실시간 현황으로 완전학습을 이끕니다.</p>
               <div class="sys-img-grid">
                 <img class="sys-img" src="https://i.imgur.com/C1ARgJy.png" alt="단어 학습" loading="lazy"/>
                 <img class="sys-img" src="https://i.imgur.com/FgEiqq7.png" alt="문장 학습" loading="lazy"/>
@@ -556,37 +495,47 @@
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="py-16 md:py-24 bg-white">
+    <section id="contact" class="py-20 md:py-32 bg-slate-50/80 border-t border-[var(--border)]">
       <div class="container mx-auto px-6">
         <h2 class="section-title scroll-animate">상담 신청 및 오시는 길</h2>
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
-          <div class="scroll-animate">
-            <h3 class="text-xl font-extrabold mb-4">상담 신청</h3>
-            <form id="contact-form" action="https://formspree.io/f/xgvzqjdq" method="POST" class="space-y-4">
-              <div><label for="name" class="block text-sm font-semibold text-slate-700">이름</label>
-                <input id="name" name="name" required class="mt-1 block w-full px-4 h-10 border border-[var(--border)] rounded-md focus:ring-[var(--brand)] focus:border-[var(--brand)]"/></div>
-              <div><label for="contact-info" class="block text-sm font-semibold text-slate-700">연락처</label>
-                <input id="contact-info" name="연락처" required placeholder="전화번호 또는 이메일" class="mt-1 block w-full px-4 h-10 border border-[var(--border)] rounded-md focus:ring-[var(--brand)] focus:border-[var(--brand)]"/></div>
-              <div><label for="message" class="block text-sm font-semibold text-slate-700">문의 내용</label>
-                <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 border border-[var(--border)] rounded-md focus:ring-[var(--brand)] focus:border-[var(--brand)]"></textarea></div>
-              <button type="submit" class="w-full btn" style="background:var(--brand);color:#fff">상담 신청</button>
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start mt-12">
+          
+          <div class="scroll-animate bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-[var(--border)]">
+            <h3 class="text-2xl font-extrabold mb-6 text-slate-800">상담 신청</h3>
+            <form id="contact-form" action="https://formspree.io/f/xgvzqjdq" method="POST" class="space-y-5">
+              <div>
+                <label for="name" class="block text-sm font-bold text-slate-700 mb-1.5">이름</label>
+                <input id="name" name="name" required class="block w-full px-4 h-12 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent transition-all outline-none"/>
+              </div>
+              <div>
+                <label for="contact-info" class="block text-sm font-bold text-slate-700 mb-1.5">연락처</label>
+                <input id="contact-info" name="연락처" required placeholder="전화번호 또는 이메일" class="block w-full px-4 h-12 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent transition-all outline-none"/>
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-bold text-slate-700 mb-1.5">문의 내용</label>
+                <textarea id="message" name="message" rows="4" class="block w-full p-4 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent transition-all outline-none resize-none"></textarea>
+              </div>
+              <button type="submit" id="submit-btn" class="w-full btn btn-primary !h-12 !text-[16px] !mt-2">상담 예약하기</button>
             </form>
+            <div id="form-success">상담 예약이 성공적으로 접수되었습니다.<br>빠른 시일 내에 연락드리겠습니다.</div>
           </div>
 
-          <div class="scroll-animate" style="transition-delay:120ms;">
-            <h3 class="text-xl font-extrabold mb-4">오시는 길</h3>
-            <div class="relative w-full h-80 rounded-lg shadow-sm border border-[var(--border)] overflow-hidden bg-white">
-              <img src="https://i.imgur.com/p8GQoow.png" alt="SNM English 약도" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/800x500/e2e8f0/4a5568?text=Map';"/>
-              <!-- 마커 복구 -->
-              <div class="absolute top-[68%] left-[42%] -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[var(--brand)] rounded-full border-4 border-white shadow-[0_0_10px_rgba(28,41,192,0.7)]"></div>
-              <div class="absolute top-[68%] left-[42%] -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[var(--brand)] rounded-full animate-ping"></div>
+          <div class="scroll-animate">
+            <h3 class="text-2xl font-extrabold mb-6 text-slate-800">오시는 길</h3>
+            <div class="relative w-full h-[320px] rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.06)] border border-[var(--border)] overflow-hidden bg-white group">
+              <img src="https://i.imgur.com/p8GQoow.png" alt="SNM English 약도" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
+              <div class="absolute top-[68%] left-[42%] -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[var(--brand)] rounded-full border-[3px] border-white shadow-[0_0_16px_rgba(28,41,192,0.8)] z-10"></div>
+              <div class="absolute top-[68%] left-[42%] -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[var(--brand)] rounded-full animate-ping opacity-75"></div>
             </div>
-            <div class="mt-4 text-slate-700 bg-slate-100 p-4 rounded-lg">
-              <p class="font-bold text-[var(--brand)]">송파역 3번출구 앞</p>
-              <p class="font-semibold mt-1">서울특별시 송파구 송파대로 345, 헬리오시티 상가B동 2층</p>
-              <p class="font-semibold mt-2"><a href="tel:0264026768" class="text-[var(--brand)] underline-offset-4 hover:underline">02 6402 6768</a></p>
-              <p class="mt-2"><a href="https://blog.naver.com/snm_english" target="_blank" class="text-[var(--brand)] underline-offset-4 hover:underline">학원 블로그 이동</a></p>
+            <div class="mt-6 text-slate-700 bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(15,23,42,0.03)] border border-[var(--border)]">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-extrabold px-2.5 py-1 rounded-md">송파역 3번출구</span>
+              </div>
+              <p class="font-semibold text-[15px] leading-relaxed">서울특별시 송파구 송파대로 345,<br>헬리오시티 상가B동 2층</p>
+              <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <a href="tel:0264026768" class="font-bold text-lg text-slate-800 hover:text-[var(--brand)] transition-colors">02 6402 6768</a>
+                <a href="https://blog.naver.com/snm_english" target="_blank" class="text-sm font-bold text-[var(--brand)] flex items-center gap-1 hover:underline underline-offset-4">블로그 방문 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
+              </div>
             </div>
           </div>
         </div>
@@ -594,96 +543,176 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-slate-900 text-white">
-    <div class="container mx-auto px-6 py-12 text-center">
-      <img src="https://i.imgur.com/KjlZGfN.png" alt="SNM English 푸터 로고" class="h-12 mx-auto mb-6"/>
-      <div class="text-slate-300 space-y-1 text-sm">
-        <p class="font-semibold">SNM English</p>
-        <p>송파대로 345, 헬리오시티 상가B동 2층 · 02 6402 6768</p>
-        <p><a href="https://blog.naver.com/snm_english" target="_blank" class="hover:text-white">학원 블로그</a></p>
+  <footer class="bg-slate-900 text-white border-t border-slate-800">
+    <div class="container mx-auto px-6 py-16 text-center">
+      <img src="https://i.imgur.com/KjlZGfN.png" alt="SNM English 푸터 로고" class="h-10 mx-auto mb-8 opacity-90"/>
+      <div class="text-slate-400 space-y-2 text-[14px]">
+        <p class="font-bold text-slate-200">SNM English</p>
+        <p>서울특별시 송파구 송파대로 345, 헬리오시티 상가B동 2층</p>
+        <p>상담문의: <a href="tel:0264026768" class="hover:text-white transition-colors">02 6402 6768</a></p>
       </div>
-      <p class="text-slate-500 text-xs mt-6">&copy; 2024 SNM English. All Rights Reserved.</p>
+      <p class="text-slate-500 text-xs mt-10 font-medium tracking-wide">&copy; 2024 SNM English. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- Lightbox -->
   <div id="lightbox" class="lightbox" aria-modal="true" role="dialog"><img src="" alt="확대 이미지"/></div>
 
-  <!-- Back to top -->
-  <button id="back-to-top" aria-label="맨 위로" class="fixed right-4 bottom-4 w-11 h-11 rounded-full bg-[var(--brand)] text-white flex items-center justify-center opacity-0 pointer-events-none transition-opacity z-[60]">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  <button id="back-to-top" aria-label="맨 위로" class="fixed right-6 bottom-6 w-12 h-12 rounded-full bg-white text-[var(--brand)] shadow-[0_8px_24px_rgba(0,33,197,0.2)] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 hover:scale-110 hover:-translate-y-1 z-[60]">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
   <script>
     document.addEventListener('DOMContentLoaded', function(){
-      /* Header shadow */
-      const header=document.getElementById('site-header');
-      const setShadow=()=>header.classList.toggle('header-shadow',window.scrollY>6);
-      window.addEventListener('scroll',setShadow); setShadow();
+      /* Header shadow on scroll */
+      const header = document.getElementById('site-header');
+      const setShadow = () => {
+        if(window.scrollY > 10) {
+          header.classList.add('header-shadow', 'border-slate-200');
+          header.classList.remove('border-transparent');
+        } else {
+          header.classList.remove('header-shadow', 'border-slate-200');
+          header.classList.add('border-transparent');
+        }
+      };
+      window.addEventListener('scroll', setShadow, {passive: true}); setShadow();
 
-      /* Mobile menu */
-      const mobileBtn=document.getElementById('mobile-menu-button');
-      const mobileMenu=document.getElementById('mobile-menu');
-      mobileBtn.addEventListener('click',()=>mobileMenu.classList.toggle('hidden'));
-      document.querySelectorAll('#mobile-menu a').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.add('hidden')));
+      /* Mobile menu toggle */
+      const mobileBtn = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+      document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
-      /* Scroll reveal */
-      const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible')}),{threshold:.14});
-      document.querySelectorAll('.scroll-animate').forEach(el=>io.observe(el));
+      /* Staggered Scroll Reveal Observer */
+      const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+      const io = new IntersectionObserver((entries, observer) => {
+        // Group entries that intersect at the same time to apply stagger
+        const intersecting = entries.filter(e => e.isIntersecting);
+        intersecting.forEach((entry, index) => {
+          const el = entry.target;
+          // Apply stagger delay if element has 'stagger-item' class
+          if (el.classList.contains('stagger-item')) {
+            el.style.transitionDelay = `${index * 120}ms`;
+          }
+          // Small timeout to ensure styles apply
+          setTimeout(() => el.classList.add('visible'), 10);
+          observer.unobserve(el);
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.scroll-animate').forEach(el => io.observe(el));
 
-      /* Tabs */
-      document.querySelectorAll('.tab-btn').forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          const g=btn.dataset.tabGroup, t=btn.dataset.tabTarget;
-          document.querySelectorAll(`.tab-btn[data-tab-group="${g}"]`).forEach(b=>b.classList.remove('active-tab'));
+      /* Hero Parallax Effect */
+      const heroContent = document.getElementById('hero-content');
+      const heroImg = document.getElementById('hero-img');
+      const heroWave = document.getElementById('hero-wave');
+      
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const scrolled = window.scrollY;
+            if (scrolled < window.innerHeight) {
+              // 부드러운 패럴랙스 (Y축 이동 속도 차이 부여)
+              if(heroContent) heroContent.style.transform = `translate3d(0, ${scrolled * -0.15}px, 0)`;
+              if(heroImg) heroImg.style.transform = `translate3d(-50%, ${scrolled * 0.3}px, 0)`;
+              if(heroWave) heroWave.style.transform = `translate3d(0, ${scrolled * 0.15}px, 0)`;
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, {passive: true});
+
+      /* Tabs Logic */
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const g = btn.dataset.tabGroup, t = btn.dataset.tabTarget;
+          document.querySelectorAll(`.tab-btn[data-tab-group="${g}"]`).forEach(b => b.classList.remove('active-tab'));
           btn.classList.add('active-tab');
-          document.querySelectorAll(`.tab-content[data-tab-group="${g}"]`).forEach(c=>c.classList.remove('active'));
-          document.getElementById(t).classList.add('active');
+          document.querySelectorAll(`.tab-content[data-tab-group="${g}"]`).forEach(c => c.classList.remove('active'));
+          // Add small delay for smooth opacity transition
+          setTimeout(() => document.getElementById(t).classList.add('active'), 10);
         });
       });
 
-      /* Education rail */
-      (function(){
-        const track=document.getElementById('edu-track');
+      /* Rail Scrollers (Edu & Sys) */
+      const setupRail = (trackId, prevId, nextId) => {
+        const track = document.getElementById(trackId);
         if(!track) return;
-        const prev=document.getElementById('edu-prev'), next=document.getElementById('edu-next');
-        prev.addEventListener('click',()=>track.scrollBy({left:-window.innerWidth*0.8,behavior:'smooth'}));
-        next.addEventListener('click',()=>track.scrollBy({left: window.innerWidth*0.8,behavior:'smooth'}));
-      })();
-
-      /* Systems rail */
-      (function(){
-        const track=document.getElementById('sys-track');
-        if(!track) return;
-        document.getElementById('sys-prev').addEventListener('click',()=>track.scrollBy({left:-window.innerWidth*0.8,behavior:'smooth'}));
-        document.getElementById('sys-next').addEventListener('click',()=>track.scrollBy({left: window.innerWidth*0.8,behavior:'smooth'}));
-      })();
+        const scrollAmt = () => window.innerWidth < 1024 ? window.innerWidth * 0.8 : 400;
+        document.getElementById(prevId).addEventListener('click', () => track.scrollBy({left: -scrollAmt(), behavior: 'smooth'}));
+        document.getElementById(nextId).addEventListener('click', () => track.scrollBy({left: scrollAmt(), behavior: 'smooth'}));
+      };
+      setupRail('edu-track', 'edu-prev', 'edu-next');
+      setupRail('sys-track', 'sys-prev', 'sys-next');
 
       /* Lightbox */
-      const lb=document.getElementById('lightbox'), lbImg=lb.querySelector('img');
-      document.querySelectorAll('.sys-img').forEach(img=>{
-        img.addEventListener('click',()=>{lbImg.src=img.src; lb.classList.add('open')});
+      const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
+      document.querySelectorAll('.sys-img').forEach(img => {
+        img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('open'); });
       });
-      lb.addEventListener('click',()=>lb.classList.remove('open'));
+      lb.addEventListener('click', () => lb.classList.remove('open'));
 
       /* Back to top */
-      const back=document.getElementById('back-to-top');
-      const bt=()=>{const show=window.scrollY>560; back.style.opacity=show?1:0; back.style.pointerEvents=show?'auto':'none'};
-      window.addEventListener('scroll',bt); bt();
+      const back = document.getElementById('back-to-top');
+      back.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+      window.addEventListener('scroll', () => {
+        const show = window.scrollY > 500;
+        back.style.opacity = show ? '1' : '0';
+        back.style.pointerEvents = show ? 'auto' : 'none';
+        back.style.transform = show ? 'translateY(0)' : 'translateY(20px)';
+      }, {passive: true});
 
-      /* Build time rail labels (13:00 ~ 21:30, 30분 간격) */
-      (function buildTime(){
-        const rail=document.getElementById('ttm-time-rail'); if(!rail) return;
-        for(let i=0;i<18;i++){
-          const h=13+Math.floor(i/2); const m=i%2===0?'00':'30';
-          const el=document.createElement('div'); el.className='ttm-time'; el.textContent=`${String(h).padStart(2,'0')}:${m}`;
+      /* Build Mobile Time Rail Labels (13:00 ~ 21:30) */
+      const buildTime = () => {
+        const rail = document.getElementById('ttm-time-rail'); 
+        if(!rail) return;
+        for(let i = 0; i < 18; i++){
+          const h = 13 + Math.floor(i / 2); 
+          const m = i % 2 === 0 ? '00' : '30';
+          const el = document.createElement('div'); 
+          el.className = 'ttm-time'; 
+          el.textContent = `${String(h).padStart(2, '0')}:${m}`;
           rail.appendChild(el);
         }
-      })();
+      };
+      buildTime();
 
+      /* AJAX Contact Form Submission (No page reload) */
+      const form = document.getElementById('contact-form');
+      const formSuccess = document.getElementById('form-success');
+      const submitBtn = document.getElementById('submit-btn');
+
+      if(form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = '전송 중...';
+          submitBtn.style.opacity = '0.7';
+          submitBtn.disabled = true;
+
+          try {
+            const response = await fetch(form.action, {
+              method: form.method,
+              body: new FormData(form),
+              headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+              form.style.display = 'none';
+              formSuccess.style.display = 'block';
+            } else {
+              alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+          } catch (error) {
+            alert('네트워크 오류가 발생했습니다.');
+          } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.style.opacity = '1';
+            submitBtn.disabled = false;
+          }
+        });
+      }
     });
   </script>
-
 </body>
 </html>
