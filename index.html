@@ -66,6 +66,17 @@
       box-shadow: 0 8px 24px rgba(0,0,0,.15);
     }
 
+    /* 재원생용 보조 버튼 — 주 CTA(상담 예약)의 위계를 깎지 않도록 무채색 아웃라인 */
+    .btn-hw {
+      display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px;
+      border-radius: 9px; font-weight: 700; font-size: 13.5px; letter-spacing: -.01em;
+      border: 1.5px solid var(--border); color: var(--muted); background: #fff;
+      transition: border-color .25s ease, color .25s ease, background-color .25s ease;
+    }
+    .btn-hw:hover { border-color: var(--brand); color: var(--brand); background: rgba(0,33,197,.03); }
+    .btn-hw svg { width: 14px; height: 14px; stroke-width: 2.2; }
+    @media (max-width: 767px) { .btn-hw { height: 34px; padding: 0 11px; font-size: 12.5px; } }
+
     .header-shadow { box-shadow: 0 4px 24px rgba(15,23,42,.04); }
     .mobile-menu-sheet { box-shadow: 0 16px 32px rgba(15,23,42,.16); border-top: 1px solid var(--border); background: #fff; }
 
@@ -239,8 +250,12 @@
           <a href="#classes" class="text-slate-600 hover:text-[var(--brand)] transition-colors">수업 안내</a>
           <a href="#systems" class="text-slate-600 hover:text-[var(--brand)] transition-colors">관리 시스템</a>
         </nav>
-        <a href="#contact" class="hidden md:inline-flex btn btn-primary ml-10">상담 예약</a>
-        <button id="mobile-menu-button" class="md:hidden text-slate-700 ml-4 p-2" aria-label="모바일 메뉴">
+        <a href="https://hw.snmenglish.com" target="_blank" rel="noopener" class="btn-hw md:ml-8" aria-label="숙제관리자 — 재원생 전용">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <span class="hidden md:inline">HW Manager</span><span class="md:hidden">HW</span>
+        </a>
+        <a href="#contact" class="hidden md:inline-flex btn btn-primary ml-3">상담 예약</a>
+        <button id="mobile-menu-button" class="md:hidden text-slate-700 ml-2 p-2" aria-label="모바일 메뉴">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"/></svg>
         </button>
       </div>
