@@ -1,0 +1,22 @@
+name: blog-feed
+on:
+  schedule:
+    - cron: "40 13 * * *"   # 매일 22:40 KST (22:00 예약 발행 뒤)
+    - cron: "10 23 * * *"   # 매일 08:10 KST (낮에 바로 발행한 글 대비)
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/blog_feed.py
+      - name: commit
+        run: |
+          git diff --quiet blog.json && exit 0
+          git config user.name "snm-bot"
+          git config user.email "snm-bot@users.noreply.github.com"
+          git add blog.json
+          git commit -m "blog.json 갱신"
+          git push

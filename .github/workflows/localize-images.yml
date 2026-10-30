@@ -1,0 +1,21 @@
+name: localize-images
+on:
+  push:
+    paths: [".github/workflows/localize-images.yml", "tools/localize_images.py"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/localize_images.py
+      - name: commit
+        run: |
+          git add -A img index.html
+          git diff --cached --quiet && exit 0
+          git config user.name "snm-bot"
+          git config user.email "snm-bot@users.noreply.github.com"
+          git commit -m "imgur 이미지를 저장소로 옮김"
+          git push

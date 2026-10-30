@@ -163,6 +163,15 @@
     .edu-ctrl:hover, .sys-ctrl:hover { background: var(--brand); color: #fff; border-color: var(--brand); transform: translateY(-50%) scale(1.05); }
     .edu-ctrl.left, .sys-ctrl.left { left: -12px; } .edu-ctrl.right, .sys-ctrl.right { right: -12px; }
 
+    /* 최근 소식 */
+    .news-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+    @media(min-width: 768px) { .news-grid { grid-template-columns: repeat(3, 1fr); } }
+    .news-card { display: flex; flex-direction: column; min-height: 168px; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: transform 400ms var(--curve), box-shadow 400ms var(--curve), border-color 300ms ease; }
+    .news-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(15,23,42,.06); border-color: #cbd5e1; }
+    .news-cat { align-self: flex-start; font-size: 12px; font-weight: 800; color: var(--brand); background: #eef2ff; border-radius: 6px; padding: .2rem .5rem; }
+    .news-title { margin-top: 14px; font-size: 17px; font-weight: 800; line-height: 1.45; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .news-date { margin-top: auto; padding-top: 16px; font-size: 13px; font-weight: 600; color: var(--muted); }
+
     /* 워터마크 */
     .wm::after { content: ''; position: absolute; right: -16px; bottom: -16px; width: 180px; height: 180px; background-repeat: no-repeat; background-size: contain; opacity: .03; pointer-events: none; filter: grayscale(1); transition: opacity 600ms var(--curve), transform 600ms var(--curve); }
     .edu-card:hover.wm::after { opacity: .06; transform: scale(1.05); }
@@ -292,7 +301,7 @@
     <section id="education" class="py-24 md:py-32 relative z-10 bg-white">
       <div class="container mx-auto px-6 max-w-7xl">
         <h2 class="section-title scroll-animate">SNM의 교육</h2>
-        <p class="section-subtitle scroll-animate">SNM English은 학생에 집중하며 결과에 충실한 수업을 약속합니다.</p>
+        <p class="section-subtitle scroll-animate">SNM English는 학생에 집중하며 결과에 충실한 수업을 약속합니다.</p>
 
         <div class="edu-rail mt-12">
           <button class="edu-ctrl left scroll-animate" id="edu-prev" aria-label="이전">←</button>
@@ -488,7 +497,7 @@
           <div id="sys-track" class="sys-track">
             <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
-                <img class="sys-logo" src="https://i.imgur.com/wkcXum1.png" alt="NELT" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=NELT'"/>
+                <img class="sys-logo" src="https://i.imgur.com/wkcXum1.png" alt="NELT" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=NELT'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">NELT</h3><p class="text-sm text-slate-500 font-semibold">데이터 기반의 객관적 평가</p></div>
               </div>
               <p class="text-[15px] text-slate-600 mb-5">영역별 <b>정밀 진단</b>으로 강·약점을 파악하고, 누적 데이터로 학습 경로를 최적화합니다.</p>
@@ -497,7 +506,7 @@
 
             <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
-                <img class="sys-logo p-2" src="https://i.imgur.com/03VJTJ6.png" alt="Notion" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=N'"/>
+                <img class="sys-logo p-2" src="https://i.imgur.com/03VJTJ6.png" alt="Notion" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=N'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">개인별 과제관리</h3><p class="text-sm text-slate-500 font-semibold">체계적인 학습 이력</p></div>
               </div>
               <p class="text-[15px] text-slate-600 mb-5">과제·자료·성취도를 Notion에 기록해 <b>학생/학부모와 공유</b>. 진도는 데이터로 조정합니다.</p>
@@ -506,7 +515,7 @@
 
             <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
-                <img class="sys-logo" src="https://i.imgur.com/gvsWG74.png" alt="Classcard" onerror="this.src='https://placehold.co/96x96/FFFFFF/111827?text=C'"/>
+                <img class="sys-logo" src="https://i.imgur.com/gvsWG74.png" alt="Classcard" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=C'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">클래스카드</h3><p class="text-sm text-slate-500 font-semibold">드릴·테스트·오답 누적</p></div>
               </div>
               <p class="text-[15px] text-slate-600 mb-5">단어·문장·듣기 등 다양한 드릴로 <b>체화</b>. 실시간 현황으로 완전학습을 이끕니다.</p>
@@ -518,6 +527,16 @@
               </div>
             </article>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="news" class="py-24 md:py-32 bg-slate-50" hidden>
+      <div class="container mx-auto px-6 max-w-7xl">
+        <h2 class="section-title scroll-animate">최근 소식</h2>
+        <div id="news-grid" class="news-grid mt-12"></div>
+        <div class="text-center mt-10">
+          <a href="https://blog.naver.com/snm_english" target="_blank" class="inline-flex items-center gap-1 text-[15px] font-bold text-[var(--brand)] hover:underline underline-offset-4">블로그 전체 보기 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
         </div>
       </div>
     </section>
@@ -578,7 +597,7 @@
         <p>서울특별시 송파구 송파대로 345, 헬리오시티 상가B동 2층</p>
         <p>상담문의: <a href="tel:0264026768" class="hover:text-white transition-colors">02 6402 6768</a></p>
       </div>
-      <p class="text-slate-500 text-sm mt-10 font-medium tracking-wide">&copy; 2024 SNM English. All Rights Reserved.</p>
+      <p class="text-slate-500 text-sm mt-10 font-medium tracking-wide">&copy; <span id="copy-year">2026</span> SNM English. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -721,6 +740,25 @@
         }
       };
       buildTime();
+
+      /* 최근 소식 (blog.json 은 GitHub Actions 가 RSS 로 갱신) */
+      const yr = document.getElementById('copy-year');
+      if (yr) yr.textContent = new Date().getFullYear();
+      fetch('/blog.json', { cache: 'no-cache' })
+        .then(r => r.ok ? r.json() : [])
+        .then(posts => {
+          if (!Array.isArray(posts) || !posts.length) return;
+          const grid = document.getElementById('news-grid');
+          const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+          grid.innerHTML = posts.map(p => `
+            <a class="news-card" href="${esc(p.link)}" target="_blank" rel="noopener">
+              ${p.category ? `<span class="news-cat">${esc(p.category)}</span>` : ''}
+              <span class="news-title">${esc(p.title)}</span>
+              <span class="news-date">${esc(p.date)}</span>
+            </a>`).join('');
+          document.getElementById('news').hidden = false;
+        })
+        .catch(() => {});
 
       /* AJAX Contact Form Submission */
       const form = document.getElementById('contact-form');
