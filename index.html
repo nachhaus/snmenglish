@@ -748,6 +748,8 @@
         .then(r => r.ok ? r.json() : [])
         .then(posts => {
           if (!Array.isArray(posts) || !posts.length) return;
+          const newest = new Date(posts[0].date.replace(/\./g, '-'));
+          if ((Date.now() - newest) / 864e5 > 30) return;  /* 한 달 넘게 글이 없으면 섹션을 띄우지 않음 */
           const grid = document.getElementById('news-grid');
           const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
           grid.innerHTML = posts.map(p => `
