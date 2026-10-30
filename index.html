@@ -175,9 +175,9 @@
     /* 워터마크 */
     .wm::after { content: ''; position: absolute; right: -16px; bottom: -16px; width: 180px; height: 180px; background-repeat: no-repeat; background-size: contain; opacity: .03; pointer-events: none; filter: grayscale(1); transition: opacity 600ms var(--curve), transform 600ms var(--curve); }
     .edu-card:hover.wm::after { opacity: .06; transform: scale(1.05); }
-    .wm-philo::after { background-image: url('https://i.imgur.com/1kIEMZU.png'); }
-    .wm-curric::after { background-image: url('https://i.imgur.com/1phDbSt.png'); }
-    .wm-vocab::after { background-image: url('https://i.imgur.com/gvsWG74.png'); }
+    .wm-philo::after { background-image: url('/img/1kIEMZU.png'); }
+    .wm-curric::after { background-image: url('/img/1phDbSt.png'); }
+    .wm-vocab::after { background-image: url('/img/gvsWG74.png'); }
 
     /* 데스크탑 그리드 최적화 (1024px 이상) */
     @media(min-width: 1024px) {
@@ -254,7 +254,7 @@
   <header id="site-header" class="bg-white/80 backdrop-blur-xl fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent" style="height:var(--header-h);">
     <div class="container mx-auto px-6 max-w-7xl h-full flex justify-between items-center">
       <a href="#hero" class="flex items-center">
-        <img src="https://i.imgur.com/onzqqko.png" alt="SNM English 로고" class="h-8 md:h-10 transition-transform duration-300 hover:scale-105"/>
+        <img src="/img/onzqqko.png" alt="SNM English 로고" class="h-8 md:h-10 transition-transform duration-300 hover:scale-105"/>
       </a>
       <div class="flex items-center">
         <nav class="hidden md:flex items-center gap-8 text-[15px] font-semibold">
@@ -292,7 +292,7 @@
           <a href="#contact" class="btn btn-primary">상담 예약</a>
         </div>
       </div>
-      <img src="https://i.imgur.com/O1LCJng.png" alt="성장 그래프 일러스트" id="hero-img" class="hero-illustration" style="opacity:0; transform:translate3d(-50%, 40px, 0); transition: opacity 800ms ease, transform 800ms ease;" loading="eager"/>
+      <img src="/img/O1LCJng.png" alt="성장 그래프 일러스트" id="hero-img" class="hero-illustration" style="opacity:0; transform:translate3d(-50%, 40px, 0); transition: opacity 800ms ease, transform 800ms ease;" loading="eager"/>
       <div id="hero-wave" class="wave-bg" style="transform:translate3d(0,0,0);">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="#1c29c0" fill-opacity="0.40" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,186.7C960,213,1056,235,1152,218.7C1248,203,1344,149,1392,122.7L1440,96L1440,320L0,320Z"/></svg>
       </div>
@@ -497,33 +497,33 @@
           <div id="sys-track" class="sys-track">
             <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
-                <img class="sys-logo" src="https://i.imgur.com/wkcXum1.png" alt="NELT" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=NELT'"/>
+                <img class="sys-logo" src="/img/wkcXum1.png" alt="NELT" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=NELT'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">NELT</h3><p class="text-sm text-slate-500 font-semibold">데이터 기반의 객관적 평가</p></div>
               </div>
               <p class="text-[15px] text-slate-600 mb-5">영역별 <b>정밀 진단</b>으로 강·약점을 파악하고, 누적 데이터로 학습 경로를 최적화합니다.</p>
-              <img src="https://i.imgur.com/pVCjKgl.png" alt="NELT 성적표 예시" class="w-full rounded-lg border border-[var(--border)] sys-img" loading="lazy"/>
+              <img src="/img/pVCjKgl.png" alt="NELT 성적표 예시" class="w-full rounded-lg border border-[var(--border)] sys-img" loading="lazy"/>
             </article>
 
             <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
-                <img class="sys-logo p-2" src="https://i.imgur.com/03VJTJ6.png" alt="Notion" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=N'"/>
+                <img class="sys-logo p-2" src="/img/03VJTJ6.png" alt="Notion" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=N'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">개인별 과제관리</h3><p class="text-sm text-slate-500 font-semibold">체계적인 학습 이력</p></div>
               </div>
               <p class="text-[15px] text-slate-600 mb-5">과제·자료·성취도를 Notion에 기록해 <b>학생/학부모와 공유</b>. 진도는 데이터로 조정합니다.</p>
-              <img src="https://i.imgur.com/rYeumKm.png" alt="Notion 보드" class="w-full rounded-lg border border-[var(--border)] sys-img" loading="lazy"/>
+              <img src="/img/rYeumKm.png" alt="Notion 보드" class="w-full rounded-lg border border-[var(--border)] sys-img" loading="lazy"/>
             </article>
 
             <article class="sys-card scroll-animate stagger-item">
               <div class="sys-head">
-                <img class="sys-logo" src="https://i.imgur.com/gvsWG74.png" alt="Classcard" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=C'"/>
+                <img class="sys-logo" src="/img/gvsWG74.png" alt="Classcard" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/111827?text=C'"/>
                 <div><h3 class="text-[20px] font-extrabold text-slate-800">클래스카드</h3><p class="text-sm text-slate-500 font-semibold">드릴·테스트·오답 누적</p></div>
               </div>
               <p class="text-[15px] text-slate-600 mb-5">단어·문장·듣기 등 다양한 드릴로 <b>체화</b>. 실시간 현황으로 완전학습을 이끕니다.</p>
               <div class="sys-img-grid">
-                <img class="sys-img" src="https://i.imgur.com/C1ARgJy.png" alt="단어 학습" loading="lazy"/>
-                <img class="sys-img" src="https://i.imgur.com/FgEiqq7.png" alt="문장 학습" loading="lazy"/>
-                <img class="sys-img" src="https://i.imgur.com/2JyNJ0D.png" alt="드릴 예시" loading="lazy"/>
-                <img class="sys-img" src="https://i.imgur.com/2JKcYha.png" alt="OMR 테스트" loading="lazy"/>
+                <img class="sys-img" src="/img/C1ARgJy.png" alt="단어 학습" loading="lazy"/>
+                <img class="sys-img" src="/img/FgEiqq7.png" alt="문장 학습" loading="lazy"/>
+                <img class="sys-img" src="/img/2JyNJ0D.png" alt="드릴 예시" loading="lazy"/>
+                <img class="sys-img" src="/img/2JKcYha.png" alt="OMR 테스트" loading="lazy"/>
               </div>
             </article>
           </div>
@@ -569,7 +569,7 @@
           <div class="scroll-animate">
             <h3 class="text-2xl font-extrabold mb-6 text-slate-800">오시는 길</h3>
             <div class="relative w-full h-[340px] rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-[var(--border)] overflow-hidden bg-white group">
-              <img src="https://i.imgur.com/p8GQoow.png" alt="SNM English 약도" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
+              <img src="/img/p8GQoow.png" alt="SNM English 약도" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
               <div class="absolute top-[68%] left-[42%] -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[var(--brand)] rounded-full border-[3px] border-white shadow-[0_0_16px_rgba(28,41,192,0.8)] z-10"></div>
               <div class="absolute top-[68%] left-[42%] -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[var(--brand)] rounded-full animate-ping opacity-75"></div>
             </div>
@@ -591,7 +591,7 @@
 
   <footer class="bg-slate-900 text-white border-t border-slate-800">
     <div class="container mx-auto px-6 max-w-7xl py-16 text-center">
-      <img src="https://i.imgur.com/KjlZGfN.png" alt="SNM English 푸터 로고" class="h-10 mx-auto mb-8 opacity-90"/>
+      <img src="/img/KjlZGfN.png" alt="SNM English 푸터 로고" class="h-10 mx-auto mb-8 opacity-90"/>
       <div class="text-slate-400 space-y-2 text-[15px]">
         <p class="font-bold text-slate-200">SNM English</p>
         <p>서울특별시 송파구 송파대로 345, 헬리오시티 상가B동 2층</p>
